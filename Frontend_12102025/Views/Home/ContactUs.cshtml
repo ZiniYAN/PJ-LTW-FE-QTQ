@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Contact Us";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/Content/contactus.css" />
+}
+<main>
+
+    <!-- Nội dung chính -->
+    <section class="contact-section">
+        <div class="contact-container">
+
+            <!-- Cột bên trái -->
+            <div class="contact-info">
+                <h2>Contact Us</h2>
+                <p>If you have a question, feel free to contact us</p>
+
+                <div class="info-block">
+                    <h3>ADDRESS</h3>
+                    <p>1501 Noriega St<br>San Francisco<br>CA 94122, USA</p>
+                </div>
+
+                <div class="info-block">
+                    <h3>E-MAIL</h3>
+                    <p>info@qbfbooks.com</p>
+                </div>
+            </div>
+
+            <!-- Cột bên phải -->
+            <div class="contact-form">
+                <h2>Get in touch</h2>
+                <form>
+                    <label>Your Name</label>
+                    <input type="text" placeholder="Your Name">
+
+                    <label>Email Address</label>
+                    <input type="email" placeholder="Email Address">
+
+                    <label>Phone Number</label>
+                    <input type="text" placeholder="Phone Number">
+
+                    <label>Message</label>
+                    <textarea placeholder="Message"></textarea>
+
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>

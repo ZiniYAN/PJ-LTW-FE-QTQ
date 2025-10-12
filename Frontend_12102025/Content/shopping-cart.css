@@ -1,20 +1,10 @@
 ﻿/* shopping-cart.css */
-* {
-    box-sizing: border-box;
-}
 
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: #fff;
-    color: #444;
-    margin: 0;
-    padding: 0;
-}
-
-main {
+.shopping-cart-main {
     background-color: #fff;
     min-height: 60vh;
     padding: 20px 0 40px 0;
+
 }
 
 /* Main Container */
@@ -58,7 +48,7 @@ main {
         }
 
 /* Grid Layout - Two Columns */
-.cart-container {
+.checkout-cart-container {
     display: grid;
     grid-template-columns: 1fr 420px;
     gap: 40px;
@@ -137,8 +127,6 @@ main {
     transform: translateY(-50%);
     width: 24px;
     height: 24px;
-    border: 1px solid #ddd;
-    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -421,7 +409,7 @@ main {
     }
 
 .coupon-section input[type="text"] {
-    width: 100%;
+    width: 92%;
     padding: 12px 12px;
     border: 1px solid #ddd;
     margin-bottom: 12px;
@@ -462,7 +450,7 @@ main {
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-    .cart-container {
+    .checkout-cart-container {
         grid-template-columns: 1fr 360px;
         gap: 30px;
     }
@@ -475,7 +463,7 @@ main {
 }
 
 @media (max-width: 768px) {
-    .cart-container {
+    .checkout-cart-container {
         grid-template-columns: 1fr;
         gap: 30px;
     }

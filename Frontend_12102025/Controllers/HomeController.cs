@@ -30,6 +30,10 @@ namespace Frontend_12102025.Controllers
         {
             return View();
         }
+        public ActionResult SelfHelp()
+        {
+            return View();
+        }
         public ActionResult Login() 
         {
             return View();
@@ -51,7 +55,26 @@ namespace Frontend_12102025.Controllers
         {
             return View();
         }
-
+        public ActionResult AboutUs()
+        {
+            return View();
+        }
+        public ActionResult ContactUs()
+        {
+            return View();
+        }
+        public ActionResult PrivacyPolicy()
+        {
+            return View();
+        }
+        public ActionResult ReturnPolicy()
+        {
+            return View();
+        }
+        public ActionResult Shipping()
+        {
+            return View();
+        }
 
     }
 }

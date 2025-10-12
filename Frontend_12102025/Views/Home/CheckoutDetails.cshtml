@@ -1,23 +1,18 @@
 ﻿@{
-    Layout = null;
+    ViewBag.Title = "Checkout Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout</title>
-    <link rel="stylesheet" href="~/Content/checkout-details.css">
-</head>
-<body>
+@section Styles{
+    <link rel="stylesheet" href="~/Content/checkout-details.css" />
+}
+<main>
 
     <div class="checkout-container">
         <nav aria-label="breadcrumb">
             <ul class="breadcrumbs">
-                <li><a href="#">Shopping Cart</a></li>
-                <li><a href="#" class="active">Checkout details</a></li>
-                <li><a href="#">Order Complete</a></li>
+                <li><a href="/Home/ShoppingCart">Shopping Cart</a></li>
+                <li><a href="/Home/CheckoutDetails" class="active">Checkout details</a></li>
+                <li><a href="/Home/OrderComplete">Order Complete</a></li>
             </ul>
         </nav>
 
@@ -101,6 +96,6 @@
     </div>
 
     <script src="~/Scripts/checkout-details.js"></script>
-</body>
-</html>
+</main>
+
 

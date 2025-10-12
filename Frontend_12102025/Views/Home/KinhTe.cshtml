@@ -1,20 +1,21 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Kinh Te";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@section Styles{
+    <link rel="stylesheet" href="~/Content/Category.css" />
+}
 <!-- 2. Body -->
 <main>
     <div class="container">
-        <h2>Sách Tâm Lý Học</h2>
+        <h2>Sách Kinh Tế</h2>
 
         <ul class="books-list">
             <!-- Book Item 1 -->
             <li class="book-item">
                 <div class="book-card">
                     <div class="book-image">
-                        <img src="NhaGiaKim.webp" alt="Nhà Giả Kim">
-                    </div>
+                        <a href="/Home/Detail"><img src="~/Image/Product/NhaGiaKim.jpg" alt="Roll Royce"></a>                    </div>
                     <div class="book-info">
                         <h3 class="title">Nhà Giả Kim</h3>
                         <p class="publisher">Paulo Coelho</p>
@@ -35,7 +36,7 @@
             <li class="book-item">
                 <div class="book-card">
                     <div class="book-image">
-                        <img src="NhaGiaKim.webp" alt="Nhà Giả Kim">
+                        <img src="~/Image/Product/NhaGiaKim.jpg" alt="Nhà Giả Kim">
                     </div>
                     <div class="book-info">
                         <h3 class="title">Nhà Giả Kim</h3>
@@ -57,7 +58,7 @@
             <li class="book-item">
                 <div class="book-card">
                     <div class="book-image">
-                        <img src="NhaGiaKim.webp" alt="Nhà Giả Kim">
+                        <img src="~/Image/Product/NhaGiaKim.jpg" alt="Nhà Giả Kim">
                     </div>
                     <div class="book-info">
                         <h3 class="title">Nhà Giả Kim</h3>
@@ -78,7 +79,7 @@
             <li class="book-item">
                 <div class="book-card">
                     <div class="book-image">
-                        <img src="NhaGiaKim.webp" alt="Nhà Giả Kim">
+                        <img src="~/Image/Product/NhaGiaKim.jpg" alt="Nhà Giả Kim">
                     </div>
                     <div class="book-info">
                         <h3 class="title">Nhà Giả Kim</h3>
@@ -99,7 +100,7 @@
             <li class="book-item">
                 <div class="book-card">
                     <div class="book-image">
-                        <img src="NhaGiaKim.webp" alt="Nhà Giả Kim">
+                        <img src="~/Image/Product/NhaGiaKim.jpg" alt="Nhà Giả Kim">
                     </div>
                     <div class="book-info">
                         <h3 class="title">Nhà Giả Kim</h3>
@@ -120,7 +121,7 @@
             <li class="book-item">
                 <div class="book-card">
                     <div class="book-image">
-                        <img src="NhaGiaKim.webp" alt="Nhà Giả Kim">
+                        <img src="~/Image/Product/NhaGiaKim.jpg" alt="Nhà Giả Kim">
                     </div>
                     <div class="book-info">
                         <h3 class="title">Nhà Giả Kim</h3>

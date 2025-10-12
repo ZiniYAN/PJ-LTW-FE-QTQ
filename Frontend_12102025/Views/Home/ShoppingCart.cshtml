@@ -1,22 +1,22 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Cart";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section Styles{
     <link rel="stylesheet" href="~/Content/shopping-cart.css" />
 }
 
-<main>
+<main class="shopping-cart-main">
     <div class="shopping-cart">
         <nav aria-label="breadcrumb">
             <ul class="breadcrumbs">
-                <li><a href="#" class="active">Shopping Cart</a></li>
-                <li><a href="#">Checkout details</a></li>
-                <li><a href="#">Order Complete</a></li>
+                <li><a href="/Home/ShoppingCart" class="active">Shopping Cart</a></li>
+                <li><a href="/Home/CheckoutDetails">Checkout details</a></li>
+                <li><a href="/Home/OrderComplete">Order Complete</a></li>
             </ul>
         </nav>
 
-        <div class="cart-container">
+        <div class="checkout-cart-container">
             <!-- Left Column -->
             <div class="cart-left">
                 <table class="shop_table">
@@ -82,7 +82,7 @@
                         <span>Total</span>
                         <span>$24.99</span>
                     </div>
-                    <a href="#" class="button checkout-button">Proceed to checkout</a>
+                    <a href="/Home/CheckoutDetails" class="button checkout-button">Proceed to checkout</a>
                 </div>
                 <div class="coupon-section">
                     <div class="coupon-header">
