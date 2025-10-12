@@ -1,0 +1,65 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    color: #222;
+}
+
+.shipping-section {
+    width: 80%;
+    max-width: 900px;
+    margin: 50px auto;
+    line-height: 1.7;
+}
+
+    .shipping-section h1 {
+        color: #000;
+        font-size: 26px;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .shipping-section h2 {
+        color: #222;
+        font-size: 18px;
+        margin-top: 30px;
+        margin-bottom: 8px;
+        font-weight: 700;
+    }
+
+    .shipping-section p {
+        margin-bottom: 12px;
+    }
+
+    .shipping-section ul {
+        margin: 10px 0 15px 25px;
+    }
+
+    .shipping-section strong {
+        color: #000;
+        font-weight: 600;
+    }
+
+    .shipping-section a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        .shipping-section a:hover {
+            text-decoration: underline;
+        }
+
+hr {
+    border: none;
+    height: 1px;
+    background-color: #ddd;
+    margin: 25px 0;
+}
+
+@media (max-width: 768px) {
+    .shipping-section {
+        width: 90%;
+        margin: 30px auto;
+    }
+}

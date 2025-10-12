@@ -1,0 +1,85 @@
+﻿/* Định dạng chung cho trang */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    color: #222;
+    background-color: #fff;
+}
+
+/* Phần giới thiệu (About Us) */
+.about-container {
+    width: 75%;
+    margin: 50px auto;
+    text-align: center;
+}
+
+    /* Tiêu đề chính */
+    .about-container h2 {
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+        display: inline-block;
+    }
+
+/* Mỗi khối nội dung */
+.about-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40px 0;
+    padding: 20px;
+    border-top: 1px solid #eee;
+}
+
+    /* Tiêu đề nhỏ bên trái */
+    .about-block h3 {
+        flex: 0 0 200px;
+        text-transform: uppercase;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 12px;
+        border-radius: 5px;
+    }
+
+    /* Đoạn mô tả bên phải */
+    .about-block p {
+        flex: 1;
+        text-align: left;
+        margin-left: 20px;
+        line-height: 1.6;
+    }
+
+    /* Màu cho từng khối */
+    .about-block.orange h3 {
+        background-color: #f37b38;
+    }
+
+    .about-block.gray h3 {
+        background-color: #777;
+    }
+
+    .about-block.red h3 {
+        background-color: #d43f27;
+    }
+
+/* Phần liên hệ */
+.contact {
+    text-align: left;
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+}
+
+    /* Tiêu đề liên hệ */
+    .contact h3 {
+        margin-bottom: 10px;
+    }
+
+    /* Link trong phần liên hệ */
+    .contact a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        .contact a:hover {
+            text-decoration: underline;
+        }

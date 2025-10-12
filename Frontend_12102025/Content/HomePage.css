@@ -3,26 +3,25 @@
     width: 100%;
     height: auto;
 }
+
 /* 1. Banner + Intro */
 main {
     width: 100%;
-    height: 60%;
+    min-height: 60vh;
 }
 
 .intro {
-    margin: 60px 5% 80px;
+    margin: 60px auto 80px;
     max-width: 1200px;
-    align-items: center;
-    margin-left: 10%;
-    margin-right: 10%;
+    width: 85%;
+    padding: 0 20px;
 }
 
 .banner {
-    margin: 60px 5% 80px;
+    margin: 60px auto 80px;
     max-width: 1200px;
-    margin-left: 10%;
-    margin-right: 10%;
-    background: linear-gradient(135deg, #7D8D86 0%, #7fab98 50%,#4f685d 100%);
+    width: 75%;
+    background: linear-gradient(135deg, #7D8D86 0%, #7fab98 50%, #4f685d 100%);
     border-radius: 16px;
     overflow: hidden;
     position: relative;
@@ -50,6 +49,7 @@ main {
     font-size: 1.2rem;
     margin-bottom: 2rem;
     opacity: 0.95;
+    line-height: 1.6;
 }
 
 .banner .btn {
@@ -60,6 +60,7 @@ main {
 
     .banner .btn:hover {
         box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        transform: scale(1.05);
     }
 
 .banner-decoration {
@@ -90,7 +91,7 @@ main {
     font-size: 1rem;
     text-decoration: none;
     border-radius: 6px;
-    transition: all 0.2s;
+    transition: all 0.3s ease;
 }
 
 .btn-primary {
@@ -100,10 +101,10 @@ main {
 
     .btn-primary:hover {
         background: #333;
+        transform: scale(1.02);
     }
 
-/* 2. Slider */
-/* 3. Slider Sections */
+/* 2. Slider Sections */
 #BestSeller, #KhoaHoc, #TamLy, #VanHoc, #KinhTe, #Self-Help {
     margin: 80px auto;
     max-width: 1400px;
@@ -132,26 +133,39 @@ main {
     padding: 20px 10px 30px;
     scrollbar-width: thin;
     scrollbar-color: #ccc transparent;
+    position: relative;
 }
 
-    .slides::-webkit-scrollbar {
-        height: 8px;
+.slides-page {
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-content: center;
+}
+
+    .slides-page.show {
+        display: grid;
+        opacity: 1;
     }
 
-    .slides::-webkit-scrollbar-track {
-        background: transparent;
+.slides::-webkit-scrollbar {
+    height: 8px;
+}
+
+.slides::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.slides::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+    .slides::-webkit-scrollbar-thumb:hover {
+        background: #999;
     }
 
-    .slides::-webkit-scrollbar-thumb {
-        background: #ccc;
-        border-radius: 10px;
-    }
-
-        .slides::-webkit-scrollbar-thumb:hover {
-            background: #999;
-        }
-
-/* Product Card - silde-container */
+/* Product Card - slide-container */
 .silde-container {
     width: 280px;
     background: white;
@@ -173,7 +187,12 @@ main {
         height: 100%;
         object-fit: cover;
         display: block;
+        transition: transform 0.3s ease;
     }
+
+        .silde-container img:hover {
+            transform: scale(1.05);
+        }
 
     /* Content Section */
     .silde-container .content {
@@ -247,22 +266,21 @@ main {
 .clickLeft, .clickRight {
     position: absolute;
     top: 55%;
-    transform: translateY(-50%);
     width: 50px;
     height: 50px;
     background: white;
     border: 1px solid #ddd;
     border-radius: 50%;
-    font-size: 1.5rem;
+    font-size: 1rem;
     cursor: pointer;
     z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
     color: #333;
     font-weight: 300;
+    transition: all 0.3s ease;
 }
 
 .clickLeft {
@@ -276,10 +294,179 @@ main {
     .clickLeft:hover, .clickRight:hover {
         background: #f5f5f5;
         border-color: #999;
-        transform: translateY(-50%) scale(1.1);
+        transform: scale(1.1);
     }
 
-    .clickLeft:active, .clickRight:active {
-        transform: translateY(-50%) scale(0.95);
+/* ============================================ */
+/* RESPONSIVE DESIGN */
+/* ============================================ */
+
+/* Tablet Large (1024px and below) */
+@media screen and (max-width: 1024px) {
+    .intro {
+        margin: 50px auto 70px;
+        width: 88%;
     }
+
+    .banner {
+        width: 85%;
+        min-height: 350px;
+        margin: 50px auto 70px;
+    }
+
+    .banner-content {
+        padding: 3rem;
+    }
+
+    .banner h2 {
+        font-size: 2.2rem;
+    }
+
+    .banner p {
+        font-size: 1.1rem;
+    }
+
+    .banner-decoration {
+        font-size: 12rem;
+    }
+
+    /* Slider Sections */
+    #BestSeller, #KhoaHoc, #TamLy, #VanHoc, #KinhTe, #Self-Help {
+        margin: 70px auto;
+        padding: 0 4%;
+    }
+
+        #BestSeller h2, #KhoaHoc h2, #TamLy h2, #VanHoc h2, #KinhTe h2, #Self-Help h2 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+        }
+
+    .slides {
+        grid-auto-columns: minmax(260px, 1fr);
+        gap: 20px;
+        padding: 18px 8px 25px;
+    }
+
+    .silde-container {
+        width: 260px;
+        grid-template-rows: 350px auto;
+    }
+
+    .clickLeft, .clickRight {
+        width: 45px;
+        height: 45px;
+    }
+
+    .clickLeft {
+        left: -15px;
+    }
+
+    .clickRight {
+        right: -15px;
+    }
+}
+
+/* Tablet (768px and below) */
+@media screen and (max-width: 768px) {
+    main {
+        min-height: auto;
+    }
+
+    .intro {
+        margin: 40px auto 60px;
+        width: 90%;
+        padding: 0 15px;
+    }
+
+    .banner {
+        width: 90%;
+        min-height: 300px;
+        margin: 40px auto 60px;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .banner-content {
+        padding: 2.5rem;
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .banner h2 {
+        font-size: 1.8rem;
+    }
+
+    .banner p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .banner-decoration {
+        display: none;
+    }
+
+    .btn {
+        padding: 0.8rem 1.8rem;
+        font-size: 0.95rem;
+    }
+
+    /* Slider Sections */
+    #BestSeller, #KhoaHoc, #TamLy, #VanHoc, #KinhTe, #Self-Help {
+        margin: 60px auto;
+        padding: 0 3%;
+    }
+
+        #BestSeller h2, #KhoaHoc h2, #TamLy h2, #VanHoc h2, #KinhTe h2, #Self-Help h2 {
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            padding-left: 5px;
+        }
+
+    .slides {
+        grid-auto-columns: minmax(240px, 1fr);
+        gap: 15px;
+        padding: 15px 5px 20px;
+    }
+
+    .slides-page {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .silde-container {
+        width: 240px;
+        grid-template-rows: 320px auto;
+    }
+
+        .silde-container .content {
+            padding: 18px;
+        }
+
+        .silde-container .title h3 {
+            font-size: 1rem;
+        }
+
+        .silde-container .price span {
+            font-size: 1.2rem;
+        }
+
+        .silde-container .btnAddToCart button {
+            padding: 12px 18px;
+            font-size: 0.9rem;
+        }
+
+    .clickLeft, .clickRight {
+        width: 40px;
+        height: 40px;
+        font-size: 0.9rem;
+    }
+
+    .clickLeft {
+        left: -10px;
+    }
+
+    .clickRight {
+        right: -10px;
+    }
+}
 
