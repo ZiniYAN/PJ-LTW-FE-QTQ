@@ -1,0 +1,334 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/Content/HomePage.css" />
+}
+<main>
+    <!-- Banner + Intro-->
+    <section class="intro" id="home">
+        <h1>Khám Phá Thế Giới Tri Thức</h1>
+        <p>Hàng nghìn đầu sách chọn lọc từ các tác giả hàng đầu. Bắt đầu hành trình đọc sách của bạn ngay hôm nay.</p>
+        <a href="#books" class="btn btn-primary">Khám Phá Ngay</a>
+    </section>
+
+
+    <div class="banner">
+        <div class="banner-pattern"></div>
+        <div class="banner-content">
+            <h2>Ưu Đãi Đặc Biệt Tháng 10</h2>
+            <p>Giảm giá lên đến 40% cho tất cả sách Self-Help và Tâm Lý học. Đừng bỏ lỡ cơ hội!</p>
+            <a href="" class="btn">Mua Ngay</a>
+        </div>
+        <div class="banner-decoration">📚</div>
+    </div>
+
+    <!-- Slider -->
+    <!-- Best Seller -->
+    <div id="BestSeller">
+        <h2>Sách bán chạy</h2>
+        <div class="slides" id="imgSlide">
+            <div class="silde-container">
+                <img src="~/Image/Product/NhaGiaKim.jpg" alt="Roll Royce">
+                <div class="content">
+                    <div class="title">
+                        <h3>Nhà giả kim</h3>
+                    </div>
+                    <div class="price">
+                        <span>190.000vnđ</span>
+                    </div>
+                    <div class="btnAddToCart">
+                        <button>Add to cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="silde-container">
+                <img src="~/Image/Product/NhaGiaKim.jpg" alt="Roll Royce">
+                <div class="content">
+                    <div class="title">
+                        <h3>Nhà giả kim</h3>
+                    </div>
+                    <div class="price">
+                        <span>190.000vnđ</span>
+                    </div>
+                    <div class="btnAddToCart">
+                        <button>Add to cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="silde-container">
+                <img src="~/Image/Product/NhaGiaKim.jpg" alt="Roll Royce">
+                <div class="content">
+                    <div class="title">
+                        <h3>Nhà giả kim</h3>
+                    </div>
+                    <div class="price">
+                        <span>190.000vnđ</span>
+                    </div>
+                    <div class="btnAddToCart">
+                        <button>Add to cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="clickLeft" onclick="previousSlide()">←</button>
+        <button class="clickRight" onclick="nextSlide()">→</button>
+    </div>
+    <!-- Khoa học -->
+    <div id="KhoaHoc">
+        <h2>Khoa Học</h2>
+        <div class="slides" id="imgSlide">
+            <div class="silde-container">
+                <img src="~/Image/Product/NhaGiaKim.jpg" alt="Roll Royce">
+                <div class="content">
+                    <div class="title">
+                        <h3>Nhà giả kim</h3>
+                    </div>
+                    <div class="price">
+                        <span>190.000vnđ</span>
+                    </div>
+                    <div class="btnAddToCart">
+                        <button>Add to cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="silde-container">
+                <img src="~/Image/Product/NhaGiaKim.jpg" alt="Roll Royce">
+                <div class="content">
+                    <div class="title">
+                        <h3>Nhà giả kim</h3>
+                    </div>
+                    <div class="price">
+                        <span>190.000vnđ</span>
+                    </div>
+                    <div class="btnAddToCart">
+                        <button>Add to cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="silde-container">
+                <img src="~/Image/Product/NhaGiaKim.jpg" alt="Roll Royce">
+                <div class="content">
+                    <div class="title">
+                        <h3>Nhà giả kim</h3>
+                    </div>
+                    <div class="price">
+                        <span>190.000vnđ</span>
+                    </div>
+                    <div class="btnAddToCart">
+                        <button>Add to cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="clickLeft" onclick="previousSlide()">←</button>
+        <button class="clickRight" onclick="nextSlide()">→</button>
+    </div>
+    <!-- Tâm lý học -->
+    <div id="TamLy">
+        <h2>Tâm Lý Học</h2>
+        <div class="slides" id="imgSlide">
+            <div class="silde-container">
+                <img src="~/Image/Product/NhaGiaKim.jpg" alt="Roll Royce">
+                <div class="content">
+                    <div class="title">
+                        <h3>Nhà giả kim</h3>
+                    </div>
+                    <div class="price">
+                        <span>190.000vnđ</span>
+                    </div>
+                    <div class="btnAddToCart">
+                        <button>Add to cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="silde-container">
+                <img src="~/Image/Product/NhaGiaKim.jpg" alt="Roll Royce">
+                <div class="content">
+                    <div class="title">
+                        <h3>Nhà giả kim</h3>
+                    </div>
+                    <div class="price">
+                        <span>190.000vnđ</span>
+                    </div>
+                    <div class="btnAddToCart">
+                        <button>Add to cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="silde-container">
+                <img src="~/Image/Product/NhaGiaKim.jpg" alt="Roll Royce">
+                <div class="content">
+                    <div class="title">
+                        <h3>Nhà giả kim</h3>
+                    </div>
+                    <div class="price">
+                        <span>190.000vnđ</span>
+                    </div>
+                    <div class="btnAddToCart">
+                        <button>Add to cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="clickLeft" onclick="previousSlide()">←</button>
+        <button class="clickRight" onclick="nextSlide()">→</button>
+    </div>
+    <!-- Văn học -->
+    <div id="VanHoc">
+        <h2>Văn học</h2>
+        <div class="slides" id="imgSlide">
+            <div class="silde-container">
+                <img src="~/Image/Product/NhaGiaKim.jpg" alt="Roll Royce">
+                <div class="content">
+                    <div class="title">
+                        <h3>Nhà giả kim</h3>
+                    </div>
+                    <div class="price">
+                        <span>190.000vnđ</span>
+                    </div>
+                    <div class="btnAddToCart">
+                        <button>Add to cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="silde-container">
+                <img src="~/Image/Product/NhaGiaKim.jpg" alt="Roll Royce">
+                <div class="content">
+                    <div class="title">
+                        <h3>Nhà giả kim</h3>
+                    </div>
+                    <div class="price">
+                        <span>190.000vnđ</span>
+                    </div>
+                    <div class="btnAddToCart">
+                        <button>Add to cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="silde-container">
+                <img src="~/Image/Product/NhaGiaKim.jpg" alt="Roll Royce">
+                <div class="content">
+                    <div class="title">
+                        <h3>Nhà giả kim</h3>
+                    </div>
+                    <div class="price">
+                        <span>190.000vnđ</span>
+                    </div>
+                    <div class="btnAddToCart">
+                        <button>Add to cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="clickLeft" onclick="previousSlide()">←</button>
+        <button class="clickRight" onclick="nextSlide()">→</button>
+    </div>
+    <!-- Kinh tế -->
+    <div id="KinhTe">
+        <h2>Kinh Tế</h2>
+        <div class="slides" id="imgSlide">
+            <div class="silde-container">
+                <img src="~/Image/Product/NhaGiaKim.jpg" alt="Roll Royce">
+                <div class="content">
+                    <div class="title">
+                        <h3>Nhà giả kim</h3>
+                    </div>
+                    <div class="price">
+                        <span>190.000vnđ</span>
+                    </div>
+                    <div class="btnAddToCart">
+                        <button>Add to cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="silde-container">
+                <img src="~/Image/Product/NhaGiaKim.jpg" alt="Roll Royce">
+                <div class="content">
+                    <div class="title">
+                        <h3>Nhà giả kim</h3>
+                    </div>
+                    <div class="price">
+                        <span>190.000vnđ</span>
+                    </div>
+                    <div class="btnAddToCart">
+                        <button>Add to cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="silde-container">
+                <img src="~/Image/Product/NhaGiaKim.jpg" alt="Roll Royce">
+                <div class="content">
+                    <div class="title">
+                        <h3>Nhà giả kim</h3>
+                    </div>
+                    <div class="price">
+                        <span>190.000vnđ</span>
+                    </div>
+                    <div class="btnAddToCart">
+                        <button>Add to cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="clickLeft" onclick="previousSlide()">←</button>
+        <button class="clickRight" onclick="nextSlide()">→</button>
+    </div>
+    <!-- Self-help -->
+    <div id="Self-Help">
+        <h2>Self-help</h2>
+        <div class="slides" id="imgSlide">
+            <div class="silde-container">
+                <img src="~/Image/Product/NhaGiaKim.jpg" alt="Roll Royce">
+                <div class="content">
+                    <div class="title">
+                        <h3>Nhà giả kim</h3>
+                    </div>
+                    <div class="price">
+                        <span>190.000vnđ</span>
+                    </div>
+                    <div class="btnAddToCart">
+                        <button>Add to cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="silde-container">
+                <img src="~/Image/Product/NhaGiaKim.jpg" alt="Roll Royce">
+                <div class="content">
+                    <div class="title">
+                        <h3>Nhà giả kim</h3>
+                    </div>
+                    <div class="price">
+                        <span>190.000vnđ</span>
+                    </div>
+                    <div class="btnAddToCart">
+                        <button>Add to cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="silde-container">
+                <img src="~/Image/Product/NhaGiaKim.jpg" alt="Roll Royce">
+                <div class="content">
+                    <div class="title">
+                        <h3>Nhà giả kim</h3>
+                    </div>
+                    <div class="price">
+                        <span>190.000vnđ</span>
+                    </div>
+                    <div class="btnAddToCart">
+                        <button>Add to cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="clickLeft" onclick="previousSlide()">←</button>
+        <button class="clickRight" onclick="nextSlide()">→</button>
+    </div>
+</main>

@@ -1,0 +1,106 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="~/Content/checkout-details.css">
+</head>
+<body>
+
+    <div class="checkout-container">
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumbs">
+                <li><a href="#">Shopping Cart</a></li>
+                <li><a href="#" class="active">Checkout details</a></li>
+                <li><a href="#">Order Complete</a></li>
+            </ul>
+        </nav>
+
+        <!-- Coupon Section -->
+        <div class="coupon-banner">
+            Have a coupon? <a href="#" class="coupon-toggle">Click here to enter your code</a>
+            <form class="coupon-form">
+                <input type="text" placeholder="Coupon code">
+                <button type="submit">Apply coupon</button>
+            </form>
+        </div>
+
+        <div class="checkout-main">
+            <!-- Left Column: Billing & Shipping Details -->
+            <div class="billing-details">
+                <h2>Billing Details</h2>
+                <form>
+                    <!-- Billing Fields -->
+                    <div class="form-row-halves">
+                        <div class="form-row"><label for="first-name">First name *</label><input type="text" id="first-name"></div>
+                        <div class="form-row"><label for="last-name">Last name *</label><input type="text" id="last-name"></div>
+                    </div>
+                    <div class="form-row"><label for="company-name">Company name <span class="optional">(optional)</span></label><input type="text" id="company-name"></div>
+                    <div class="form-row"><label for="country">Country / Region *</label><select id="country"><option>United States (US)</option></select></div>
+                    <div class="form-row"><label for="street-address">Street address *</label><input type="text" id="street-address" placeholder="House number and street name"><input type="text" style="margin-top: 10px;" placeholder="Apartment, suite, unit, etc. (optional)"></div>
+                    <div class="form-row"><label for="town-city">Town / City *</label><input type="text" id="town-city"></div>
+                    <div class="form-row"><label for="state">State *</label><select id="state"><option>California</option></select></div>
+                    <div class="form-row"><label for="zip-code">ZIP Code *</label><input type="text" id="zip-code"></div>
+                    <div class="form-row"><label for="phone">Phone <span class="optional">(optional)</span></label><input type="text" id="phone"></div>
+                    <div class="form-row"><label for="email">Email address *</label><input type="email" id="email"></div>
+
+                    <!-- Ship to different address checkbox -->
+                    <div class="form-row">
+                        <input type="checkbox" id="ship-different-address">
+                        <label for="ship-different-address" class="checkbox-label">Ship to a different address?</label>
+                    </div>
+
+                    <!-- Hidden Shipping Form -->
+                    <div class="ship-different-address-form">
+                        <div class="form-row-halves">
+                            <div class="form-row"><label for="shipping-first-name">First name *</label><input type="text" id="shipping-first-name"></div>
+                            <div class="form-row"><label for="shipping-last-name">Last name *</label><input type="text" id="shipping-last-name"></div>
+                        </div>
+                        <div class="form-row"><label for="shipping-company-name">Company name <span class="optional">(optional)</span></label><input type="text" id="shipping-company-name"></div>
+                        <div class="form-row"><label for="shipping-country">Country / Region *</label><select id="shipping-country"><option>United States (US)</option></select></div>
+                        <div class="form-row"><label for="shipping-street-address">Street address *</label><input type="text" id="shipping-street-address" placeholder="House number and street name"><input type="text" style="margin-top: 10px;" placeholder="Apartment, suite, unit, etc. (optional)"></div>
+                        <div class="form-row"><label for="shipping-town-city">Town / City *</label><input type="text" id="shipping-town-city"></div>
+                        <div class="form-row"><label for="shipping-state">State *</label><select id="shipping-state"><option>California</option></select></div>
+                        <div class="form-row"><label for="shipping-zip-code">ZIP Code *</label><input type="text" id="shipping-zip-code"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <label for="order-notes">Order notes <span class="optional">(optional)</span></label>
+                        <textarea id="order-notes" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Right Column: Your Order -->
+            <div class="your-order">
+                <div class="order-summary">
+                    <h2>Your Order</h2>
+                    <table>
+                        <thead><tr><th>PRODUCT</th><th>SUBTOTAL</th></tr></thead>
+                        <tbody>
+                            <tr><td>Can't Hurt Me &times; 1</td><td>$24.99</td></tr>
+                            <tr><th>Subtotal</th><td>$24.99</td></tr>
+                            <tr><th>Shipping</th><td>Free shipping</td></tr>
+                            <tr class="total-row"><th>Total</th><td>$24.99</td></tr>
+                        </tbody>
+                    </table>
+                    <div class="payment-methods">
+                        <button class="paypal-button">PayPal</button>
+                        <button class="credit-card-button">Thẻ ghi nợ hoặc tín dụng</button>
+                        <p class="paypal-support">Được hỗ trợ bởi PayPal</p>
+                    </div>
+                    <p class="privacy-policy">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <a href="#">privacy policy</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/checkout-details.js"></script>
+</body>
+</html>
+

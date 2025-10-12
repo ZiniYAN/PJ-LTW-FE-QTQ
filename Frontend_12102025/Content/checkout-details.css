@@ -1,0 +1,240 @@
+﻿/* General Body and Font Styles */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #fff;
+    color: #444;
+    margin: 2em;
+}
+
+/* Main Layout Containers */
+.checkout-container {
+    max-width: 1100px;
+    margin: 40px auto;
+}
+
+.checkout-main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.billing-details {
+    flex: 2;
+}
+
+.your-order {
+    flex: 1;
+}
+
+/* Breadcrumbs Styling */
+.breadcrumbs {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2em;
+    justify-content: center;
+    font-size: 1.1em;
+}
+
+    .breadcrumbs li a {
+        color: #999;
+        text-decoration: none;
+    }
+
+        .breadcrumbs li a.active {
+            font-weight: bold;
+            color: #333;
+        }
+
+    .breadcrumbs li:not(:last-child)::after {
+        content: '>';
+        margin: 0 0.75em;
+        color: #ccc;
+    }
+
+h2 {
+    font-size: 16px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+
+/* Coupon Section */
+.coupon-banner {
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    margin-bottom: 30px;
+    background-color: #f9f9f9;
+}
+
+.coupon-toggle {
+    color: #c9642c;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+    .coupon-toggle:hover {
+        text-decoration: underline;
+    }
+
+.coupon-form {
+    display: none;
+    margin-top: 15px;
+}
+
+    .coupon-form input[type="text"] {
+        padding: 10px;
+        width: 200px;
+        border: 1px solid #ccc;
+    }
+
+    .coupon-form button {
+        padding: 11px 20px;
+        background-color: #e08f62;
+        color: white;
+        border: none;
+        cursor: pointer;
+        vertical-align: top;
+    }
+
+/* Form Styling */
+.form-row {
+    margin-bottom: 15px;
+}
+
+    .form-row label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        font-size: 13px;
+    }
+
+        .form-row label .optional {
+            font-weight: normal;
+            color: #888;
+        }
+
+    .form-row .checkbox-label {
+        display: inline;
+        font-weight: normal;
+    }
+
+    .form-row input[type="text"],
+    .form-row input[type="email"],
+    .form-row select,
+    .form-row textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #777;
+        border-radius: 3px;
+        box-sizing: border-box;
+    }
+
+.form-row-halves {
+    display: flex;
+    gap: 20px;
+}
+
+    .form-row-halves .form-row {
+        flex: 1;
+    }
+
+textarea {
+    height: 100px;
+}
+
+/* Hidden Shipping Form Styling */
+.ship-different-address-form {
+    display: none; /* Hidden by default */
+    margin-top: 25px;
+    border-top: 2px solid #e0e0e0;
+    padding-top: 25px;
+}
+
+/* Order Summary (Right Column) */
+.order-summary {
+    padding: 25px;
+    border: 2px solid #e08f62;
+}
+
+    .order-summary table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .order-summary th, .order-summary td {
+        padding: 12px 0;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .order-summary th {
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .order-summary td {
+        text-align: right;
+    }
+
+    .order-summary .total-row th,
+    .order-summary .total-row td {
+        font-weight: bold;
+        font-size: 1.1em;
+        color: #000;
+    }
+
+/* Payment Methods */
+.payment-methods {
+    margin-top: 20px;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 20px;
+}
+
+.paypal-button, .credit-card-button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.paypal-button {
+    background-color: #ffc439;
+}
+
+.credit-card-button {
+    background-color: #333;
+    color: white;
+}
+
+.paypal-support {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.privacy-policy {
+    font-size: 12px;
+    color: #666;
+    margin-top: 20px;
+}
+
+    .privacy-policy a {
+        color: #c9642c;
+    }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .checkout-main, .form-row-halves {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .billing-details {
+        margin-bottom: 30px;
+    }
+}

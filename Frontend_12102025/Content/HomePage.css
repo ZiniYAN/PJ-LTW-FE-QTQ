@@ -1,0 +1,285 @@
+﻿/* B. Body */
+.slide-container img {
+    width: 100%;
+    height: auto;
+}
+/* 1. Banner + Intro */
+main {
+    width: 100%;
+    height: 60%;
+}
+
+.intro {
+    margin: 60px 5% 80px;
+    max-width: 1200px;
+    align-items: center;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.banner {
+    margin: 60px 5% 80px;
+    max-width: 1200px;
+    margin-left: 10%;
+    margin-right: 10%;
+    background: linear-gradient(135deg, #7D8D86 0%, #7fab98 50%,#4f685d 100%);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+}
+
+.banner-content {
+    padding: 4rem;
+    color: white;
+    max-width: 600px;
+    z-index: 2;
+    position: relative;
+}
+
+.banner h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.banner p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+}
+
+.banner .btn {
+    background: white;
+    color: black;
+    font-weight: 600;
+}
+
+    .banner .btn:hover {
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+.banner-decoration {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15rem;
+    opacity: 0.15;
+}
+
+.banner-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: #1a1a1a;
+    color: white;
+}
+
+    .btn-primary:hover {
+        background: #333;
+    }
+
+/* 2. Slider */
+/* 3. Slider Sections */
+#BestSeller, #KhoaHoc, #TamLy, #VanHoc, #KinhTe, #Self-Help {
+    margin: 80px auto;
+    max-width: 1400px;
+    padding: 0 5%;
+    position: relative;
+}
+
+    #BestSeller h2, #KhoaHoc h2, #TamLy h2, #VanHoc h2, #KinhTe h2, #Self-Help h2 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 35px;
+        color: #1a1a1a;
+        text-align: left;
+        padding-left: 10px;
+    }
+
+/* Slider Container using Grid */
+.slides {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(280px, 1fr);
+    gap: 25px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    padding: 20px 10px 30px;
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
+}
+
+    .slides::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .slides::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .slides::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 10px;
+    }
+
+        .slides::-webkit-scrollbar-thumb:hover {
+            background: #999;
+        }
+
+/* Product Card - silde-container */
+.silde-container {
+    width: 280px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: grid;
+    grid-template-rows: 380px auto;
+}
+
+    .silde-container:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .silde-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    /* Content Section */
+    .silde-container .content {
+        padding: 20px;
+        display: grid;
+        grid-template-rows: auto auto auto 1fr auto;
+        gap: 8px;
+    }
+
+    .silde-container .category {
+        font-size: 0.7rem;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        font-weight: 600;
+    }
+
+    .silde-container .title {
+        min-height: 50px;
+    }
+
+        .silde-container .title h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin: 0;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+    /* Price */
+    .silde-container .price {
+        padding-top: 5px;
+    }
+
+        .silde-container .price span {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #DB7744;
+        }
+
+    /* Add to Cart Button */
+    .silde-container .btnAddToCart {
+        padding-top: 10px;
+    }
+
+        .silde-container .btnAddToCart button {
+            width: 100%;
+            padding: 13px 20px;
+            background-color: #DB7744;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: capitalize;
+        }
+
+            .silde-container .btnAddToCart button:hover {
+                background-color: #c26535;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(219, 119, 68, 0.4);
+            }
+
+/* Navigation Buttons */
+.clickLeft, .clickRight {
+    position: absolute;
+    top: 55%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    color: #333;
+    font-weight: 300;
+}
+
+.clickLeft {
+    left: -20px;
+}
+
+.clickRight {
+    right: -20px;
+}
+
+    .clickLeft:hover, .clickRight:hover {
+        background: #f5f5f5;
+        border-color: #999;
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    .clickLeft:active, .clickRight:active {
+        transform: translateY(-50%) scale(0.95);
+    }
+

@@ -1,0 +1,39 @@
+﻿/* C. Footer */
+footer {
+    width: 100%;
+    height: 20%;
+}
+
+.footer-content {
+    display: flex;
+    width: 100%;
+    height: auto;
+}
+
+.footer-section {
+    width: 30%;
+    height: auto;
+    margin-left: 20px;
+    font-size: 20px;
+}
+
+#footer-section2 ul, #footer-section3 ul {
+    display: block;
+    text-align: left;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#footer-section2 a, #footer-section3 a {
+    text-decoration: none;
+    color: black;
+}
+
+#footer-section2 li, #footer-section3 li {
+    margin-top: 5px;
+}
+
+.footer-bottom {
+    margin-left: 20px;
+}

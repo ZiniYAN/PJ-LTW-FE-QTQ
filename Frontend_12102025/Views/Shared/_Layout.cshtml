@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="~/Image/Header/faviconIMG.png" type="image/png">
+    <link rel="stylesheet" href="~/Content/Header.css" />
+    <link rel="stylesheet" href="~/Content/Footer.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-nVo7Wk..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>@ViewBag.Title - Bookara</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    @* 1. Header*@
+    <header style="width: 100%; height: 20%;">
+        <section class="header">
+            <!-- Logo -->
+            <a href="#" id="container-img-header"><img src="~/Image/Header/Logo.png" alt="Logo image"></a>
+
+
+            <!-- Search -->
+            <input type="text" name="search" id="search" placeholder="Tìm kiếm tên sách, tác giả, nhà xuất bản,...">
+
+            <!-- Login/Logout -->
+            <div class="icon">
+                <div class="login-container">
+                    <a href=""><i class="fa-regular fa-circle-user" style="color: #0d0d0d;"></i></a>
+                </div>
+                <div class="cart-container">
+                    <i class="fa-solid fa-cart-shopping" style="color: #19191a;"><a href=""></a></i>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Navigation bar menu in header -->
+        <div class="container-nav-bar">
+            <nav class="nav-bar-header">
+                <ul class="nav-bar">
+                    <li><a href="~/Views/Home/HomePage.cshtml"><i class="fa-regular fa-house" style="color: #1a1a1a;"></i></a></li>
+                    <li><a href="~/Views/Home/KhoaHoc.cshtml">Khoa Học</a></li>
+                    <li><a href="~/Views/Home/TamLyHoc.cshtml">Tâm Lý Học</a></li>
+                    <li><a href="~/Views/Home/VanHoc.cshtml">Văn Học</a></li>
+                    <li><a href="~/Views/Home/KinhTe.cshtml">Kinh Tế</a></li>
+                    <li><a href="~/Views/Home/SelfHelp.cshtml">Self-help</a></li>
+                </ul>
+            </nav>
+        </div>
+        
+    </header>
+    @* 2. Body *@
+
+    @RenderBody()
+    @* 3. Footer *@
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section" id="footer-section1">
+                <h3>Liên hệ</h3>
+                <p>📧 info@Bookora.com</p>
+                <p>📱 0123 456 789</p>
+                <p>📍 Hồ Chí Minh, Việt Nam</p>
+            </div>
+            <div class="footer-section" id="footer-section2">
+                <h3>Về Bookora Books</h3>
+                <ul>
+                    <li><a href="#">Liên hệ</a></li>
+                    <li><a href="#">Về chúng tôi</a></li>
+                    <li><a href="#">Chính sách hoàn trả và hoàn tiền</a></li>
+                    <li><a href="#">Chính sách bảo mật</a></li>
+                    <li><a href="#">Chính sách vận chuyển</a></li>
+                </ul>
+            </div>
+            <div class="footer-section" id="footer-section3">
+                <h3>Danh mục</h3>
+                <ul>
+                    <li><a href="~/Views/Home/HomePage.cshtml"><i class="fa-regular fa-house" style="color: #1a1a1a;"></i></a></li>
+                    <li><a href="~/Views/Home/KhoaHoc.cshtml">Khoa Học</a></li>
+                    <li><a href="~/Views/Home/TamLyHoc.cshtml">Tâm Lý Học</a></li>
+                    <li><a href="~/Views/Home/VanHoc.cshtml">Văn Học</a></li>
+                    <li><a href="~/Views/Home/KinhTe.cshtml">Kinh Tế</a></li>
+                    <li><a href="~/Views/Home/SelfHelp.cshtml">Self-help</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Bookora. Tất cả quyền được bảo lưu.</p>
+        </div>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "Detail Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/Content/Detail.css" />
+}
+<main>
+    <div class="container">
+        <div class="book-image">
+            <img src="~/Image/Product/NhaGiaKim.jpg" alt="Nhà Giả Kim">
+        </div>
+
+        <div class="book-info">
+            <h2>Nhà Giả Kim</h2>
+            <div class="price">159.000₫</div>
+            <div class="detail">
+                <ul>
+                    <li><b>Tác giả:</b> Paulo Coelho</li>
+                    <li><b>Nhà xuất bản:</b> NXB Văn Học</li>
+                    <li><b>Ngôn ngữ:</b> Tiếng Việt</li>
+                    <li><b>Số trang:</b> 228</li>
+                    <li><b>Ngày xuất bản:</b> 2023</li>
+                    <li><b>Trọng lượng:</b> 250g</li>
+                </ul>
+            </div>
+
+            <div class="short-desciption">
+                <h3>Mô tả sản phẩm</h3>
+                <h2>
+                    NHÀ GIẢ KIM - HÀNH TRÌNH ĐI TÌM KHO BÁU HAY CUỘC HÀNH TRÌNH TÌM KIẾM CHÍNH MÌNH
+                </h2>
+                <hr />
+                <p>
+                    "Nhà Giả Kim" không đơn thuần là một cuốn tiểu thuyết, mà là bản đồ dẫn lối đến giấc mơ, khao khát và định mệnh của mỗi con người. Câu chuyện về chàng trai chăn cừu Santiago không chỉ mang đến những cuộc phiêu lưu hấp dẫn, mà còn mở ra nhiều tầng triết lý sâu sắc về cuộc sống.
+                </p>
+            </div>
+            <div class="actions">
+                <button class="btn-cart">🛒 Thêm vào giỏ</button>
+                <button class="btn-buy">Mua ngay</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="related">
+        <h3>Sách cùng thể loại</h3>
+        <div class="related-list">
+            <div class="related-item">
+                <img src="~/Image/Product/NhaGiaKim.jpg" alt="Tâm lý học tích cực">
+                <p>Tâm lý học tích cực</p>
+                <button>Chi tiết</button>
+            </div>
+            <div class="related-item">
+                <img src="~/Image/Product/NhaGiaKim.jpg" alt="Sức mạnh của thói quen">
+                <p>Sức mạnh của thói quen</p>
+                <button>Chi tiết</button>
+            </div>
+            <div class="related-item">
+                <img src="~/Image/Product/NhaGiaKim.jpg" alt="Đắc nhân tâm">
+                <p>Đắc nhân tâm</p>
+                <button>Chi tiết</button>
+            </div>
+        </div>
+    </div>
+</main>
