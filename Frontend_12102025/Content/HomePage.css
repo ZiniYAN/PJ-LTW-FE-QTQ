@@ -470,3 +470,52 @@ main {
     }
 }
 
+/* Mobile (480px and below) */
+@media screen and (max-width: 480px) {
+    .slides-page {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 10px; 
+    }
+
+
+    .silde-container {
+        width: 100%;
+        grid-template-rows: 220px auto; 
+    }
+
+        .silde-container .content {
+            padding: 12px;
+        }
+
+        .silde-container .title h3 {
+            font-size: 0.85rem;
+        }
+
+        .silde-container .price span {
+            font-size: 1rem;
+        }
+
+        .silde-container .btnAddToCart button {
+            padding: 8px 10px;
+            font-size: 0.8rem;
+        }
+
+    #BestSeller, #KhoaHoc, #TamLy, #VanHoc, #KinhTe, #Self-Help {
+        padding: 0 2%;
+    }
+
+    .clickLeft, .clickRight {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+
+    .clickLeft {
+        left: -5px;
+    }
+
+    .clickRight {
+        right: -5px;
+    }
+}
+
