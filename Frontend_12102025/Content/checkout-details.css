@@ -9,20 +9,29 @@ body {
 .checkout-container {
     max-width: 1100px;
     margin: 40px auto;
+    padding: 0 15px;
 }
 
+/* Mobile-first: Single column grid */
 .checkout-main {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 30px;
 }
 
-.billing-details {
-    flex: 2;
+/* Tablet breakpoint: 768px */
+@media (min-width: 768px) {
+    .checkout-main {
+        grid-template-columns: 1fr;
+    }
 }
 
-.your-order {
-    flex: 1;
+/* Desktop breakpoint: 992px - Two column layout */
+@media (min-width: 992px) {
+    .checkout-main {
+        grid-template-columns: 2fr 1fr;
+        gap: 30px;
+    }
 }
 
 /* Breadcrumbs Styling */
@@ -33,6 +42,7 @@ body {
     margin-bottom: 2em;
     justify-content: center;
     font-size: 1.1em;
+    flex-wrap: wrap;
 }
 
     .breadcrumbs li a {
@@ -59,7 +69,6 @@ h2 {
     margin-top: 0;
 }
 
-
 /* Coupon Section */
 .coupon-banner {
     border: 1px solid #e0e0e0;
@@ -85,7 +94,8 @@ h2 {
 
     .coupon-form input[type="text"] {
         padding: 10px;
-        width: 200px;
+        width: 100%;
+        max-width: 200px;
         border: 1px solid #ccc;
     }
 
@@ -95,8 +105,15 @@ h2 {
         color: white;
         border: none;
         cursor: pointer;
-        vertical-align: top;
+        margin-top: 10px;
     }
+
+@media (min-width: 576px) {
+    .coupon-form button {
+        vertical-align: top;
+        margin-top: 0;
+    }
+}
 
 /* Form Styling */
 .form-row {
@@ -131,14 +148,20 @@ h2 {
         box-sizing: border-box;
     }
 
+/* Mobile-first: Stack form halves */
 .form-row-halves {
-    display: flex;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
 }
 
-    .form-row-halves .form-row {
-        flex: 1;
+/* Tablet and above: Two columns for form halves */
+@media (min-width: 576px) {
+    .form-row-halves {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
     }
+}
 
 textarea {
     height: 100px;
@@ -146,52 +169,111 @@ textarea {
 
 /* Hidden Shipping Form Styling */
 .ship-different-address-form {
-    display: none; /* Hidden by default */
+    display: none;
     margin-top: 25px;
     border-top: 2px solid #e0e0e0;
     padding-top: 25px;
 }
 
-/* Order Summary (Right Column) */
+/* Order Summary */
 .order-summary {
-    padding: 25px;
+    padding: 20px;
     border: 2px solid #e08f62;
 }
 
-    .order-summary table {
-        width: 100%;
-        border-collapse: collapse;
+@media (min-width: 768px) {
+    .order-summary {
+        padding: 25px;
     }
+}
 
-    .order-summary th, .order-summary td {
-        padding: 12px 0;
-        border-bottom: 1px solid #e0e0e0;
-    }
+/* Order Summary Table - General Styles */
+.order-summary table {
+    width: 100%;
+    border-collapse: collapse;
+}
 
-    .order-summary th {
+.order-summary th,
+.order-summary td {
+    padding: 12px 0;
+    border-bottom: 1px solid #e0e0e0;
+    vertical-align: middle;
+}
+
+.order-summary th {
+    text-align: left;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.order-summary td {
+    text-align: right;
+    font-size: 14px;
+}
+
+/* Product Row Specific Styling */
+.order-summary .product-row {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+    .order-summary .product-row .product-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         text-align: left;
-        font-weight: bold;
+        padding: 12px 0;
+        gap: 10px;
     }
 
-    .order-summary td {
+    .order-summary .product-row .product-name {
+        flex: 1;
+        font-size: 14px;
+    }
+
+    .order-summary .product-row .product-thumbnail {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 4px;
+        flex-shrink: 0;
+        order: -1;
+    }
+
+    .order-summary .product-row .product-subtotal {
         text-align: right;
+        font-weight: 500;
+        padding: 12px 0;
     }
 
-    .order-summary .total-row th,
-    .order-summary .total-row td {
-        font-weight: bold;
-        font-size: 1.1em;
-        color: #000;
+/* Responsive Product Row for Mobile */
+@media (max-width: 576px) {
+    .order-summary .product-row .product-thumbnail {
+        width: 40px;
+        height: 40px;
     }
+
+    .order-summary .product-row .product-name {
+        font-size: 13px;
+    }
+}
+
+/* Total Row Styling */
+.order-summary .total-row th,
+.order-summary .total-row td {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #000;
+}
 
 /* Payment Methods */
 .payment-methods {
     margin-top: 20px;
-    border-top: 1px solid #e0e0e0;
     padding-top: 20px;
 }
 
-.paypal-button, .credit-card-button {
+.paypal-button,
+.order-button {
+    display: block;
     width: 100%;
     padding: 15px;
     border: none;
@@ -199,41 +281,66 @@ textarea {
     cursor: pointer;
     text-align: center;
     margin-bottom: 10px;
+    transition: opacity 0.3s ease;
+    box-sizing: border-box;
 }
 
 .paypal-button {
     background-color: #ffc439;
+    color: white;
+    text-decoration: none;
 }
 
-.credit-card-button {
-    background-color: #333;
+    .paypal-button:hover {
+        opacity: 0.9;
+    }
+    .paypal-button:visited,
+    .paypal-button:active {
+    text-decoration: none;
     color: white;
+    }
+
+.order-button {
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    line-height: normal;
 }
+
+    .order-button:hover {
+        opacity: 0.9;
+        color: white;
+    }
+
+    .order-button:visited,
+    .order-button:active {
+        text-decoration: none;
+        color: white;
+    }
 
 .paypal-support {
     text-align: center;
     font-size: 12px;
     margin-top: 5px;
+    margin-bottom: 10px;
+    color: #666;
+    clear: both;
 }
 
 .privacy-policy {
     font-size: 12px;
     color: #666;
     margin-top: 20px;
+    line-height: 1.5;
+    clear: both;
 }
 
     .privacy-policy a {
         color: #c9642c;
+        text-decoration: none;
     }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .checkout-main, .form-row-halves {
-        flex-direction: column;
-        gap: 0;
-    }
+        .privacy-policy a:hover {
+            text-decoration: underline;
+        }
 
-    .billing-details {
-        margin-bottom: 30px;
-    }
-}
