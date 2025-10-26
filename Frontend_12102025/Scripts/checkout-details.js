@@ -1,78 +1,118 @@
-﻿document.addEventListener('DOMContentLoaded', function() {
+﻿document.addEventListener('DOMContentLoaded', function () {
+    console.log('JavaScript loaded successfully!');
 
-    // Toggle for the Coupon Form
+
+    //COUPON
     const couponToggle = document.querySelector('.coupon-toggle');
     const couponForm = document.querySelector('.coupon-form');
 
-    if (couponToggle)
-    {
-        couponToggle.addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent the link from navigating
-            // Toggle visibility of the coupon form
-            if (couponForm.style.display === 'block')
-            {
+    if (couponToggle && couponForm) {
+        couponToggle.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            // Toggle visibility
+            if (couponForm.style.display === 'block') {
                 couponForm.style.display = 'none';
-            }
-            else
-            {
+            } else {
                 couponForm.style.display = 'block';
             }
         });
     }
 
-    // Toggle for the "Ship to a different address" Form
-    const shippingCheckbox = document.getElementById('ship-different-address');
-    const shippingForm = document.querySelector('.ship-different-address-form');
+   
 
-    if (shippingCheckbox)
-    {
-        shippingCheckbox.addEventListener('change', function() {
-            // Show or hide the form based on whether the checkbox is checked
-            if (this.checked) {
-                    shippingForm.style.display = 'block';
-            } else
-            {
-                    shippingForm.style.display = 'none';
-                }
-                });
+    // VALIDATION SETUP 
+    // Billing required fields
+    const billingRequiredFields = [
+        'first-name',
+        'last-name',
+        'country',
+        'street-address',
+        'town-city',
+        'state',
+        'zip-code',
+        'email'
+    ];
+
+    // Shipping required fields
+    const shippingRequiredFields = [
+        'shipping-first-name',
+        'shipping-last-name',
+        'shipping-country',
+        'shipping-street-address',
+        'shipping-town-city',
+        'shipping-state',
+        'shipping-zip-code'
+    ];
+
+    // Thêm required attribute cho billing fields
+    billingRequiredFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (field) {
+            field.setAttribute('required', 'required');
         }
-
     });
 
+    // Function để thêm validation cho shipping fields
+    function addShippingValidation() {
+        shippingRequiredFields.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (field) {
+                field.setAttribute('required', 'required');
+            }
+        });
+    }
 
-document.addEventListener('DOMContentLoaded', function () {
-    // Lấy form và payment buttons
-    const form = document.querySelector('.billing-details form');
-    const paypalButton = document.querySelector('.paypal-button');
-    const orderButton = document.querySelector('.order-button');
+    // Function để xóa validation cho shipping fields
+    function removeShippingValidation() {
+        shippingRequiredFields.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (field) {
+                field.removeAttribute('required');
+                field.classList.remove('input-error');
 
-    // Validation function
+                // Xóa error message nếu có
+                const errorMsg = field.parentElement.querySelector('.error-message');
+                if (errorMsg) {
+                    errorMsg.remove();
+                }
+            }
+        });
+    }
+
+    // VALIDATION FUNCTION 
     function validateForm() {
         let isValid = true;
-        const requiredFields = form.querySelectorAll('input[required], select[required]');
+        const errors = [];
 
         // Xóa error messages cũ
         document.querySelectorAll('.error-message').forEach(el => el.remove());
         document.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
 
-        requiredFields.forEach(field => {
-            if (!field.value.trim()) {
-                isValid = false;
+        // Get all fields to validate (billing + shipping if checked)
+        let fieldsToValidate = [...billingRequiredFields];
 
-                // Thêm class error cho input
+        // Nếu shipping checkbox được check, thêm shipping fields vào validation
+        if (shippingCheckbox && shippingCheckbox.checked) {
+            fieldsToValidate = [...fieldsToValidate, ...shippingRequiredFields];
+        }
+
+        // Check tất cả required fields
+        fieldsToValidate.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (field && !field.value.trim()) {
+                isValid = false;
                 field.classList.add('input-error');
 
                 // Tạo error message
                 const errorMsg = document.createElement('span');
                 errorMsg.className = 'error-message';
-                errorMsg.textContent = 'This field is required';
-                errorMsg.style.color = 'red';
-                errorMsg.style.fontSize = '12px';
-                errorMsg.style.display = 'block';
-                errorMsg.style.marginTop = '5px';
-
-                // Thêm error message sau input
+                errorMsg.textContent = 'không được để trống';
                 field.parentElement.appendChild(errorMsg);
+
+                if (errors.length === 0) {
+                    errors.push(field);
+                }
             }
         });
 
@@ -84,20 +124,35 @@ document.addEventListener('DOMContentLoaded', function () {
                 isValid = false;
                 emailField.classList.add('input-error');
 
+                // Xóa error message cũ nếu có
+                const existingError = emailField.parentElement.querySelector('.error-message');
+                if (existingError) {
+                    existingError.remove();
+                }
+
                 const errorMsg = document.createElement('span');
                 errorMsg.className = 'error-message';
-                errorMsg.textContent = 'Please enter a valid email address';
-                errorMsg.style.color = 'red';
-                errorMsg.style.fontSize = '12px';
-                errorMsg.style.display = 'block';
-                errorMsg.style.marginTop = '5px';
-
+                errorMsg.textContent = 'Hãy nhập chính xác mail';
                 emailField.parentElement.appendChild(errorMsg);
+
+                if (errors.length === 0) {
+                    errors.push(emailField);
+                }
             }
+        }
+
+        // Scroll to first error
+        if (!isValid && errors.length > 0) {
+            errors[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            errors[0].focus();
         }
 
         return isValid;
     }
+
+    // PAYMENT BUTTONS 
+    const paypalButton = document.querySelector('.paypal-button');
+    const orderButton = document.querySelector('.order-button');
 
     // Validate khi click PayPal button
     if (paypalButton) {
@@ -105,14 +160,8 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
 
             if (validateForm()) {
-                // Nếu validation pass, redirect hoặc submit
-                window.location.href = '/Home/OrderComplete';
-            } else {
-                // Scroll to first error
-                const firstError = document.querySelector('.input-error');
-                if (firstError) {
-                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
+                // Nếu validation pass, cho phép redirect
+                window.location.href = this.getAttribute('href');
             }
         });
     }
@@ -123,24 +172,38 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
 
             if (validateForm()) {
-                window.location.href = '/Home/OrderComplete';
-            } else {
-                const firstError = document.querySelector('.input-error');
-                if (firstError) {
-                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
+                window.location.href = this.getAttribute('href');
             }
         });
     }
 
-    // Remove error khi user bắt đầu nhập
-    form.addEventListener('input', function (e) {
-        if (e.target.classList.contains('input-error')) {
-            e.target.classList.remove('input-error');
-            const errorMsg = e.target.parentElement.querySelector('.error-message');
-            if (errorMsg) {
-                errorMsg.remove();
+    // REMOVE ERROR ON INPUT
+    document.querySelectorAll('input, select, textarea').forEach(field => {
+        field.addEventListener('input', function () {
+            if (this.classList.contains('input-error')) {
+                this.classList.remove('input-error');
+                const errorMsg = this.parentElement.querySelector('.error-message');
+                if (errorMsg) {
+                    errorMsg.remove();
+                }
             }
-        }
+        });
     });
 });
+//SHIP TO DIFFERENT ADDRESS 
+const shippingCheckbox = document.getElementById('ship-different-address');
+const shippingForm = document.querySelector('.ship-different-address-form');
+
+if (shippingCheckbox && shippingForm) {
+    shippingCheckbox.addEventListener('change', function () {
+        if (this.checked) {
+            shippingForm.style.display = 'block';
+            // Thêm required cho shipping fields khi checked
+            addShippingValidation();
+        } else {
+            shippingForm.style.display = 'none';
+            // Xóa required và errors khi unchecked
+            removeShippingValidation();
+        }
+    });
+}
