@@ -38,7 +38,10 @@ namespace Frontend_12102025.Controllers
         {
             return View();
         }
-        
+        public ActionResult Register()
+        {
+            return View();
+        }
         public ActionResult Detail() 
         {
             return View(); 
@@ -52,6 +55,10 @@ namespace Frontend_12102025.Controllers
             return View();
         }
         public ActionResult OrderComplete()
+        {
+            return View();
+        }
+        public ActionResult OrderHistory()
         {
             return View();
         }

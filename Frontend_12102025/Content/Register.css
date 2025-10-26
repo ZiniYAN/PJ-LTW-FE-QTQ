@@ -1,0 +1,361 @@
+﻿/* register.css */
+
+main {
+    background-color: rgb(252,252,234);
+    min-height: 60vh;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Main Container */
+.account-container {
+    background-color: #fff;
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    margin: 20px auto;
+}
+
+.account-header {
+    padding: 20px 40px;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: center;
+    background-color: rgb(252,252,234);
+}
+
+    .account-header h1 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 600;
+        color: #333;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+.account-content {
+    padding: 40px;
+}
+
+    .account-content h2 {
+        font-size: 18px;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-top: 0;
+        margin-bottom: 20px;
+        color: #333;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #ee9a59;
+    }
+
+/* Form Styles */
+form {
+    width: 100%;
+}
+
+.form-row {
+    margin-bottom: 20px;
+}
+
+    .form-row label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        font-size: 14px;
+        color: #444;
+    }
+
+.form-hint {
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #888;
+    font-weight: normal;
+}
+
+.input-text {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 16px;
+    border-radius: 3px;
+    transition: border-color 0.3s ease;
+    font-family: inherit;
+}
+
+    .input-text:focus {
+        outline: none;
+        border-color: #ee9a59;
+        box-shadow: 0 0 0 2px rgba(238, 154, 89, 0.1);
+    }
+
+select.input-text {
+    cursor: pointer;
+    background-color: white;
+}
+
+/* Form Row Group */
+.form-row-group {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.form-row-half {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+/* Checkbox Styles */
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    font-size: 14px;
+    color: #444;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+    .checkbox-label input[type="checkbox"] {
+        margin-right: 10px;
+        margin-top: 3px;
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+    }
+
+    .checkbox-label a {
+        color: #008CBA;
+        text-decoration: none;
+    }
+
+        .checkbox-label a:hover {
+            text-decoration: underline;
+        }
+
+/* Buttons */
+.form-row-buttons {
+    margin-top: 30px;
+}
+
+.register-button {
+    background-color: #ee9a59;
+    color: white;
+    border: none;
+    padding: 14px 40px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 3px;
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+    .register-button:hover {
+        background-color: #d68041;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(238, 154, 89, 0.3);
+    }
+
+    .register-button:active {
+        transform: translateY(0);
+    }
+
+/* Login Link */
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+    .login-link a {
+        color: #ee9a59;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+/* Responsive Design - Tablet */
+@media screen and (max-width: 768px) {
+    main {
+        padding: 30px 15px;
+    }
+
+    .account-container {
+        max-width: 100%;
+    }
+
+    .account-header {
+        padding: 18px 30px;
+    }
+
+        .account-header h1 {
+            font-size: 22px;
+        }
+
+    .account-content {
+        padding: 30px 25px;
+    }
+
+        .account-content h2 {
+            font-size: 17px;
+        }
+
+    .input-text {
+        padding: 11px 13px;
+        font-size: 15px;
+    }
+
+    .register-button {
+        padding: 13px 35px;
+        font-size: 15px;
+    }
+}
+
+/* Responsive Design - Mobile */
+@media screen and (max-width: 640px) {
+    main {
+        padding: 20px 10px;
+    }
+
+    .account-header {
+        padding: 15px 20px;
+    }
+
+        .account-header h1 {
+            font-size: 20px;
+        }
+
+    .account-content {
+        padding: 25px 20px;
+    }
+
+        .account-content h2 {
+            font-size: 16px;
+        }
+
+    .form-row label {
+        font-size: 13px;
+    }
+
+    .input-text {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+
+    .form-row-group {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .form-row-half {
+        margin-bottom: 20px;
+    }
+
+    .register-button {
+        padding: 12px 30px;
+        font-size: 15px;
+    }
+
+    .checkbox-label {
+        font-size: 13px;
+    }
+
+    .login-link {
+        font-size: 13px;
+    }
+}
+
+/* Responsive Design - Small Mobile */
+@media screen and (max-width: 480px) {
+    main {
+        padding: 15px 8px;
+    }
+
+    .account-header {
+        padding: 12px 15px;
+    }
+
+        .account-header h1 {
+            font-size: 18px;
+            letter-spacing: 0.5px;
+        }
+
+    .account-content {
+        padding: 20px 15px;
+    }
+
+        .account-content h2 {
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+
+    .form-row {
+        margin-bottom: 15px;
+    }
+
+        .form-row label {
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+    .input-text {
+        padding: 9px 10px;
+        font-size: 13px;
+    }
+
+    .register-button {
+        padding: 11px 25px;
+        font-size: 14px;
+    }
+
+    .checkbox-label {
+        font-size: 12px;
+    }
+
+        .checkbox-label input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+        }
+
+    .form-hint {
+        font-size: 11px;
+    }
+}
+
+/* Responsive Design - Extra Small Mobile */
+@media screen and (max-width: 360px) {
+    .account-header h1 {
+        font-size: 16px;
+    }
+
+    .account-content {
+        padding: 18px 12px;
+    }
+
+        .account-content h2 {
+            font-size: 14px;
+        }
+
+    .input-text {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .register-button {
+        font-size: 13px;
+        padding: 10px 20px;
+    }
+}

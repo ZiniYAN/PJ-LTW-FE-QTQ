@@ -1,0 +1,199 @@
+﻿@{
+    ViewBag.Title = "Order History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/Content/OrderHistory.css" />
+}
+<main>
+    <div class="account-container">
+        <header class="account-header">
+            <h1>LỊCH SỬ MUA HÀNG</h1>
+        </header>
+        <div class="account-content">
+            <div class="account-info">
+                <h2>THÔNG TIN TÀI KHOẢN</h2>
+                <div class="user-info">
+                    <p><strong>Họ tên:</strong> Nguyễn Văn A</p>
+                    <p><strong>Email:</strong> nguyenvana@example.com</p>
+                    <p><strong>Số điện thoại:</strong> 0123 456 789</p>
+                </div>
+            </div>
+
+            <div class="orders-section">
+                <h2>ĐÃ ĐẶT HÀNG</h2>
+
+                <div class="filter-section">
+                    <select class="filter-select" id="statusFilter">
+                        <option value="all">Tất cả đơn hàng</option>
+                        <option value="processing">Đang xử lý</option>
+                        <option value="shipping">Đang giao hàng</option>
+                        <option value="completed">Đã giao hàng</option>
+                        <option value="cancelled">Đã hủy</option>
+                    </select>
+                </div>
+
+                <div class="orders-list">
+                    <!-- Order 1 -->
+                    <div class="order-card" data-status="completed">
+                        <div class="order-header">
+                            <div class="order-number">
+                                <span class="label">Mã đơn hàng:</span>
+                                <span class="value">#DH20250115001</span>
+                            </div>
+                            <span class="order-status status-completed">Đã giao hàng</span>
+                        </div>
+                        <div class="order-date">
+                            <span>Ngày đặt: 15/01/2025</span>
+                            <span class="divider">|</span>
+                            <span>Ngày giao: 18/01/2025</span>
+                        </div>
+                        <div class="order-items">
+                            <div class="item">
+                                <span class="item-img">
+                                    <img src="~/Image/Product/NhaGiaKim.jpg" alt="Can't Hurt Me">
+                                </span>
+                                <div class="item-info">
+                                    <p class="item-name">Đắc Nhân Tâm</p>
+                                    <p class="item-detail">Dale Carnegie × 2</p>
+                                </div>
+                                <span class="item-price">178.000đ</span>
+                            </div>
+                            <div class="item">
+                                <span class="item-img">
+                                    <img src="~/Image/Product/NhaGiaKim.jpg" alt="Can't Hurt Me">
+                                </span>
+                                <div class="item-info">
+                                    <p class="item-name">Nhà Giả Kim</p>
+                                    <p class="item-detail">Paulo Coelho × 1</p>
+                                </div>
+                                <span class="item-price">79.000đ</span>
+                            </div>
+                        </div>
+                        <div class="order-footer">
+                            <div class="order-total">
+                                <span>Tổng cộng:</span>
+                                <span class="total-price">257.000đ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Order 2 -->
+                    <div class="order-card" data-status="shipping">
+                        <div class="order-header">
+                            <div class="order-number">
+                                <span class="label">Mã đơn hàng:</span>
+                                <span class="value">#DH20250122001</span>
+                            </div>
+                            <span class="order-status status-shipping">Đang giao hàng</span>
+                        </div>
+                        <div class="order-date">
+                            <span>Ngày đặt: 22/01/2025</span>
+                            <span class="divider">|</span>
+                            <span>Dự kiến giao: 26/01/2025</span>
+                        </div>
+                        <div class="order-items">
+                            <div class="item">
+                                <span class="item-img">
+                                    <img src="~/Image/Product/NhaGiaKim.jpg" alt="Can't Hurt Me">
+                                </span>
+                                <div class="item-info">
+                                    <p class="item-name">Sapiens</p>
+                                    <p class="item-detail">Yuval Noah Harari × 1</p>
+                                </div>
+                                <span class="item-price">169.000đ</span>
+                            </div>
+                            <div class="item">
+                                <span class="item-img">
+                                    <img src="~/Image/Product/NhaGiaKim.jpg" alt="Can't Hurt Me">
+                                </span>
+                                <div class="item-info">
+                                    <p class="item-name">Atomic Habits</p>
+                                    <p class="item-detail">James Clear × 1</p>
+                                </div>
+                                <span class="item-price">129.000đ</span>
+                            </div>
+                        </div>
+                        <div class="order-footer">
+                            <div class="order-total">
+                                <span>Tổng cộng:</span>
+                                <span class="total-price">298.000đ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Order 3 -->
+                    <div class="order-card" data-status="processing">
+                        <div class="order-header">
+                            <div class="order-number">
+                                <span class="label">Mã đơn hàng:</span>
+                                <span class="value">#DH20250125001</span>
+                            </div>
+                            <span class="order-status status-processing">Đang xử lý</span>
+                        </div>
+                        <div class="order-date">
+                            <span>Ngày đặt: 25/01/2025</span>
+                        </div>
+                        <div class="order-items">
+                            <div class="item">
+                                <span class="item-img">
+                                    <img src="~/Image/Product/NhaGiaKim.jpg" alt="Can't Hurt Me">
+                                </span>
+                                <div class="item-info">
+                                    <p class="item-name">Tư Duy Nhanh và Chậm</p>
+                                    <p class="item-detail">Daniel Kahneman × 1</p>
+                                </div>
+                                <span class="item-price">189.000đ</span>
+                            </div>
+                        </div>
+                        <div class="order-footer">
+                            <div class="order-total">
+                                <span>Tổng cộng:</span>
+                                <span class="total-price">189.000đ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Order 4 - Cancelled -->
+                    <div class="order-card" data-status="cancelled">
+                        <div class="order-header">
+                            <div class="order-number">
+                                <span class="label">Mã đơn hàng:</span>
+                                <span class="value">#DH20250110001</span>
+                            </div>
+                            <span class="order-status status-cancelled">Đã hủy</span>
+                        </div>
+                        <div class="order-date">
+                            <span>Ngày đặt: 10/01/2025</span>
+                            <span class="divider">|</span>
+                            <span>Ngày hủy: 11/01/2025</span>
+                        </div>
+                        <div class="order-items">
+                            <div class="item">
+                                <span class="item-img">
+                                    <img src="~/Image/Product/NhaGiaKim.jpg" alt="Can't Hurt Me">
+                                </span>
+                                <div class="item-info">
+                                    <p class="item-name">Tuổi Trẻ Đáng Giá Bao Nhiêu</p>
+                                    <p class="item-detail">Rosie Nguyễn × 1</p>
+                                </div>
+                                <span class="item-price">99.000đ</span>
+                            </div>
+                        </div>
+                        <div class="order-footer">
+                            <div class="order-total">
+                                <span>Tổng cộng:</span>
+                                <span class="total-price">99.000đ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="no-orders" style="display: none;">
+                    <p>Không tìm thấy đơn hàng nào.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/OrderHistory.js"></script>
+</main>
