@@ -1,7 +1,7 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
     console.log('JavaScript loaded successfully!');
 
-    // LOAD CART DATA FROM LOCALSTORAGE FIRST
+    // LOAD CART DATA FROM LOCALSTORAGE 
     const savedCart = localStorage.getItem('cartData');
     if (savedCart) {
         const cartData = JSON.parse(savedCart);

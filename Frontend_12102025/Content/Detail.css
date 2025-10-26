@@ -110,9 +110,8 @@
 
 /* Grid layout cho related products */
 .related-list {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 sản phẩm trên desktop */
     gap: 20px;
 }
 
@@ -152,7 +151,7 @@
         -webkit-box-orient: vertical;
     }
 
-    .related-item button {
+    .related-item .button-details {
         background-color: #f4a261;
         border: none;
         color: white;
@@ -161,9 +160,10 @@
         cursor: pointer;
         transition: all 0.3s ease;
         width: 100%;
+        text-decoration: none;
     }
 
-        .related-item button:hover {
+        .related-item .button-details:hover {
             background-color: #e76f51;
             transform: translateY(-2px);
         }
@@ -173,14 +173,14 @@
 /* Desktop Large (1400px and above) - 5 sản phẩm */
 @media screen and (min-width: 1400px) {
     .related-list {
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
 /* Desktop (1200px - 1399px) - 4 sản phẩm */
 @media screen and (max-width: 1399px) {
     .related-list {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 18px;
     }
 }

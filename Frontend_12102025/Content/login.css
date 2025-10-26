@@ -1,22 +1,27 @@
-﻿/* login.css */
+﻿/* login.css - Optimized for All Devices */
 
+/* Reset & Base Styles */
+* {
+    box-sizing: border-box;
+}
 
 main {
-    background-color: rgb(252,252,234);
     min-height: 60vh;
-    padding: 40px 20px;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
+    width: 100%;
 }
 
 /* Main Container */
 .account-container {
-    background-color: #fff;
+    background-color: rgb(252, 252, 234);
     width: 100%;
-    max-width: 800px;
+    max-width: 800px; 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
+    overflow: hidden; 
 }
 
 .account-header {
@@ -24,7 +29,7 @@ main {
     border-top: 1px solid #e0e0e0;
     border-bottom: 1px solid #e0e0e0;
     text-align: center;
-    background-color: rgb(252,252,234);
+    background-color: rgb(252, 252, 234);
 }
 
     .account-header h1 {
@@ -34,6 +39,7 @@ main {
         color: #333;
         text-transform: uppercase;
         letter-spacing: 1px;
+        word-wrap: break-word; 
     }
 
 .account-content {
@@ -74,6 +80,7 @@ form {
     font-size: 16px;
     border-radius: 3px;
     transition: border-color 0.3s ease;
+    font-family: inherit; 
 }
 
     .input-text:focus {
@@ -88,6 +95,7 @@ form {
     justify-content: space-between;
     margin-bottom: 20px;
     gap: 15px;
+    flex-wrap: wrap; 
 }
 
 .remember-me {
@@ -95,6 +103,7 @@ form {
     align-items: center;
     font-size: 14px;
     color: #444;
+    white-space: nowrap;
 }
 
     .remember-me input {
@@ -102,6 +111,7 @@ form {
         cursor: pointer;
         width: 16px;
         height: 16px;
+        flex-shrink: 0; 
     }
 
 .login-button {
@@ -115,11 +125,16 @@ form {
     transition: all 0.3s ease;
     border-radius: 3px;
     white-space: nowrap;
+    flex-shrink: 0; 
 }
 
     .login-button:hover {
         background-color: #d68041;
         transform: scale(1.02);
+    }
+
+    .login-button:active {
+        transform: scale(0.98);
     }
 
 .lost-password {
@@ -132,6 +147,7 @@ form {
         text-decoration: none;
         font-size: 14px;
         transition: color 0.2s ease;
+        word-break: break-word; 
     }
 
         .lost-password a:hover {
@@ -139,10 +155,17 @@ form {
             color: #006b8f;
         }
 
-/* Responsive Design - Tablet */
+/* Tablet (768px - 1024px) */
+@media screen and (max-width: 1024px) {
+    .account-container {
+        max-width: 600px;
+    }
+}
+
 @media screen and (max-width: 768px) {
     main {
         padding: 30px 15px;
+        min-height: 50vh;
     }
 
     .account-container {
@@ -167,7 +190,7 @@ form {
 
     .input-text {
         padding: 11px 13px;
-        font-size: 15px;
+        font-size: 16px; 
     }
 
     .login-button {
@@ -176,10 +199,11 @@ form {
     }
 }
 
-/* Responsive Design - Mobile */
+/* Mobile (481px - 640px) */
 @media screen and (max-width: 640px) {
     main {
         padding: 20px 10px;
+        min-height: auto;
     }
 
     .account-header {
@@ -188,6 +212,7 @@ form {
 
         .account-header h1 {
             font-size: 20px;
+            letter-spacing: 0.5px;
         }
 
     .account-content {
@@ -199,41 +224,40 @@ form {
         }
 
     .form-row label {
-        font-size: 13px;
+        font-size: 14px; 
     }
 
     .input-text {
-        padding: 10px 12px;
-        font-size: 14px;
+        padding: 12px; 
+        font-size: 16px; 
     }
 
-    /* Stack login button và remember me vertically on mobile */
+    /* Stack button và checkbox */
     .form-row-login {
         flex-direction: column;
         align-items: flex-start;
-        gap: 15px;
+        gap: 12px;
     }
 
     .login-button {
         width: 100%;
-        padding: 12px 20px;
-        font-size: 15px;
+        padding: 14px 20px; 
+        font-size: 16px;
     }
 
     .remember-me {
-        font-size: 13px;
+        font-size: 14px;
     }
 
     .lost-password a {
-        font-size: 13px;
+        font-size: 14px;
     }
 }
 
-/* Responsive Design - Small Mobile */
+/* Small Mobile (361px - 480px) */
 @media screen and (max-width: 480px) {
     main {
         padding: 15px 8px;
-        min-height: auto;
     }
 
     .account-header {
@@ -242,7 +266,6 @@ form {
 
         .account-header h1 {
             font-size: 18px;
-            letter-spacing: 0.5px;
         }
 
     .account-content {
@@ -259,18 +282,65 @@ form {
     }
 
         .form-row label {
-            font-size: 12px;
+            font-size: 13px;
             margin-bottom: 6px;
         }
 
     .input-text {
-        padding: 9px 10px;
-        font-size: 13px;
+        padding: 11px 12px;
+        font-size: 16px; 
     }
 
     .login-button {
-        padding: 11px 18px;
+        padding: 13px 18px;
+        font-size: 15px;
+    }
+
+    .remember-me {
+        font-size: 13px;
+    }
+
+        .remember-me input {
+            width: 16px;
+            height: 16px;
+        }
+
+    .lost-password a {
+        font-size: 13px;
+    }
+}
+
+/* Extra Small Mobile (≤360px) */
+@media screen and (max-width: 360px) {
+    .account-header {
+        padding: 10px 12px;
+    }
+
+        .account-header h1 {
+            font-size: 16px;
+            letter-spacing: 0.3px;
+        }
+
+    .account-content {
+        padding: 18px 12px;
+    }
+
+        .account-content h2 {
+            font-size: 14px;
+        }
+
+    .form-row label {
+        font-size: 12px;
+    }
+
+    .input-text {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .login-button {
         font-size: 14px;
+        padding: 12px 15px;
     }
 
     .remember-me {
@@ -288,27 +358,8 @@ form {
     }
 }
 
-/* Responsive Design - Extra Small Mobile */
-@media screen and (max-width: 360px) {
-    .account-header h1 {
-        font-size: 16px;
-    }
-
-    .account-content {
-        padding: 18px 12px;
-    }
-
-        .account-content h2 {
-            font-size: 14px;
-        }
-
-    .input-text {
-        padding: 8px 10px;
-        font-size: 12px;
-    }
-
-    .login-button {
-        font-size: 13px;
-        padding: 10px 15px;
-    }
+/* Prevent horizontal scroll */
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
 }
