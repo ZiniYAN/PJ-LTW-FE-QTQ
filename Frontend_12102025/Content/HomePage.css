@@ -168,6 +168,7 @@ main {
 /* Product Card - slide-container */
 .silde-container {
     width: 280px;
+    height: 97%;
     background: white;
     border-radius: 12px;
     overflow: hidden;
@@ -211,7 +212,8 @@ main {
     }
 
     .silde-container .title {
-        min-height: 50px;
+        min-height: 20px;
+        margin-bottom: 0;
     }
 
         .silde-container .title h3 {
@@ -240,12 +242,17 @@ main {
     /* Add to Cart Button */
     .silde-container .btnAddToCart {
         padding-top: 10px;
-        width
+        width: 100%;
+    }
+    .slide-container #btn-addtocart{
+        width: 100%;
     }
 
         .silde-container .btnAddToCart a {
+            display: block;
             width: 100%;
-            padding: 13px 20px;
+            text-align: center;
+            padding: 13px;
             background-color: #DB7744;
             color: white;
             border: none;

@@ -94,9 +94,13 @@
 }
 
 /* ========== RELATED PRODUCTS - CSS GRID ========== */
+.container{
+    
+}
 .related {
-    margin-top: 60px;
-    margin-bottom: 60px;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
     .related h3 {
@@ -106,14 +110,22 @@
 
 /* Grid layout cho related products */
 .related-list {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 sản phẩm trên desktop */
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
     gap: 20px;
 }
 
 .related-item {
-    width: 100%;
+    flex: 0 0 calc(25% - 27px);
+    height
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
     text-align: center;
+    border: 1px solid #f0f0f0;
 }
 
     .related-item img {
@@ -136,7 +148,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
-        -webkit-line-clamp: 2; /* Giới hạn 2 dòng */
+        -webkit-line-clamp: 1; /* Giới hạn 2 dòng */
         -webkit-box-orient: vertical;
     }
 
@@ -144,7 +156,7 @@
         background-color: #f4a261;
         border: none;
         color: white;
-        padding: 8px 16px;
+        padding: 8px;
         border-radius: 6px;
         cursor: pointer;
         transition: all 0.3s ease;

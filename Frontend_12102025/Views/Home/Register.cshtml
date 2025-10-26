@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/Content/Register.css" />
+}
+<main>
+    <div class="account-container">
+        <header class="account-header">
+            <h1>ĐĂNG KÝ TÀI KHOẢN</h1>
+        </header>
+        <div class="account-content">
+            <form method="post" id="registerForm">
+                <h2>THÔNG TIN TÀI KHOẢN</h2>
+
+                <p class="form-row">
+                    <label for="fullname">Họ và tên *</label>
+                    <input type="text" class="input-text" name="fullname" id="fullname" required>
+                </p>
+
+                <p class="form-row">
+                    <label for="email">Email *</label>
+                    <input type="email" class="input-text" name="email" id="email" autocomplete="email" required>
+                </p>
+
+                <p class="form-row">
+                    <label for="phone">Số điện thoại *</label>
+                    <input type="tel" class="input-text" name="phone" id="phone" required>
+                </p>
+
+                <p class="form-row">
+                    <label for="username">Tên đăng nhập *</label>
+                    <input type="text" class="input-text" name="username" id="username" autocomplete="username" required>
+                </p>
+
+                <p class="form-row">
+                    <label for="password">Mật khẩu *</label>
+                    <input type="password" class="input-text" name="password" id="password" autocomplete="new-password" required>
+                    <small class="form-hint">Mật khẩu phải có ít nhất 8 ký tự</small>
+                </p>
+
+                <p class="form-row">
+                    <label for="confirmPassword">Xác nhận mật khẩu *</label>
+                    <input type="password" class="input-text" name="confirmPassword" id="confirmPassword" autocomplete="new-password" required>
+                </p>
+
+                <p class="form-row">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="terms" id="terms" required>
+                        Tôi đã đọc và đồng ý với <a href="#">Điều khoản sử dụng</a> và <a href="#">Chính sách bảo mật</a>
+                    </label>
+                </p>
+
+                <p class="form-row">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="newsletter" id="newsletter">
+                        Đăng ký nhận thông tin khuyến mãi và sách mới
+                    </label>
+                </p>
+
+                <p class="form-row-buttons">
+                    <button type="submit" class="register-button">Đăng ký</button>
+                </p>
+
+                <p class="login-link">
+                    Đã có tài khoản? <a href="/Login">Đăng nhập ngay</a>
+                </p>
+            </form>
+        </div>
+    </div>
+    <script src="~/Scripts/Register.js"></script>
+</main>
+
