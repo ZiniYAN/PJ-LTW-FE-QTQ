@@ -76,22 +76,43 @@
                 <div class="order-summary">
                     <h2>Your Order</h2>
                     <table>
-                        <thead><tr><th>PRODUCT</th><th>SUBTOTAL</th></tr></thead>
+                        <thead>
+                            <tr>
+                                <th>PRODUCT</th>
+                                <th style="text-align:right">SUBTOTAL</th>
+                            </tr>
+                        </thead>
                         <tbody>
-                            <tr><td>Can't Hurt Me &times; 1</td><td>$24.99</td></tr>
-                            <tr><th>Subtotal</th><td>$24.99</td></tr>
-                            <tr><th>Shipping</th><td>Free shipping</td></tr>
-                            <tr class="total-row"><th>Total</th><td>$24.99</td></tr>
+                            <tr class="product-row">
+                                <td class="product-info">
+                                    <img src="~/Image/Product/NhaGiaKim.jpg" alt="Product" class="product-thumbnail" />
+                                    <span class="product-name">Nhà Giả Kim&times; 1</span>
+                                </td>
+                                <td class="product-subtotal">$24.99</td>
+                            </tr>
+                            <tr>
+                                <th>Subtotal</th>
+                                <td>$24.99</td>
+                            </tr>
+                            <tr>
+                                <th>Shipping</th>
+                                <td>Free shipping</td>
+                            </tr>
+                            <tr class="total-row">
+                                <th>Total</th>
+                                <td>$24.99</td>
+                            </tr>
                         </tbody>
                     </table>
                     <div class="payment-methods">
-                        <button class="paypal-button">PayPal</button>
-                        <button class="credit-card-button">Thẻ ghi nợ hoặc tín dụng</button>
+                        <a href="/Home/OrderComplete" class="paypal-button">PayPal</a>
+                        <a href="/Home/OrderComplete" class="order-button">Thanh toán khi nhận hàng</a>
                         <p class="paypal-support">Được hỗ trợ bởi PayPal</p>
                     </div>
-                    <p class="privacy-policy">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <a href="#">privacy policy</a>.</p>
+                    <p class="privacy-policy">Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our <a href="/Home/PrivacyPolicy">privacy policy</a>.</p>
                 </div>
             </div>
+
         </div>
     </div>
 
