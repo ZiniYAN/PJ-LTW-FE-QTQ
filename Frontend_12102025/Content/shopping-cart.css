@@ -347,7 +347,6 @@
 .total-row.total-amount {
     padding: 18px 0 0 0;
     margin-top: 8px;
-    border-top: 1px solid #e0e0e0;
     border-bottom: none;
 }
 
@@ -382,6 +381,7 @@
 
     .checkout-button:hover {
         background-color: #c26535;
+        color: white;
     }
 
 /* Coupon Section */
@@ -409,8 +409,8 @@
     }
 
 .coupon-section input[type="text"] {
-    width: 92%;
-    padding: 12px 12px;
+    width: 100%;
+    padding: 12px;
     border: 1px solid #ddd;
     margin-bottom: 12px;
     font-size: 14px;

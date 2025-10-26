@@ -30,11 +30,10 @@
             // Show or hide the form based on whether the checkbox is checked
             if (this.checked) {
                     shippingForm.style.display = 'block';
-                } else
-                {
+            } else
+            {
                     shippingForm.style.display = 'none';
-                }
-                });
-        }
-
-    });
+            }
+        });
+    }
+});

@@ -40,7 +40,7 @@
                                 </div>
                             </td>
                             <td class="product-price">
-                                <span>$24.99</span>
+                                <span>150.000đ</span>
                             </td>
                             <td class="product-quantity">
                                 <div class="quantity-controls">
@@ -50,7 +50,7 @@
                                 </div>
                             </td>
                             <td class="product-subtotal">
-                                <span>$24.99</span>
+                                <span>150.000đ</span>
                             </td>
                         </tr>
                     </tbody>
@@ -58,7 +58,7 @@
                 </table>
                 <div class="cart-actions">
                     <a href="/Home/HomePage" class="continue-shopping">← Continue shopping</a>
-                    <button type="submit" class="button update-cart">Update cart</button>
+                    <button type="submit" class="button update-cart" id="button-update-cart">Update cart</button>
                 </div>
             </div>
 
@@ -68,19 +68,19 @@
                     <h2>CART TOTALS</h2>
                     <div class="total-row">
                         <span>Subtotal</span>
-                        <span>$24.99</span>
+                        <span id="subtotal-right-column">150.000đ</span>
                     </div>
                     <div class="total-row">
                         <span>Shipping</span>
                         <div class="shipping-details">
                             <span>Free shipping</span>
                             <span>Shipping to CA.</span>
-                            <a href="#">Change address</a>
+                            <a href="Home/CheckoutDetails">Change address</a>
                         </div>
                     </div>
                     <div class="total-row total-amount">
                         <span>Total</span>
-                        <span>$24.99</span>
+                        <span id="total">150.000đ</span>
                     </div>
                     <a href="/Home/CheckoutDetails" class="button checkout-button">Proceed to checkout</a>
                 </div>
@@ -89,11 +89,12 @@
                         <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 20 20"><path d="M19.1,1.4l-2.5-0.8L15.1,0L13,0.5l-2.1-0.2L9.2,0L7.6,0.8L5,0.7L3,1.3l-2,2L0.2,5.1l0.3,2.4L0,9.3l0.8,2.3l-0.3,2.2l1.2,2.1 l2.3,1.5l2.1,0.5l2.1,0.2l1.7,0.5l2-0.8l2.5,0.2l2-1.3l1.2-2.1l0.3-2.2L20,9.3l-0.5-1.8l-0.2-2.4L19.1,1.4z M9.8,12.3l-2.9,2.9 l-1.1-1.1l2.9-2.9l-2.9-2.9l1.1-1.1l2.9,2.9l2.9-2.9l1.1,1.1l-2.9,2.9l2.9,2.9l-1.1,1.1L9.8,12.3z"></path></svg>
                         <span>Coupon</span>
                     </div>
-                    <input type="text" placeholder="Coupon code">
-                    <button type="submit" class="button apply-coupon">Apply coupon</button>
+                    <input type="text" placeholder="Coupon code" id="coupon-code">
+                    <button type="submit" class="button apply-coupon" id="apply-coupon">Apply coupon</button>
                 </div>
             </div>
         </div>
     </div>
+    <script src="~/Scripts/ShoppingCart.js"></script>
 </main>
 
