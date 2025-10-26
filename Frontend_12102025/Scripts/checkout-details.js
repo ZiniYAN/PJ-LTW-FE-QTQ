@@ -1,25 +1,82 @@
 ﻿document.addEventListener('DOMContentLoaded', function () {
     console.log('JavaScript loaded successfully!');
 
+    // LOAD CART DATA FROM LOCALSTORAGE FIRST
+    const savedCart = localStorage.getItem('cartData');
+    if (savedCart) {
+        const cartData = JSON.parse(savedCart);
+        console.log('Loaded cart data from localStorage:', cartData);
 
-    //COUPON
-    const couponToggle = document.querySelector('.coupon-toggle');
-    const couponForm = document.querySelector('.coupon-form');
+        // Update product info
+        const productNameEl = document.querySelector('.product-name');
+        const productImage = document.querySelector('.product-thumbnail');
+        const productSubtotal = document.querySelector('.product-subtotal');
+        const subtotalRow = document.querySelector('.order-summary tbody tr:nth-child(2) td');
+        const shippingRow = document.querySelector('.order-summary tbody tr:nth-child(3)');
+        const totalRow = document.querySelector('.total-row td');
 
-    if (couponToggle && couponForm) {
-        couponToggle.addEventListener('click', function (event) {
-            event.preventDefault();
+        if (productNameEl && cartData.productName) {
+            productNameEl.textContent = cartData.productName + ' × ' + cartData.quantity;
+        }
 
-            // Toggle visibility
-            if (couponForm.style.display === 'block') {
-                couponForm.style.display = 'none';
-            } else {
-                couponForm.style.display = 'block';
+        if (productImage && cartData.productImage) {
+            productImage.src = cartData.productImage;
+        }
+
+        if (productSubtotal && cartData.subtotal) {
+            productSubtotal.textContent = cartData.subtotal;
+        }
+
+        if (subtotalRow && cartData.subtotal) {
+            subtotalRow.textContent = cartData.subtotal;
+        }
+
+        if (totalRow && cartData.total) {
+            totalRow.textContent = cartData.total;
+        }
+
+        // Nếu có coupon từ shopping cart
+        if (cartData.couponCode && cartData.discount) {
+            const couponInput = document.getElementById('coupon-code');
+            const btnApplyCoupon = document.getElementById('button-apply-coupon');
+
+            // Disable coupon input
+            if (couponInput) {
+                couponInput.value = cartData.couponCode;
+                couponInput.disabled = true;
             }
-        });
+
+            if (btnApplyCoupon) {
+                btnApplyCoupon.disabled = true;
+                btnApplyCoupon.textContent = 'Coupon đã áp dụng';
+            }
+
+            // Thêm discount row vào table
+            if (shippingRow && !document.querySelector('.discount-row')) {
+                const discountRow = document.createElement('tr');
+                discountRow.className = 'discount-row';
+                discountRow.innerHTML = `
+                    <th style="color: #28a745;">Discount (${cartData.couponCode})</th>
+                    <td style="color: #28a745;">-${cartData.discount.toLocaleString('vi-VN')}đ</td>
+                `;
+                shippingRow.parentNode.insertBefore(discountRow, shippingRow.nextSibling);
+            }
+
+            // Hiển thị success message
+            const couponBanner = document.querySelector('.coupon-banner');
+            if (couponBanner && !document.querySelector('.coupon-success-message')) {
+                const appliedMessage = document.createElement('div');
+                appliedMessage.className = 'coupon-success-message';
+                appliedMessage.style.cssText = 'padding: 10px; background-color: #d4edda; border: 1px solid #c3e6cb; color: #155724; margin-top: 10px; border-radius: 4px;';
+                appliedMessage.innerHTML = `
+                    ✓ Coupon <strong>${cartData.couponCode}</strong> đã được áp dụng! 
+                    Bạn được giảm <strong>${cartData.discount.toLocaleString('vi-VN')}đ</strong>
+                `;
+                couponBanner.appendChild(appliedMessage);
+            }
+        }
     }
 
-   
 
     // VALIDATION SETUP 
     // Billing required fields
@@ -80,6 +137,22 @@
         });
     }
 
+    // SHIP TO DIFFERENT ADDRESS 
+    const shippingCheckbox = document.getElementById('ship-different-address');
+    const shippingForm = document.querySelector('.ship-different-address-form');
+
+    if (shippingCheckbox && shippingForm) {
+        shippingCheckbox.addEventListener('change', function () {
+            if (this.checked) {
+                shippingForm.style.display = 'block';
+                addShippingValidation();
+            } else {
+                shippingForm.style.display = 'none';
+                removeShippingValidation();
+            }
+        });
+    }
+
     // VALIDATION FUNCTION 
     function validateForm() {
         let isValid = true;
@@ -107,7 +180,8 @@
                 // Tạo error message
                 const errorMsg = document.createElement('span');
                 errorMsg.className = 'error-message';
-                errorMsg.textContent = 'không được để trống';
+                errorMsg.textContent = 'Không được để trống';
+                errorMsg.style.color = 'red';
                 field.parentElement.appendChild(errorMsg);
 
                 if (errors.length === 0) {
@@ -190,20 +264,3 @@
         });
     });
 });
-//SHIP TO DIFFERENT ADDRESS 
-const shippingCheckbox = document.getElementById('ship-different-address');
-const shippingForm = document.querySelector('.ship-different-address-form');
-
-if (shippingCheckbox && shippingForm) {
-    shippingCheckbox.addEventListener('change', function () {
-        if (this.checked) {
-            shippingForm.style.display = 'block';
-            // Thêm required cho shipping fields khi checked
-            addShippingValidation();
-        } else {
-            shippingForm.style.display = 'none';
-            // Xóa required và errors khi unchecked
-            removeShippingValidation();
-        }
-    });
-}
