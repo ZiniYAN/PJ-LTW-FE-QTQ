@@ -78,3 +78,4 @@ btnApplyCoupon.addEventListener("click", (e) => {
         alert('Vui lòng nhập mã giảm giá!');
     }
 });
+
