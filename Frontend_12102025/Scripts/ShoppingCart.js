@@ -25,7 +25,7 @@ function saveCartToLocalStorage(quantity, subtotalValue, totalValue, couponCode 
     };
 
     localStorage.setItem('cartData', JSON.stringify(cartData));
-    console.log('Cart saved to localStorage:', cartData);
+    //console.log('Cart saved to localStorage:', cartData);
 }
 
 // Plus button
@@ -40,11 +40,12 @@ btnPlus.addEventListener("click", () => {
 
     // Lưu vào localStorage
     saveCartToLocalStorage(newQuantity, formattedTotal, formattedTotal);
+    window.dispatchEvent(new Event('cartUpdated'));
 });
 
 // Minus button
 btnMinus.addEventListener("click", () => {
-    let currentQuantity = parseInt(quantityElement.value) || 0;
+    let currentQuantity = parseInt(quantityElement.value) ;
 
     if (currentQuantity > 1) {
         const newQuantity = currentQuantity - 1;
@@ -55,6 +56,7 @@ btnMinus.addEventListener("click", () => {
 
         // Lưu vào localStorage
         saveCartToLocalStorage(newQuantity, formattedTotal, formattedTotal);
+        window.dispatchEvent(new Event('cartUpdated'));
     }
     else {
         quantityElement.value = 0;
@@ -124,14 +126,6 @@ btnApplyCoupon.addEventListener("click", (e) => {
             // Lưu vào localStorage với coupon
             const quantity = parseInt(quantityElement.value) || 0;
             saveCartToLocalStorage(quantity, formattedSubtotal, formattedTotal, couponCode, discountTotal);
-
-            //alert('Áp dụng mã giảm giá thành công! Giảm ' + discountTotal.toLocaleString('vi-VN') + 'đ');
-
-            // Disable coupon input
-            couponInput.value = couponCode;
-            couponInput.disabled = true;
-            btnApplyCoupon.disabled = true;
-
             // Hiển thị discount message
             const couponSection = document.querySelector('.coupon-section');
             if (couponSection && !document.querySelector('.discount-display')) {

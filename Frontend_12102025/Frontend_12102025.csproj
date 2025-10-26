@@ -124,6 +124,7 @@
     <Content Include="Content\privacypolicy.css" />
     <Content Include="Content\returnpolicy.css" />
     <Content Include="Content\shipping.css" />
+    <Content Include="Scripts\Category.js" />
     <Content Include="Scripts\checkout-details.js" />
     <Content Include="Content\checkout-details.css" />
     <Content Include="Content\login.css" />
@@ -169,6 +170,8 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
+    <Content Include="Scripts\Detail.js" />
+    <Content Include="Scripts\Header.js" />
     <Content Include="Scripts\HomePage.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />

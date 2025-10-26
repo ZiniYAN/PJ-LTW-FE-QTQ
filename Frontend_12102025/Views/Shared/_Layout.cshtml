@@ -28,8 +28,11 @@
                 <div class="login-container">
                     <a href="/Home/Login"><i class="fa-regular fa-circle-user" style="color: #0d0d0d;"></i></a>
                 </div>
-                <div class="cart-container">
-                    <a href="/Home/ShoppingCart"><i class="fa-solid fa-cart-shopping" style="color: #19191a;"></i></a>
+                <div class="cart-container">    
+                    <a href="/Home/ShoppingCart">
+                        <i class="fa-solid fa-cart-shopping" style="color: #19191a;"></i>
+                    <span class="cart-badge" id="cart-count">0</span>
+                    </a>
                 </div>
             </div>
 
@@ -89,6 +92,7 @@
     </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/Header.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
