@@ -1,0 +1,519 @@
+﻿/* orderhistory.css */
+
+main {
+    background-color: rgb(252,252,234);
+    min-height: 60vh;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Main Container */
+.account-container {
+    background-color: #fff;
+    width: 100%;
+    max-width: 1000px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    margin: 20px auto;
+}
+
+.account-header {
+    padding: 20px 40px;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: center;
+    background-color: rgb(252,252,234);
+}
+
+    .account-header h1 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 600;
+        color: #333;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+.account-content {
+    padding: 40px;
+}
+
+    .account-content h2 {
+        font-size: 18px;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-top: 0;
+        margin-bottom: 20px;
+        color: #333;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #ee9a59;
+    }
+
+/* Account Info Section */
+.account-info {
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+}
+
+.user-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+    .user-info p {
+        margin: 0;
+        padding: 10px 15px;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    .user-info strong {
+        color: #333;
+        font-weight: 600;
+        margin-right: 8px;
+    }
+
+/* Filter Section */
+.filter-section {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.filter-select, .search-input {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+.filter-select {
+    min-width: 200px;
+    cursor: pointer;
+    background-color: white;
+}
+
+/* Orders List */
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Order Card */
+.order-card {
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+    .order-card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        border-color: #ee9a59;
+    }
+
+/* Order Header */
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.order-number {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    .order-number .label {
+        font-size: 14px;
+        color: #666;
+    }
+
+    .order-number .value {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+    }
+
+/* Order Status */
+.order-status {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-completed {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-shipping {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+.status-processing {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-cancelled {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* Order Date */
+.order-date {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 15px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+    .order-date .divider {
+        color: #ddd;
+    }
+
+/* Order Items */
+.order-items {
+    background-color: #fafafa;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+    .item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+.item-img {
+    width: 60px;
+    height: 80px;
+    margin-right: 15px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+}
+
+    .item-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+.item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.item-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 4px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-detail {
+    font-size: 13px;
+    color: #888;
+    margin: 0;
+}
+
+.item-price {
+    font-size: 15px;
+    font-weight: 600;
+    color: #ee9a59;
+    margin-left: 15px;
+    flex-shrink: 0;
+}
+
+/* Order Footer */
+.order-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid #e5e5e5;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.order-total {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+}
+
+    .order-total span:first-child {
+        color: #666;
+    }
+
+.total-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ee9a59;
+}
+
+
+/* No Orders Message */
+.no-orders {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+    font-size: 16px;
+}
+
+/* Responsive Design - Tablet */
+@media screen and (max-width: 768px) {
+    main {
+        padding: 30px 15px;
+    }
+
+    .account-container {
+        max-width: 100%;
+    }
+
+    .account-header {
+        padding: 18px 30px;
+    }
+
+        .account-header h1 {
+            font-size: 22px;
+        }
+
+    .account-content {
+        padding: 30px 25px;
+    }
+
+        .account-content h2 {
+            font-size: 17px;
+        }
+
+    .filter-section {
+        flex-direction: column;
+    }
+
+    .filter-select {
+        width: 100%;
+    }
+
+    .order-card {
+        padding: 18px;
+    }
+
+    .item-img {
+        width: 50px;
+        height: 70px;
+        margin-right: 10px;
+    }
+
+    .item-name {
+        font-size: 14px;
+    }
+
+    .item-detail, .order-date {
+        font-size: 12px;
+    }
+}
+
+/* Responsive Design - Mobile */
+@media screen and (max-width: 640px) {
+    main {
+        padding: 20px 10px;
+    }
+
+    .account-header {
+        padding: 15px 20px;
+    }
+
+        .account-header h1 {
+            font-size: 20px;
+        }
+
+    .account-content {
+        padding: 25px 20px;
+    }
+
+        .account-content h2 {
+            font-size: 16px;
+        }
+
+    .user-info {
+        grid-template-columns: 1fr;
+    }
+
+    .order-card {
+        padding: 15px;
+    }
+
+    .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .order-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .order-actions {
+        width: 100%;
+    }
+
+        .order-actions button {
+            flex: 1;
+        }
+
+    .item {
+        padding: 8px 0;
+    }
+
+    .item-img {
+        width: 45px;
+        height: 60px;
+    }
+
+    .item-name {
+        font-size: 13px;
+    }
+
+    .item-price {
+        font-size: 14px;
+        margin-left: 10px;
+    }
+
+    .total-price {
+        font-size: 18px;
+    }
+}
+
+/* Responsive Design - Small Mobile */
+@media screen and (max-width: 480px) {
+    main {
+        padding: 15px 8px;
+    }
+
+    .account-header {
+        padding: 12px 15px;
+    }
+
+        .account-header h1 {
+            font-size: 18px;
+            letter-spacing: 0.5px;
+        }
+
+    .account-content {
+        padding: 20px 15px;
+    }
+
+        .account-content h2 {
+            font-size: 15px;
+        }
+
+    .filter-select, .search-input {
+        padding: 9px 12px;
+        font-size: 13px;
+    }
+
+    .order-card {
+        padding: 12px;
+    }
+
+    .order-number .label {
+        font-size: 12px;
+    }
+
+    .order-number .value {
+        font-size: 14px;
+    }
+
+    .order-status {
+        padding: 5px 12px;
+        font-size: 11px;
+    }
+
+    .order-items {
+        padding: 12px;
+    }
+
+    .item {
+        flex-wrap: wrap;
+    }
+
+    .item-img {
+        font-size: 1.3rem;
+    }
+
+    .item-price {
+        flex-basis: 100%;
+        margin-left: 0;
+        margin-top: 5px;
+        text-align: right;
+    }
+
+    .order-actions button {
+        padding: 8px 15px;
+        font-size: 13px;
+    }
+
+    .no-orders {
+        padding: 40px 15px;
+        font-size: 14px;
+    }
+}
+
+/* Responsive Design - Extra Small Mobile */
+@media screen and (max-width: 360px) {
+    .account-header h1 {
+        font-size: 16px;
+    }
+
+    .account-content {
+        padding: 18px 12px;
+    }
+
+        .account-content h2 {
+            font-size: 14px;
+        }
+
+    .order-card {
+        padding: 10px;
+    }
+
+    .order-actions button {
+        font-size: 12px;
+        padding: 7px 12px;
+    }
+}
