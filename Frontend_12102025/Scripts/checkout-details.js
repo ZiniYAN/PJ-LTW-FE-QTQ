@@ -77,22 +77,6 @@
         }
     }
 
-    //COUPON
-    //const couponToggle = document.querySelector('.coupon-toggle');
-    //const couponForm = document.querySelector('.coupon-form');
-
-    //if (couponToggle && couponForm) {
-    //    couponToggle.addEventListener('click', function (event) {
-    //        event.preventDefault();
-
-    //        // Toggle visibility
-    //        if (couponForm.style.display === 'block') {
-    //            couponForm.style.display = 'none';
-    //        } else {
-    //            couponForm.style.display = 'block';
-    //        }
-    //    });
-    //}
 
     // VALIDATION SETUP 
     // Billing required fields
@@ -196,7 +180,8 @@
                 // Tạo error message
                 const errorMsg = document.createElement('span');
                 errorMsg.className = 'error-message';
-                errorMsg.textContent = 'không được để trống';
+                errorMsg.textContent = 'Không được để trống';
+                errorMsg.style.color = 'red';
                 field.parentElement.appendChild(errorMsg);
 
                 if (errors.length === 0) {

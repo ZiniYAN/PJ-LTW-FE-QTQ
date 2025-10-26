@@ -86,7 +86,7 @@ btnUpdateCart.addEventListener("click", () => {
         savedCart.discount || 0
     );
 
-    alert('Cart updated and saved!');
+    alert('Giỏ hàng đã được cập nhật!');
 });
 
 // Update giá tiền khi thêm coupon
@@ -125,7 +125,7 @@ btnApplyCoupon.addEventListener("click", (e) => {
             const quantity = parseInt(quantityElement.value) || 0;
             saveCartToLocalStorage(quantity, formattedSubtotal, formattedTotal, couponCode, discountTotal);
 
-            alert('Áp dụng mã giảm giá thành công! Giảm ' + discountTotal.toLocaleString('vi-VN') + 'đ');
+            //alert('Áp dụng mã giảm giá thành công! Giảm ' + discountTotal.toLocaleString('vi-VN') + 'đ');
 
             // Disable coupon input
             couponInput.value = couponCode;
