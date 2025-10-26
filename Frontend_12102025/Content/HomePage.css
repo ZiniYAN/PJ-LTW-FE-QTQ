@@ -240,9 +240,10 @@ main {
     /* Add to Cart Button */
     .silde-container .btnAddToCart {
         padding-top: 10px;
+        width
     }
 
-        .silde-container .btnAddToCart button {
+        .silde-container .btnAddToCart a {
             width: 100%;
             padding: 13px 20px;
             background-color: #DB7744;
@@ -254,9 +255,10 @@ main {
             cursor: pointer;
             transition: all 0.3s ease;
             text-transform: capitalize;
+            text-decoration: none;
         }
 
-            .silde-container .btnAddToCart button:hover {
+            .silde-container .btnAddToCart a:hover {
                 background-color: #c26535;
                 transform: translateY(-2px);
                 box-shadow: 0 4px 12px rgba(219, 119, 68, 0.4);
