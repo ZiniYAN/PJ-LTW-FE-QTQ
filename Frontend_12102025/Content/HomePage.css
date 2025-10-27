@@ -126,9 +126,9 @@ main {
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: minmax(280px, 1fr);
-    gap: 25px;
-    overflow-x: auto;
-    overflow-y: hidden;
+    gap: 5px;
+    overflow-x: visible;
+    overflow-y: visible;
     scroll-behavior: smooth;
     padding: 20px 10px 30px;
     scrollbar-width: thin;
@@ -144,6 +144,7 @@ main {
 }
 
     .slides-page.show {
+        justify-items:center;
         display: grid;
         opacity: 1;
     }
