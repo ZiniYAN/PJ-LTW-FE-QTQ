@@ -9,6 +9,7 @@ body {
 /* Phần giới thiệu (About Us) */
 .about-container {
     width: 75%;
+    max-width:1440px;
     margin: 50px auto;
     text-align: center;
 }
