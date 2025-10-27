@@ -2,19 +2,18 @@
 
 main {
     min-height: 60vh;
-    padding: 40px 20px;
+    padding: 20px;
     display: flex;
-    max-width: 1920px;
     justify-content: center;
     align-items: center;
-    text-align: center;
+    text-align: left;
 }
 
 /* Main Container */
 .account-container {
     background-color: rgb(252,252,234);
-    width: 100%;
-    max-width: 800px;
+    width: 85%;
+    max-width: 1920px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     margin: 20px auto;
