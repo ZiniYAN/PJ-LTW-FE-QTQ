@@ -19,15 +19,19 @@
     }
     if (username.value.length < 5) {
         noticeUsername.innerHTML = "<p>Username phải nhiều hơn 5 kí tự</p>";
+        noticeDKSD.innerHTML.style.color = "red";
+        return false;
     }
     if (password.length < 8) {
-        noticePass.innerHTML = "<p>Mật khẩu phải có nhiều hơn 8 kí tự</p>"
+        noticePass.innerHTML = "<p>Mật khẩu phải có nhiều hơn 8 kí tự</p>";
+        noticeDKSD.innerHTML.style.color = "red";
         return false;
     }
 
     const terms = document.getElementById('terms').checked;
     if (!terms) {
         noticeDKSD.innerHTML = "<p>Bạn phải đồng ý với điều khoản sử dụng!</p>";
+        noticeDKSD.innerHTML.style.color = "red";
         return false;
     }
 });
