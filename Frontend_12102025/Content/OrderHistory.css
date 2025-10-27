@@ -1,17 +1,20 @@
 ﻿/* orderhistory.css */
 
 main {
-    background-color: rgb(252,252,234);
     min-height: 60vh;
     padding: 40px 20px;
+    width: 100%;
     display: flex;
+    max-width: 1920px;
+    align-content: center;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
 }
 
 /* Main Container */
 .account-container {
-    background-color: #fff;
+    background-color: rgb(252,252,234);
     width: 100%;
     max-width: 1000px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -351,6 +354,7 @@ main {
 /* Responsive Design - Mobile */
 @media screen and (max-width: 640px) {
     main {
+
         padding: 20px 10px;
     }
 

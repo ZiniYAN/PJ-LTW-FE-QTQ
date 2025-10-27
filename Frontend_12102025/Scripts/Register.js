@@ -1,22 +1,33 @@
 ﻿document.getElementById('registerForm').addEventListener('submit', function (e) {
     e.preventDefault();
 
+    const email = document.getElementById("email");
+    const phone = document.getElementById("phone");
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
+    const username = document.getElementById("username");
 
+    const noticeEmail = document.getElementById("notice-email");
+    const noticePhone = document.getElementById("notice-phone");
+    const noticePass = document.getElementById("notice-pass");
+    const noticeConfirmPass = document.getElementById("notice-confirm-pass");
+    const noticeUsername = document.getElementById("notice-username");
+    const noticeDKSD = document.getElementById("notice-dksd");
     if (password !== confirmPassword) {
-        alert('Mật khẩu xác nhận không khớp!');
+        noticeConfirmPass.textContent = "Mật khẩu không khớp";
         return false;
     }
-
+    if (username.value.length < 5) {
+        noticeUsername.innerHTML = "<p>Username phải nhiều hơn 5 kí tự</p>";
+    }
     if (password.length < 8) {
-        alert('Mật khẩu phải có ít nhất 8 ký tự!');
+        noticePass.innerHTML = "<p>Mật khẩu phải có nhiều hơn 8 kí tự</p>"
         return false;
     }
 
     const terms = document.getElementById('terms').checked;
     if (!terms) {
-        alert('Bạn phải đồng ý với điều khoản sử dụng!');
+        noticeDKSD.innerHTML = "<p>Bạn phải đồng ý với điều khoản sử dụng!</p>";
         return false;
     }
 });

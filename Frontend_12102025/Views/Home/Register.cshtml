@@ -15,41 +15,47 @@
                 <h2>THÔNG TIN TÀI KHOẢN</h2>
 
                 <p class="form-row">
-                    <label for="fullname">Họ và tên *</label>
+                    <label for="fullname">Họ và tên</label>
                     <input type="text" class="input-text" name="fullname" id="fullname" required>
                 </p>
 
                 <p class="form-row">
-                    <label for="email">Email *</label>
-                    <input type="email" class="input-text" name="email" id="email" autocomplete="email" required>
+                    <label for="email">Email</label>
+                    <input type="email" class="input-text" name="email" id="email" autocomplete="email" placeholder="email@gmail.com" required>
+                    <span id="notice-email"></span>
                 </p>
 
                 <p class="form-row">
-                    <label for="phone">Số điện thoại *</label>
+                    <label for="phone">Số điện thoại</label>
                     <input type="tel" class="input-text" name="phone" id="phone" required>
+                    <span id="notice-phone"></span>
                 </p>
 
                 <p class="form-row">
-                    <label for="username">Tên đăng nhập *</label>
+                    <label for="username">Tên đăng nhập</label>
                     <input type="text" class="input-text" name="username" id="username" autocomplete="username" required>
+                    <span id="notice-username"></span>
                 </p>
 
                 <p class="form-row">
-                    <label for="password">Mật khẩu *</label>
+                    <label for="password">Mật khẩu</label>
                     <input type="password" class="input-text" name="password" id="password" autocomplete="new-password" required>
                     <small class="form-hint">Mật khẩu phải có ít nhất 8 ký tự</small>
+                    <span id="notice-pass"></span>
                 </p>
 
                 <p class="form-row">
                     <label for="confirmPassword">Xác nhận mật khẩu *</label>
                     <input type="password" class="input-text" name="confirmPassword" id="confirmPassword" autocomplete="new-password" required>
+                    <span id="notice-confirm-pass"></span>
                 </p>
 
                 <p class="form-row">
                     <label class="checkbox-label">
                         <input type="checkbox" name="terms" id="terms" required>
-                        Tôi đã đọc và đồng ý với <a href="#">Điều khoản sử dụng</a> và <a href="#">Chính sách bảo mật</a>
+                        Tôi đã đọc và đồng ý với <a href="Home/AboutUs">Điều khoản sử dụng</a> và <a href="Hone/PrivacyPolicy">Chính sách bảo mật</a>
                     </label>
+                    <span id="notice-dksd"></span>
                 </p>
 
                 <p class="form-row">
