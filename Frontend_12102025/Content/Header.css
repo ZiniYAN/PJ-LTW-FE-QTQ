@@ -17,20 +17,22 @@ header {
     background-color: rgb(252,246,221);
     display: grid;
     grid-template-columns: 10% 80% 10%;
+    grid-template-rows: 100px;
     align-items: center;
     padding: 10px 0;
 }
 
 /* 1. Logo */
 #container-img-header {
-    width: 90%;
-    height: auto;
+    width: 80%;
+/*    height: 100px;*/
+height: auto;
     margin: 0 auto;
 }
 
     #container-img-header img {
         width: 100%;
-        height: auto;
+        height: 100%;
         display: block;
     }
 
