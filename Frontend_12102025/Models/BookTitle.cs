@@ -12,19 +12,25 @@ namespace Frontend_12102025.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Publisher
+    public partial class BookTitle
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Publisher()
+        public BookTitle()
         {
-            this.BookTitles = new HashSet<BookTitle>();
+            this.BookEditions = new HashSet<BookEdition>();
         }
     
+        public int BookTitleId { get; set; }
+        public string Title { get; set; }
+        public int AuthorId { get; set; }
+        public int CategoryId { get; set; }
         public int PublisherId { get; set; }
-        public string PublisherName { get; set; }
-        public string Address { get; set; }
+        public string Description { get; set; }
     
+        public virtual Author Author { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BookTitle> BookTitles { get; set; }
+        public virtual ICollection<BookEdition> BookEditions { get; set; }
+        public virtual Category Category { get; set; }
+        public virtual Publisher Publisher { get; set; }
     }
 }

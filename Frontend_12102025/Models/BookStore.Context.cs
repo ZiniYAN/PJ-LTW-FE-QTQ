@@ -13,10 +13,10 @@ namespace Frontend_12102025.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BookStoreEntities : DbContext
+    public partial class dbprojectltwEntities : DbContext
     {
-        public BookStoreEntities()
-            : base("name=BookStoreEntities")
+        public dbprojectltwEntities()
+            : base("name=dbprojectltwEntities")
         {
         }
     
@@ -26,16 +26,17 @@ namespace Frontend_12102025.Models
         }
     
         public virtual DbSet<Author> Authors { get; set; }
-        public virtual DbSet<Book> Books { get; set; }
-        public virtual DbSet<Cart> Carts { get; set; }
-        public virtual DbSet<CartItem> CartItems { get; set; }
+        public virtual DbSet<BookEdition> BookEditions { get; set; }
+        public virtual DbSet<BookImage> BookImages { get; set; }
+        public virtual DbSet<BookTitle> BookTitles { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Coupon> Coupons { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Publisher> Publishers { get; set; }
-        public virtual DbSet<Review> Reviews { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<ShippingAddress> ShippingAddresses { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
     }
 }

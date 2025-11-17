@@ -12,36 +12,28 @@ namespace Frontend_12102025.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Book
+    public partial class BookEdition
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Book()
+        public BookEdition()
         {
-            this.CartItems = new HashSet<CartItem>();
+            this.BookImages = new HashSet<BookImage>();
             this.OrderDetails = new HashSet<OrderDetail>();
-            this.Reviews = new HashSet<Review>();
         }
     
-        public int BookID { get; set; }
-        public string Title { get; set; }
-        public int AuthorID { get; set; }
-        public int PublisherID { get; set; }
-        public int CategoryID { get; set; }
+        public int BookEditionId { get; set; }
+        public int BookTitleId { get; set; }
+        public string ISBN { get; set; }
         public decimal Price { get; set; }
         public int Stock { get; set; }
-        public string ISBN { get; set; }
-        public string Description { get; set; }
-        public string ImageURL { get; set; }
         public Nullable<System.DateTime> PublishDate { get; set; }
+        public string CoverImage { get; set; }
+        public string ExtraDescription { get; set; }
     
-        public virtual Author Author { get; set; }
-        public virtual Category Category { get; set; }
-        public virtual Publisher Publisher { get; set; }
+        public virtual BookTitle BookTitle { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CartItem> CartItems { get; set; }
+        public virtual ICollection<BookImage> BookImages { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

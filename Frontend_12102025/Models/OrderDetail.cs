@@ -14,13 +14,13 @@ namespace Frontend_12102025.Models
     
     public partial class OrderDetail
     {
-        public int OrderDetailID { get; set; }
-        public int OrderID { get; set; }
-        public int BookID { get; set; }
+        public int OrderDetailId { get; set; }
+        public int OrderId { get; set; }
+        public int BookEditionId { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
     
-        public virtual Book Book { get; set; }
+        public virtual BookEdition BookEdition { get; set; }
         public virtual Order Order { get; set; }
     }
 }

@@ -52,9 +52,14 @@
             color:white;
             border: none;
         }
-.btn-create{
+.btn-create {
+    padding: 5px;
+    border-radius: 8px;
+    color: white;
+    border: none;
+    margin-left: 10px;
     background-color: darkgreen;
-    color:white;
+    color: white;
 }
 .btn-create:hover{
     background-color: green;
@@ -170,3 +175,7 @@
 /*===============================*/
 /*=            CREATE           =*/
 /*===============================*/
+
+.btn-create{
+
+}

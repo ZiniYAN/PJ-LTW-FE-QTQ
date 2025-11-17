@@ -113,18 +113,18 @@
         button.addEventListener('click', function (e) {
             e.preventDefault();
 
-            // Tìm book card chứa button này
-            const bookCard = this.closest('.book-card');
+            // Tìm Book card chứa button này
+            const BookCard = this.closest('.Book-card');
 
-            if (!bookCard) {
+            if (!BookCard) {
                 console.error('Book card not found for button', index);
                 return;
             }
 
             // Lấy thông tin sản phẩm
-            const titleElement = bookCard.querySelector('.title');
-            const priceElement = bookCard.querySelector('.book-price');
-            const imageElement = bookCard.querySelector('.book-image img');
+            const titleElement = BookCard.querySelector('.title');
+            const priceElement = BookCard.querySelector('.Book-price');
+            const imageElement = BookCard.querySelector('.Book-image img');
 
             if (!titleElement || !priceElement || !imageElement) {
                 console.error('Product info not found');
@@ -151,18 +151,18 @@
         button.addEventListener('click', function (e) {
             e.preventDefault();
 
-            // Tìm book card chứa button này
-            const bookCard = this.closest('.book-card');
+            // Tìm Book card chứa button này
+            const BookCard = this.closest('.Book-card');
 
-            if (!bookCard) {
+            if (!BookCard) {
                 console.error('Book card not found for button', index);
                 return;
             }
 
             // Lấy thông tin sản phẩm
-            const titleElement = bookCard.querySelector('.title');
-            const priceElement = bookCard.querySelector('.book-price');
-            const imageElement = bookCard.querySelector('.book-image img');
+            const titleElement = BookCard.querySelector('.title');
+            const priceElement = BookCard.querySelector('.Book-price');
+            const imageElement = BookCard.querySelector('.Book-image img');
 
             if (!titleElement || !priceElement || !imageElement) {
                 console.error('Product info not found');

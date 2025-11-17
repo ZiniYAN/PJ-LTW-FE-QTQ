@@ -102,9 +102,9 @@
     }
 
     // Lấy thông tin sản phẩm từ DOM
-    const productNameElement = document.querySelector('.book-info h2');
-    const priceElement = document.querySelector('.book-info .price');
-    const imageElement = document.querySelector('.book-image img');
+    const productNameElement = document.querySelector('.Book-info h2');
+    const priceElement = document.querySelector('.Book-info .price');
+    const imageElement = document.querySelector('.Book-image img');
 
     if (!productNameElement || !priceElement || !imageElement) {
         console.error('Product info elements not found');

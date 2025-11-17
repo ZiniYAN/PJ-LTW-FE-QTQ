@@ -13,7 +13,7 @@
     }
 
 /* Books List - CSS Grid */
-.books-list {
+.Books-list {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -23,12 +23,12 @@
 }
 
 /* Book Item */
-.book-item {
+.Book-item {
     width: 100%;
 }
 
 /* Book Card */
-.book-card {
+.Book-card {
     background: white;
     border: 1px solid #e5e5e5;
     border-radius: 8px;
@@ -39,13 +39,13 @@
     transition: all 0.3s ease;
 }
 
-    .book-card:hover {
+    .Book-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
 
 /* Book Image */
-.book-image {
+.Book-image {
     width: 100%;
     height: 350px;
     display: flex;
@@ -57,7 +57,7 @@
 }
 
     /* Fix cho thẻ <a> */
-    .book-image a {
+    .Book-image a {
         display: block;
         width: 100%;
         height: 100%;
@@ -67,7 +67,7 @@
         border: none;
     }
 
-    .book-image img {
+    .Book-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -75,18 +75,18 @@
         transition: transform 0.3s ease;
     }
 
-    .book-image:hover img,
-    .book-image a:hover img {
+    .Book-image:hover img,
+    .Book-image a:hover img {
         transform: scale(1.05);
     }
 
 /* Book Info */
-.book-info {
+.Book-info {
     padding: 1.2rem;
     flex-grow: 1;
 }
 
-    .book-info .title {
+    .Book-info .title {
         font-size: 1.1rem;
         font-weight: 600;
         color: #1a1a1a;
@@ -98,13 +98,13 @@
         text-overflow: ellipsis;
     }
 
-    .book-info .publisher {
+    .Book-info .publisher {
         color: #6a6a6a;
         font-size: 0.9rem;
         margin-bottom: 0.5rem;
     }
 
-.book-rating {
+.Book-rating {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -113,12 +113,12 @@
     font-size: 0.9rem;
 }
 
-    .book-rating span {
+    .Book-rating span {
         color: #6a6a6a;
     }
 
 /* Book Price */
-.book-price {
+.Book-price {
     font-size: 1.5rem;
     font-weight: 700;
     color: #1a1a1a;
@@ -127,7 +127,7 @@
 }
 
 /* Book Actions */
-.book-actions {
+.Book-actions {
     display: flex;
     gap: 0.5rem;
     padding: 0 1.2rem 1.2rem;
@@ -174,7 +174,7 @@
 
 /* Desktop Large (1200px and above) - 3 cột */
 @media screen and (min-width: 1200px) {
-    .books-list {
+    .Books-list {
         grid-template-columns: repeat(3, 1fr);
         gap: 2rem;
     }
@@ -186,12 +186,12 @@
         padding: 2rem 4%;
     }
 
-    .books-list {
+    .Books-list {
         grid-template-columns: repeat(3, 1fr);
         gap: 1.8rem;
     }
 
-    .book-image {
+    .Book-image {
         height: 340px;
     }
 }
@@ -207,20 +207,20 @@
             margin-bottom: 1.8rem;
         }
 
-    .books-list {
+    .Books-list {
         grid-template-columns: repeat(3, 1fr);
         gap: 1.6rem;
     }
 
-    .book-image {
+    .Book-image {
         height: 320px;
     }
 
-    .book-info .title {
+    .Book-info .title {
         font-size: 1.05rem;
     }
 
-    .book-price {
+    .Book-price {
         font-size: 1.4rem;
     }
 }
@@ -236,39 +236,39 @@
             margin-bottom: 1.6rem;
         }
 
-    .books-list {
+    .Books-list {
         grid-template-columns: repeat(2, 1fr); /* 2 cột */
         gap: 1.5rem;
     }
 
-    .book-image {
+    .Book-image {
         height: 320px;
     }
 
-    .book-info {
+    .Book-info {
         padding: 1.1rem;
     }
 
-        .book-info .title {
+        .Book-info .title {
             font-size: 1rem;
         }
 
-        .book-info .publisher {
+        .Book-info .publisher {
             font-size: 0.85rem;
         }
 
-    .book-rating {
+    .Book-rating {
         font-size: 0.85rem;
         margin-top: 0.7rem;
     }
 
-    .book-price {
+    .Book-price {
         font-size: 1.35rem;
         padding: 0 1.1rem;
         margin-bottom: 0.9rem;
     }
 
-    .book-actions {
+    .Book-actions {
         padding: 0 1.1rem 1.1rem;
         gap: 0.4rem;
     }
@@ -295,41 +295,41 @@
             margin-bottom: 1.4rem;
         }
 
-    .books-list {
+    .Books-list {
         grid-template-columns: repeat(2, 1fr); /* 2 cột */
         gap: 1.3rem;
     }
 
-    .book-image {
+    .Book-image {
         height: 280px;
     }
 
-    .book-info {
+    .Book-info {
         padding: 1rem;
     }
 
-        .book-info .title {
+        .Book-info .title {
             font-size: 0.95rem;
             margin-bottom: 0.4rem;
         }
 
-        .book-info .publisher {
+        .Book-info .publisher {
             font-size: 0.8rem;
             margin-bottom: 0.4rem;
         }
 
-    .book-rating {
+    .Book-rating {
         font-size: 0.8rem;
         margin-top: 0.6rem;
     }
 
-    .book-price {
+    .Book-price {
         font-size: 1.3rem;
         padding: 0 1rem;
         margin-bottom: 0.8rem;
     }
 
-    .book-actions {
+    .Book-actions {
         padding: 0 1rem 1rem;
     }
 
@@ -355,38 +355,38 @@
             margin-bottom: 1.2rem;
         }
 
-    .books-list {
+    .Books-list {
         grid-template-columns: repeat(2, 1fr); /* 2 cột */
         gap: 1.1rem;
     }
 
-    .book-image {
+    .Book-image {
         height: 260px;
     }
 
-    .book-info {
+    .Book-info {
         padding: 0.9rem;
     }
 
-        .book-info .title {
+        .Book-info .title {
             font-size: 0.9rem;
         }
 
-        .book-info .publisher {
+        .Book-info .publisher {
             font-size: 0.75rem;
         }
 
-    .book-rating {
+    .Book-rating {
         font-size: 0.75rem;
     }
 
-    .book-price {
+    .Book-price {
         font-size: 1.25rem;
         padding: 0 0.9rem;
         margin-bottom: 0.8rem;
     }
 
-    .book-actions {
+    .Book-actions {
         padding: 0 0.9rem 0.9rem;
         gap: 0.4rem;
     }
@@ -413,39 +413,39 @@
             margin-bottom: 1rem;
         }
 
-    .books-list {
+    .Books-list {
         grid-template-columns: repeat(2, 1fr); /* 2 cột */
         gap: 1rem;
     }
 
-    .book-image {
+    .Book-image {
         height: 240px;
     }
 
-    .book-info {
+    .Book-info {
         padding: 0.8rem;
     }
 
-        .book-info .title {
+        .Book-info .title {
             font-size: 0.85rem;
         }
 
-        .book-info .publisher {
+        .Book-info .publisher {
             font-size: 0.7rem;
         }
 
-    .book-rating {
+    .Book-rating {
         font-size: 0.7rem;
         margin-top: 0.5rem;
     }
 
-    .book-price {
+    .Book-price {
         font-size: 1.2rem;
         padding: 0 0.8rem;
         margin-bottom: 0.7rem;
     }
 
-    .book-actions {
+    .Book-actions {
         padding: 0 0.8rem 0.8rem;
         gap: 0.3rem;
     }
@@ -472,38 +472,38 @@
             margin-bottom: 0.9rem;
         }
 
-    .books-list {
+    .Books-list {
         grid-template-columns: repeat(2, 1fr); /* 2 cột */
         gap: 0.9rem;
     }
 
-    .book-image {
+    .Book-image {
         height: 220px;
     }
 
-    .book-info {
+    .Book-info {
         padding: 0.7rem;
     }
 
-        .book-info .title {
+        .Book-info .title {
             font-size: 0.8rem;
         }
 
-        .book-info .publisher {
+        .Book-info .publisher {
             font-size: 0.65rem;
         }
 
-    .book-rating {
+    .Book-rating {
         font-size: 0.65rem;
     }
 
-    .book-price {
+    .Book-price {
         font-size: 1.15rem;
         padding: 0 0.7rem;
         margin-bottom: 0.6rem;
     }
 
-    .book-actions {
+    .Book-actions {
         padding: 0 0.7rem 0.7rem;
     }
 

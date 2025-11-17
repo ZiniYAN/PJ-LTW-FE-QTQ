@@ -17,11 +17,12 @@ namespace Frontend_12102025.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
-            this.Carts = new HashSet<Cart>();
+            this.Customers = new HashSet<Customer>();
             this.Orders = new HashSet<Order>();
-            this.Reviews = new HashSet<Review>();
+            this.ShippingAddresses = new HashSet<ShippingAddress>();
         }
     
+        public int UserId { get; set; }
         public string Username { get; set; }
         public string PasswordHash { get; set; }
         public string FullName { get; set; }
@@ -31,10 +32,10 @@ namespace Frontend_12102025.Models
         public Nullable<System.DateTime> CreatedAt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cart> Carts { get; set; }
+        public virtual ICollection<Customer> Customers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Review> Reviews { get; set; }
+        public virtual ICollection<ShippingAddress> ShippingAddresses { get; set; }
     }
 }

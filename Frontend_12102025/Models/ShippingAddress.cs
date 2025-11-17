@@ -12,20 +12,23 @@ namespace Frontend_12102025.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Cart
+    public partial class ShippingAddress
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Cart()
+        public ShippingAddress()
         {
-            this.CartItems = new HashSet<CartItem>();
+            this.Orders = new HashSet<Order>();
         }
     
-        public int CartID { get; set; }
-        public string Username { get; set; }
-        public Nullable<System.DateTime> CreatedAt { get; set; }
+        public int AddressId { get; set; }
+        public int UserId { get; set; }
+        public string RecipientName { get; set; }
+        public string AddressLine { get; set; }
+        public string Phone { get; set; }
+        public Nullable<bool> IsDefault { get; set; }
     
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CartItem> CartItems { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
+        public virtual User User { get; set; }
     }
 }

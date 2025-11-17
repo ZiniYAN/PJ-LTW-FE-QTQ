@@ -157,7 +157,10 @@
     <Compile Include="Models\Author.cs">
       <DependentUpon>BookStore.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Book.cs">
+    <Compile Include="Models\BookEdition.cs">
+      <DependentUpon>BookStore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BookImage.cs">
       <DependentUpon>BookStore.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BookStore.Context.cs">
@@ -175,16 +178,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BookStore.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Cart.cs">
-      <DependentUpon>BookStore.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CartItem.cs">
+    <Compile Include="Models\BookTitle.cs">
       <DependentUpon>BookStore.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Category.cs">
       <DependentUpon>BookStore.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Coupon.cs">
+      <DependentUpon>BookStore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Customer.cs">
+      <DependentUpon>BookStore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\database_firewall_rules.cs">
       <DependentUpon>BookStore.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Order.cs">
@@ -196,10 +202,7 @@
     <Compile Include="Models\Publisher.cs">
       <DependentUpon>BookStore.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Review.cs">
-      <DependentUpon>BookStore.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
+    <Compile Include="Models\ShippingAddress.cs">
       <DependentUpon>BookStore.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs">

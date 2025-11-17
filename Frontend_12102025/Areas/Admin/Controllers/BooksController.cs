@@ -12,13 +12,13 @@ namespace Frontend_12102025.Areas.Admin
 {
     public class BooksController : Controller
     {
-        private BookStoreEntities db = new BookStoreEntities();
+        private dbprojectltwEntities db = new dbprojectltwEntities();
 
         // GET: Admin/Books
         public ActionResult Index()
         {
-            var books = db.Books.Include(b => b.Author).Include(b => b.Category).Include(b => b.Publisher);
-            return View(books.ToList());
+            var Books = db.BookTitles.Include(b => b.Author).Include(b => b.Category).Include(b => b.Publisher);
+            return View(Books.ToList());
         }
 
         // GET: Admin/Books/Details/5
@@ -28,12 +28,12 @@ namespace Frontend_12102025.Areas.Admin
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = db.Books.Find(id);
-            if (book == null)
+            BookTitle Book = db.BookTitles.Find(id);
+            if (Book == null)
             {
                 return HttpNotFound();
             }
-            return View(book);
+            return View(Book);
         }
 
         // GET: Admin/Books/Create
@@ -50,19 +50,19 @@ namespace Frontend_12102025.Areas.Admin
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BookID,Title,AuthorID,PublisherID,CategoryID,Price,Stock,ISBN,Description,ImageURL,PublishDate")] Book book)
+        public ActionResult Create([Bind(Include = "BookID,Title,AuthorID,PublisherID,CategoryID,Price,Stock,ISBN,Description,ImageURL,PublishDate")] BookTitle Book)
         {
             if (ModelState.IsValid)
             {
-                db.Books.Add(book);
+                db.BookTitles.Add(Book);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "AuthorName", book.AuthorID);
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", book.CategoryID);
-            ViewBag.PublisherID = new SelectList(db.Publishers, "PublisherID", "PublisherName", book.PublisherID);
-            return View(book);
+            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "AuthorName", Book.AuthorId);
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", Book.CategoryId);
+            ViewBag.PublisherID = new SelectList(db.Publishers, "PublisherID", "PublisherName", Book.PublisherId);
+            return View(Book);
         }
 
         // GET: Admin/Books/Edit/5
@@ -72,15 +72,15 @@ namespace Frontend_12102025.Areas.Admin
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = db.Books.Find(id);
-            if (book == null)
+            BookTitle Book = db.BookTitles.Find(id);
+            if (Book == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "AuthorName", book.AuthorID);
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", book.CategoryID);
-            ViewBag.PublisherID = new SelectList(db.Publishers, "PublisherID", "PublisherName", book.PublisherID);
-            return View(book);
+            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "AuthorName", Book.AuthorId);
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", Book.CategoryId);
+            ViewBag.PublisherID = new SelectList(db.Publishers, "PublisherID", "PublisherName", Book.PublisherId);
+            return View(Book);
         }
 
         // POST: Admin/Books/Edit/5
@@ -88,18 +88,18 @@ namespace Frontend_12102025.Areas.Admin
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BookID,Title,AuthorID,PublisherID,CategoryID,Price,Stock,ISBN,Description,ImageURL,PublishDate")] Book book)
+        public ActionResult Edit([Bind(Include = "BookID,Title,AuthorID,PublisherID,CategoryID,Price,Stock,ISBN,Description,ImageURL,PublishDate")] BookTitle Book)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(book).State = EntityState.Modified;
+                db.Entry(Book).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "AuthorName", book.AuthorID);
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", book.CategoryID);
-            ViewBag.PublisherID = new SelectList(db.Publishers, "PublisherID", "PublisherName", book.PublisherID);
-            return View(book);
+            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "AuthorName", Book.AuthorId);
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", Book.CategoryId);
+            ViewBag.PublisherID = new SelectList(db.Publishers, "PublisherID", "PublisherName", Book.PublisherId);
+            return View(Book);
         }
 
         // GET: Admin/Books/Delete/5
@@ -109,12 +109,12 @@ namespace Frontend_12102025.Areas.Admin
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Book book = db.Books.Find(id);
-            if (book == null)
+            BookTitle Book = db.BookTitles.Find(id);
+            if (Book == null)
             {
                 return HttpNotFound();
             }
-            return View(book);
+            return View(Book);
         }
 
         // POST: Admin/Books/Delete/5
@@ -122,8 +122,8 @@ namespace Frontend_12102025.Areas.Admin
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Book book = db.Books.Find(id);
-            db.Books.Remove(book);
+            BookTitle Book = db.BookTitles.Find(id);
+            db.BookTitles.Remove(Book);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

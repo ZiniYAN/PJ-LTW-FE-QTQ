@@ -20,7 +20,7 @@ namespace Frontend_12102025.Models
             this.Orders = new HashSet<Order>();
         }
     
-        public int CouponID { get; set; }
+        public int CouponId { get; set; }
         public string Code { get; set; }
         public decimal DiscountValue { get; set; }
         public System.DateTime StartDate { get; set; }

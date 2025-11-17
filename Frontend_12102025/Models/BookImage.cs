@@ -12,16 +12,12 @@ namespace Frontend_12102025.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Review
+    public partial class BookImage
     {
-        public int ReviewID { get; set; }
-        public int BookID { get; set; }
-        public string Username { get; set; }
-        public int Rating { get; set; }
-        public string Comment { get; set; }
-        public Nullable<System.DateTime> CreatedAt { get; set; }
+        public int ImageId { get; set; }
+        public int BookEditionId { get; set; }
+        public string ImageUrl { get; set; }
     
-        public virtual Book Book { get; set; }
-        public virtual User User { get; set; }
+        public virtual BookEdition BookEdition { get; set; }
     }
 }

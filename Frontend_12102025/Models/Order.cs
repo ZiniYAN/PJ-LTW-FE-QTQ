@@ -20,17 +20,18 @@ namespace Frontend_12102025.Models
             this.OrderDetails = new HashSet<OrderDetail>();
         }
     
-        public int OrderID { get; set; }
-        public string Username { get; set; }
+        public int OrderId { get; set; }
+        public int UserId { get; set; }
         public Nullable<System.DateTime> OrderDate { get; set; }
-        public decimal TotalAmount { get; set; }
+        public Nullable<decimal> TotalAmount { get; set; }
         public string PaymentMethod { get; set; }
         public string PaymentStatus { get; set; }
-        public string ShippingAddress { get; set; }
-        public Nullable<int> CouponID { get; set; }
+        public int ShippingAddressId { get; set; }
+        public Nullable<int> CouponId { get; set; }
         public string OrderStatus { get; set; }
     
         public virtual Coupon Coupon { get; set; }
+        public virtual ShippingAddress ShippingAddress { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
