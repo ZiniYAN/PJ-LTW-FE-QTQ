@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="~/Image/Header/faviconIMG.png" type="image/png">
+    <link rel="stylesheet" href="~/Content/Header.css" />
+    <link rel="stylesheet" href="~/Content/Footer.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/Admin Stylesheet/AdminLayout.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-nVo7Wk..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>@ViewBag.Title - Bookara Admin</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    @* 1. Header*@
+    <header style="width: 100%; height: 20%;">
+        <section class="header">
+            <!-- Logo -->
+            <a href="/Home/HomePage" id="container-img-header"><img src="~/Image/Header/Logo.png" alt="Logo image"></a>
+
+            <!-- Login/Logout -->
+            <div class="icon">
+                <div class="login-container">
+                    <a href="/Home/Login"><i class="fa-regular fa-circle-user" style="color: #0d0d0d;"></i></a>
+                </div>
+            </div>
+
+        </section>
+        
+    </header>
+    @* 2. Body *@
+    <main>
+        <div class="side-bar-container">
+            <aside class="side-bar">
+                <h3>Admin Route</h3>
+                <ul>
+                    <li>Dashboard<li>
+                    <li>@Html.ActionLink("Category", "Index", "Categories", null, new {@class="side-link"})</li>
+                    <li>@Html.ActionLink("Product", "Index", "Books", null, new { @class = "side-link" })</li>
+                    <li>User</li>
+                    <li>Customer</li>
+                    <li>Order</li>
+                </ul>
+            </aside>
+        </div>
+        <div class="main-content">
+            @RenderBody()
+        </div>
+    </main>
+    
+    @* 3. Footer *@
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section" id="footer-section1">
+                <h3>© 2025 - Bookora</h3>
+            </div>
+            <div class="footer-section" id="footer-section2">
+                <h3>Contact</h3>
+                <ul>
+                    <li>Bùi Trần Thành Quý - 24DH111577</li>
+                    <li>Trương Gia Thụy - 24DH113182</li>
+                    <li>Lương Hoàng Bảo Quân - 24DH111520</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Bookora. Tất cả quyền được bảo lưu.</p>
+        </div>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/Header.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+

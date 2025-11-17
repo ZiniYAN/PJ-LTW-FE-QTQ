@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Frontend_12102025.Models.Category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/Admin Stylesheet/Category.css"/>
+</head>
+<h2 class="title">Homepage Category</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th style="width: 230px">Actions</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CategoryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td class="btn-actions">
+            @Html.ActionLink("Edit", "Edit", new { id = item.CategoryID }, new {@class = "btn btn-edit"}) |
+            @Html.ActionLink("Details", "Details", new { id = item.CategoryID },new {@class = "btn btn-detail"}) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.CategoryID }, new {@class = "btn btn-delete"})
+        </td>
+    </tr>
+}
+
+</table>
+<div class="btn-create-cotainer">
+    @Html.ActionLink("Create New", "Create",null, new { @class = "btn btn-create" })
+</div>
