@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="56e9506b1c744159b1e2a0927dd9880f" Name="Diagram1">
+        <EntityTypeShape EntityType="dbprojectltwModel.Author" Width="1.5" PointX="0.75" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbprojectltwModel.BookEdition" Width="1.5" PointX="5.25" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbprojectltwModel.BookImage" Width="1.5" PointX="7.5" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbprojectltwModel.BookTitle" Width="1.5" PointX="3" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbprojectltwModel.Category" Width="1.5" PointX="0.75" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbprojectltwModel.Coupon" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbprojectltwModel.Customer" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbprojectltwModel.Order" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbprojectltwModel.OrderDetail" Width="1.5" PointX="7.5" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbprojectltwModel.Publisher" Width="1.5" PointX="0.75" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbprojectltwModel.ShippingAddress" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbprojectltwModel.User" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbprojectltwModel.database_firewall_rules" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="dbprojectltwModel.FK__BookTitle__Autho__787EE5A0" ManuallyRouted="false" />
+        <AssociationConnector Association="dbprojectltwModel.FK__BookEditi__BookT__7E37BEF6" ManuallyRouted="false" />
+        <AssociationConnector Association="dbprojectltwModel.FK__BookImage__BookE__01142BA1" ManuallyRouted="false" />
+        <AssociationConnector Association="dbprojectltwModel.FK__OrderDeta__BookE__10566F31" ManuallyRouted="false" />
+        <AssociationConnector Association="dbprojectltwModel.FK__BookTitle__Categ__797309D9" ManuallyRouted="false" />
+        <AssociationConnector Association="dbprojectltwModel.FK__BookTitle__Publi__7A672E12" ManuallyRouted="false" />
+        <AssociationConnector Association="dbprojectltwModel.FK__Order__CouponId__0C85DE4D" ManuallyRouted="false" />
+        <AssociationConnector Association="dbprojectltwModel.FK__Customer__UserId__14270015" ManuallyRouted="false" />
+        <AssociationConnector Association="dbprojectltwModel.FK__Order__ShippingA__0B91BA14" ManuallyRouted="false" />
+        <AssociationConnector Association="dbprojectltwModel.FK__Order__UserId__0A9D95DB" ManuallyRouted="false" />
+        <AssociationConnector Association="dbprojectltwModel.FK__OrderDeta__Order__0F624AF8" ManuallyRouted="false" />
+        <AssociationConnector Association="dbprojectltwModel.FK__ShippingA__UserI__03F0984C" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
