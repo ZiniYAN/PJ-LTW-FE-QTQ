@@ -4,17 +4,18 @@ footer {
     width: 100%;
     margin: 0 auto;
     padding: 40px 0 20px;
-    background-color: #f8f8f8;
+    background-color: dimgrey;
+    margin-top: 10px;
 }
 
 .footer-content {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 50px;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0;
-
+    color: white;
 }
 
 .footer-section {

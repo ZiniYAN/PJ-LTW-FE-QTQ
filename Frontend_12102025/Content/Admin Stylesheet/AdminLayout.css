@@ -1,0 +1,193 @@
+﻿/* Minimal admin layout styles (copy to Content/Admin.css if preferred) */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Segoe UI, Roboto, Arial, sans-serif;
+    background: #f4f6f8;
+}
+
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+    align-items: stretch;
+}
+
+.admin-sidebar {
+    width: 240px;
+    background: #0f1724;
+    color: #e6eef6;
+    padding: 18px 12px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+}
+
+    .admin-sidebar .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 18px;
+    }
+
+        .admin-sidebar .brand img {
+            height: 36px;
+        }
+
+        .admin-sidebar .brand .brand-title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #fff;
+        }
+
+    .admin-sidebar nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .admin-sidebar nav li {
+        margin: 6px 0;
+    }
+
+    .admin-sidebar a.nav-link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #cbd5e1;
+        text-decoration: none;
+        padding: 10px 10px;
+        border-radius: 6px;
+        transition: background .15s, color .15s;
+    }
+
+        .admin-sidebar a.nav-link i {
+            width: 20px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .admin-sidebar a.nav-link:hover,
+        .admin-sidebar a.nav-link.active {
+            background: #111827;
+            color: #fff;
+        }
+
+.admin-main {
+    margin-left: 240px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.admin-topbar {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18px;
+    background: #fff;
+    border-bottom: 1px solid #e6edf3;
+}
+
+    .admin-topbar .page-title {
+        font-size: 1rem;
+        margin: 0;
+        color: #0f1724;
+    }
+
+    .admin-topbar .right {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .admin-topbar .admin-user {
+        color: #0f1724;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+
+.admin-content {
+    padding: 20px;
+    background: transparent;
+    flex: 1;
+    box-sizing: border-box;
+}
+
+.admin-footer {
+    padding: 10px 18px;
+    background: #fff;
+    border-top: 1px solid #e6edf3;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+/* responsive */
+@media (max-width: 900px) {
+    .admin-sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .admin-main {
+        margin-left: 0;
+    }
+
+    .admin-topbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+    }
+}
+/* small helper to hide sidebar when toggled */
+main {
+    width: 100%;
+    display: flex;
+    background: #f5f7fa;
+}
+.side-bar-container {
+    margin-left: 20px;
+    margin-right: 10px;
+    width: 20%;
+    align-items: start;
+    text-align: start;
+    background-color: #cbd5e1;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08);
+}
+    .side-bar{
+        margin: 5px;
+    }
+        .side-bar h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid black;
+        }
+        .side-bar ul{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .side-bar li .side-link {
+            display: block;
+            padding: 12px 20px;
+            color: #000;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+            .side-bar li .side-link:hover {
+                background: #f1f5f9;
+                color: #1e293b;
+            }
+.main-content{
+    width: 70%;
+}   
