@@ -1,0 +1,66 @@
+﻿@model Frontend_12102025.Models.ViewModels.DashboardVM
+
+@{ 
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="dashboard-container" style="max-width: 2304px; margin: 0 auto">
+    <h2>Dashboard</h2>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white p-3">
+                <h4>Users</h4>
+                <h2>@Model.TotalUsers</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-success text-white p-3">
+                <h4>Products</h4>
+                <h2>@Model.TotalProducts</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-warning text-white p-3">
+                <h4>Orders</h4>
+                <h2>@Model.TotalOrders</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card bg-danger text-white p-3">
+                <h4>Revenue</h4>
+                <h2>@Model.TotalRevenue.ToString("N0") đ</h2>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <h3>Đơn hàng mới nhất</h3>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Mã đơn</th>
+                <th>Khách hàng</th>
+                <th>Tổng tiền</th>
+                <th>Ngày tạo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var o in Model.LastOrders)
+            {
+                <tr>
+                    <td>@o.OrderId</td>
+                    <td>@o.User.FullName</td>
+                    <td>@o.TotalAmount đ</td>
+                    <td>@o.OrderDate?.ToString("dd/MM/yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
