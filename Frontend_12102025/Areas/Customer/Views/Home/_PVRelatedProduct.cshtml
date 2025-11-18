@@ -1,0 +1,36 @@
+﻿@model Frontend_12102025.Models.ViewModel.ProductDetailVM
+@using PagedList.Mvc;
+
+@if (Model.RelatedProduct != null && Model.RelatedProduct.Any())
+{
+    <section class="related-products">
+        <h2 class="related-products__title">Sản phẩm tương tự</h2>
+
+        <ul class="related-products__grid">
+            @foreach (var product in Model.RelatedProduct)
+            {
+                <li class="related-products__item">
+                    <a href="@Url.Action("ProductDetails", "Home", new { id = product.BookEditionId })"
+                       class="related-products__link">
+                        <div class="related-products__image-wrapper">
+                            <img src="@product.CoverImage"
+                                 alt="@product.BookTitle.Title"
+                                 class="related-products__image" />
+                        </div>
+                        <div class="related-products__info">
+                            <h3 class="related-products__name">@product.BookTitle.Title</h3>
+                            <p class="related-products__price">@product.Price.ToString("N0") ₫</p>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    </section>
+}
+else
+{
+    <div class="related-products__empty">
+        <i class="fa-solid fa-box-open" style="font-size: 48px; margin-bottom: 15px; color: #bdc3c7;"></i>
+        <p>Không có sản phẩm tương tự</p>
+    </div>
+}

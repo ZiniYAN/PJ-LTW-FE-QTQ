@@ -1,0 +1,39 @@
+﻿@model Frontend_12102025.Models.ViewModel.ProductDetailVM
+@using PagedList.Mvc
+@if (Model.TopProducts != null && Model.TopProducts.Any())
+{
+    <section class="top-products">
+        <h4 class="top-products__title">Sản phẩm bán chạy</h4>
+        <div class="top-products__grid">
+            @foreach (var product in Model.TopProducts)
+            {
+                <div class="top-products__item">
+                    <a href="@Url.Action("ProductDetails", "Home", new { id = product.BookEditionId })" class="top-products__link">
+                        <div class="top-products__image-wrapper">
+                            <img src="@product.CoverImage"
+                                 alt="@product.BookTitle.Title"
+                                 class="top-products__image" />
+                        </div>
+                        <div class="top-products__info">
+                            <h5 class="top-products__name">@product.BookTitle.Title</h5>
+                            <p class="top-products__price">@String.Format("{0:N0}", product.Price) đ</p>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </section>
+
+    <div class="pagination-container">
+        @Html.PagedListPager(Model.TopProducts, page => Url.Action("ProductDetails", new
+        {
+            id = Model.product.BookEditionId,
+            quantity = Model.quantity,
+            page
+        }))
+    </div>
+}
+else
+{
+    <p class="top-products__empty">Không có sản phẩm bán chạy</p>
+}
