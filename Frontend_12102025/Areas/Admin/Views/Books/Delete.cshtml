@@ -1,4 +1,4 @@
-﻿@model Frontend_12102025.Models.BookTitle
+﻿@model Frontend_12102025.Models.BookEdition
 
 @{
     ViewBag.Title = "Delete";
@@ -13,11 +13,11 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.BookTitle.Title)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Title)
+            @Html.DisplayFor(model => model.BookTitle.Title)
         </dd>
 
         <dt>
@@ -45,19 +45,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.BookTitle.Description)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            @Html.DisplayFor(model => model.BookTitle.Description)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ImageURL)
+            @Html.DisplayNameFor(model => model.BookImages)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ImageURL)
+            @Html.DisplayFor(model => model.BookImages)
         </dd>
 
         <dt>
@@ -69,27 +69,27 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Author.AuthorName)
+            @Html.DisplayNameFor(model => model.BookTitle.Author.AuthorName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Author.AuthorName)
+            @Html.DisplayFor(model => model.BookTitle.Author.AuthorName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
+            @Html.DisplayNameFor(model => model.BookTitle.Category.CategoryName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Category.CategoryName)
+            @Html.DisplayFor(model => model.BookTitle.Category.CategoryName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Publisher.PublisherName)
+            @Html.DisplayNameFor(model => model.BookTitle.Publisher.PublisherName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Publisher.PublisherName)
+            @Html.DisplayFor(model => model.BookTitle.Publisher.PublisherName)
         </dd>
 
     </dl>
