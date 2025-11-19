@@ -17,7 +17,7 @@ namespace Frontend_12102025.Areas.Admin
         // GET: Admin/Books
         public ActionResult Index()
         {
-            var Books = db.BookTitles.Include(b => b.Author).Include(b => b.Category).Include(b => b.Publisher);
+            var Books = db.BookEditions.Include(e => e.BookTitle.Author).Include(e => e.BookTitle.Category).Include(e => e.BookTitle.Publisher);
             return View(Books.ToList());
         }
 

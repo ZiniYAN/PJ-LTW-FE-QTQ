@@ -12,7 +12,7 @@ namespace Frontend_12102025.Areas.Admin
 {
     public class CategoriesController : Controller
     {
-        private BookStoreEntities db = new BookStoreEntities();
+        private dbprojectltwEntities db = new dbprojectltwEntities();
 
         // GET: Admin/Categories
         public ActionResult Index()

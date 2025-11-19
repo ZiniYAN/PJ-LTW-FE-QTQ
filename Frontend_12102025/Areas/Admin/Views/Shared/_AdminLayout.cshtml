@@ -36,9 +36,10 @@
             <aside class="side-bar">
                 <h3>Admin Route</h3>
                 <ul>
-                    <li>Dashboard<li>
-                    <li>@Html.ActionLink("Category", "Index", "Categories", null, new {@class="side-link"})</li>
-                    <li>@Html.ActionLink("Product", "Index", "Books", null, new { @class = "side-link" })</li>
+                    <li>@Html.ActionLink("📊 Dashboard", "Index", "Home", null, new {@class = "side-link"})<li>
+                    <li>@Html.ActionLink("📋 Category", "Index", "Categories", null, new {@class="side-link"})</li>
+                    <li>@Html.ActionLink("📚 Product", "Index", "Books", null,new { @class = "side-link" })</li>
+                    <li>@Html.ActionLink("📦 Inventory", "Index", "Inventory", null, new {@class = "side-link"})</li>
                     <li>User</li>
                     <li>Customer</li>
                     <li>Order</li>

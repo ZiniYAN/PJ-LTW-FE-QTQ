@@ -1,0 +1,177 @@
+﻿@model Frontend_12102025.Models.ViewModels.InventoryVM
+
+@{ 
+    ViewBag.Title = " ";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="inventory-container">
+    <h2>Quản lý kho hàng</h2>
+    <ul class="need-import" id="inventoryTabs">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="need-import-tab"
+                    data-bs-toggle="tab" data-bs-target="#need-import"
+                    type="button" role="tab">
+                <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                Cần Nhập Hàng
+                <span class="badge bg-danger ms-2">@Model.NeedImportBooks.Count</span>
+            </button>
+        </li>
+        <li class="instock">
+            <button class="nav-link" id="in-stock-tab"
+                    data-bs-toggle="tab" data-bs-target="#in-stock"
+                    type="button" role="tab">
+                <i class="bi bi-check-circle-fill text-success"></i>
+                Còn Hàng
+                <span class="badge bg-success ms-2">@Model.InStockBooks.Count</span>
+            </button>
+        </li>
+    </ul>
+        <!-- Tabs Content -->
+        <div class="tab-content" id="inventoryTabsContent">
+
+            <!-- Need Import Tab -->
+            <div class="tab-pane fade show active" id="need-import" role="tabpanel">
+                @if (Model.NeedImportBooks.Count > 0)
+                {
+                    <div class="alert alert-warning" role="alert">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        <strong>Cảnh báo!</strong> Có @Model.NeedImportBooks.Count sản phẩm đã hết hàng cần nhập ngay.
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Mã Phiên Bản</th>
+                                    <th>Tên Sách</th>
+                                    <th>Danh Mục</th>
+                                    <th>Edition</th>
+                                    <th>ISBN</th>
+                                    <th>Tồn Kho</th>
+                                    <th>Giá</th>
+                                    <th>Trạng Thái</th>
+                                    <th>Thao Tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var book in Model.NeedImportBooks)
+                                {
+                                    <tr class="table-danger">
+                                        <td>@book.BookEditionId</td>
+                                        <td>
+                                            <strong>@book.BookTitle?.Title</strong><br />
+                                            <small class="text-muted">@book.BookTitle?.Author</small>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-secondary">
+                                                @(book.BookTitle?.Category?.CategoryName?? "N/A")
+                                            </span>
+                                        </td>
+                                        
+                                        <td><code>@book.ISBN</code></td>
+                                        <td>
+                                            <span class="badge bg-danger fs-6">
+                                                <i class="bi bi-x-circle"></i> @book.Stock
+                                            </span>
+                                        </td>
+                                        <td>@book.Price.ToString("N0") ₫</td>
+                                        <td>
+                                            <span class="badge bg-danger">Hết Hàng</span>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Edit", "BookEditions", new { id = book.BookEditionId })"
+                                               class="btn btn-sm btn-primary">
+                                                <i class="bi bi-box-seam"></i> Nhập Hàng
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-success" role="alert">
+                        <i class="bi bi-check-circle"></i>
+                        <strong>Tuyệt vời!</strong> Không có sản phẩm nào hết hàng.
+                    </div>
+                }
+            </div>
+
+            <!-- In Stock Tab -->
+            <div class="tab-pane fade" id="in-stock" role="tabpanel">
+                @if (Model.InStockBooks.Count > 0)
+                {
+                    <div class="alert alert-success" role="alert">
+                        <i class="bi bi-check-circle"></i>
+                        Hiện có @Model.InStockBooks.Count sản phẩm đang còn hàng trong kho.
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Mã Phiên Bản</th>
+                                    <th>Tên Sách</th>
+                                    <th>Danh Mục</th>
+                                    <th>Edition</th>
+                                    <th>ISBN</th>
+                                    <th>Tồn Kho</th>
+                                    <th>Giá</th>
+                                    <th>Trạng Thái</th>
+                                    <th>Thao Tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var book in Model.InStockBooks)
+                                {
+                                    var stockClass = book.Stock < 10 ? "table-warning" : "table-success";
+                                    var badgeClass = book.Stock < 10 ? "bg-warning text-dark" : "bg-success";
+                                    var statusText = book.Stock < 10 ? "Sắp Hết" : book.Stock >= 50 ? "Đủ Hàng" : "Bình Thường";
+
+                                    <tr class="@stockClass">
+                                        <td>@book.BookEditionId</td>
+                                        <td>
+                                            <strong>@book.BookTitle?.Title</strong><br />
+                                            <small class="text-muted">@book.BookTitle?.Author</small>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-secondary">
+                                                @(book.BookTitle?.Category?.CategoryName ?? "N/A")
+                                            </span>
+                                        </td>
+                                        <td><code>@book.ISBN</code></td>
+                                        <td>
+                                            <span class="badge @badgeClass fs-6">
+                                                <i class="bi bi-box"></i> @book.Stock
+                                            </span>
+                                        </td>
+                                        <td>@book.Price.ToString("N0") ₫</td>
+                                        <td>
+                                            <span class="badge @badgeClass">@statusText</span>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Details", "BookEditions", new { id = book.BookEditionId })"
+                                               class="btn btn-sm btn-info">
+                                                <i class="bi bi-eye"></i> Chi Tiết
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info" role="alert">
+                        <i class="bi bi-info-circle"></i>
+                        Không có sản phẩm nào trong kho.
+                    </div>
+                }
+            </div>
+
+        </div>
+</div>
