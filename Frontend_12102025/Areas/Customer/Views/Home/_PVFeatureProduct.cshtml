@@ -1,0 +1,42 @@
+﻿@model Frontend_12102025.Models.ViewModel.HomeProductVM
+@using PagedList.Mvc
+<link rel="stylesheet" type="text/css" href="~/Content/PagedList.css" />
+
+@if (Model.FeatureProducts != null && Model.FeatureProducts.Any())
+{
+    <section class="listProd">
+        <h2>Sản phẩm nổi bật</h2>
+        <div class="list-container">
+            @foreach (var product in Model.FeatureProducts)
+            {
+                <div class="fproduct-item">
+                    <div>
+                        <a href="@Url.Action("ProductDetails", "Home", new { id = product.BookEditionId})">
+                            <img src="@Html.DisplayFor(modelItem => product.BookImages)" />
+                        </a>
+                    </div>
+                    <div>
+                        <p class="prodPrice">@String.Format("{0:N0}", product.Price) đ</p>
+                        <p class="prodName">
+                            @Html.DisplayFor(modelItem => product.BookTitle)
+                        </p>
+                        <p class="prodCate">
+                            @Html.DisplayFor(modelItem => product.BookTitle.Category.CategoryName)
+                        </p>
+                        <p class="prodSale">
+                            Đã bán:&nbsp;
+                            @Html.DisplayFor(modelItem => product.OrderDetails.Count)
+                        </p>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+    </section>
+}
+else
+{
+    <p>Không tìm thấy sản phẩm</p>
+}
+
