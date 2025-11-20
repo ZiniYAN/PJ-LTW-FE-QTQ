@@ -8,7 +8,7 @@
             @foreach (var product in Model.TopProducts)
             {
                 <div class="top-products__item">
-                    <a href="@Url.Action("ProductDetails", "Home", new { id = product.BookEditionId })" class="top-products__link">
+                    <a href="@Url.Action("ProductDetail", "Home", new { id = product.BookEditionId })" class="top-products__link">
                         <div class="top-products__image-wrapper">
                             <img src="@product.CoverImage"
                                  alt="@product.BookTitle.Title"

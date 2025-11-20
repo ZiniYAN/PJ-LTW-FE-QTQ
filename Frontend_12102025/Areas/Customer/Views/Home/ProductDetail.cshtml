@@ -14,17 +14,19 @@
         <!-- Info Section -->
         <div class="product-details__info">
             <h1 class="product-details__title">@Model.product.BookTitle.Title</h1>
-
+            <div class="product-details__stock">
+                <span class="product-details__sold">Số lượng: @Model.product.Stock</span>
+            </div>
             <div class="product-details__meta">
                 <span class="product-details__sold">Đã bán: @Model.product.OrderDetails.Count</span>
             </div>
 
-            <div class="product-details__price">
+            <div class="product-details__price">Giá
                 @Model.product.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))
             </div>
 
             <div style="margin: 20px 0;">
-                <span class="product-details__category">
+                <span class="product-details__category">Thể loại:
                     @Model.product.BookTitle.Category.CategoryName
                 </span>
             </div>

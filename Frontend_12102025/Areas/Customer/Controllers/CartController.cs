@@ -13,13 +13,11 @@ namespace Frontend_12102025.Areas.Customer.Controllers
         // GET: Customer/Cart
         private dbprojectltwEntities db = new dbprojectltwEntities();
         private CartService cartService;
-        public CartController()
-        {
-            cartService = new CartService(Session);
-        }
+
         // Hiển thị giỏ hàng
         public ActionResult Index()
         {
+            var cartService = new CartService(this.Session);
             var cart = cartService.GetCart();
             return View(cart);
         }
@@ -44,7 +42,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                 TempData["ErrorMessage"] = "Số lượng sách trong kho không đủ.";
                 return RedirectToAction("Details", "Book", new { id = id });
             }
-
+            var cartService = new CartService(this.Session);
             var cart = cartService.GetCart();
             cart.AddItem(
                 bookEdition.BookEditionId,
@@ -70,7 +68,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
             {
                 return RedirectToAction("Index");
             }
-
+            var cartService = new CartService(this.Session);
             var cart = cartService.GetCart();
             cart.UpdateQuantity(id, quantity);
             cartService.SaveCart(cart);
@@ -81,6 +79,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
         // Xóa sách khỏi giỏ
         public ActionResult RemoveFromCart(int id)
         {
+            var cartService = new CartService(this.Session);
             var cart = cartService.GetCart();
             cart.RemoveItem(id);
             cartService.SaveCart(cart);
@@ -91,6 +90,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
         // Xóa toàn bộ giỏ hàng
         public ActionResult ClearCart()
         {
+            var cartService = new CartService(this.Session);
             cartService.ClearCart();
             return RedirectToAction("Index");
         }
@@ -99,6 +99,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
         [HttpGet]
         public JsonResult GetCartCount()
         {
+            var cartService = new CartService(this.Session);
             int count = cartService.GetCartItemCount();
             return Json(new { count = count }, JsonRequestBehavior.AllowGet);
         }

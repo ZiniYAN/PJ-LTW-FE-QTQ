@@ -11,22 +11,19 @@
             {
                 <div class="fproduct-item">
                     <div>
-                        <a href="@Url.Action("ProductDetails", "Home", new { id = product.BookEditionId})">
-                            <img src="@Html.DisplayFor(modelItem => product.BookImages)" />
+                        <a href="@Url.Action("ProductDetail", "Home", new { id = product.BookEditionId})">
+                            <img src="@Html.DisplayFor(modelItem => product.CoverImage)" />
                         </a>
                     </div>
                     <div>
-                        <p class="prodPrice">@String.Format("{0:N0}", product.Price) đ</p>
+                        
                         <p class="prodName">
-                            @Html.DisplayFor(modelItem => product.BookTitle)
+                            @Html.DisplayFor(modelItem => product.BookTitle.Title)
                         </p>
                         <p class="prodCate">
                             @Html.DisplayFor(modelItem => product.BookTitle.Category.CategoryName)
                         </p>
-                        <p class="prodSale">
-                            Đã bán:&nbsp;
-                            @Html.DisplayFor(modelItem => product.OrderDetails.Count)
-                        </p>
+                        <p class="prodPrice">@String.Format("{0:N0}", product.Price) đ</p>
                     </div>
                 </div>
             }

@@ -18,6 +18,24 @@ namespace Frontend_12102025
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            // Route đặc biệt cho Account - trỏ vào root Controllers
+            //routes.MapRoute(
+            //    name: "Account",
+            //    url: "Account/{action}/{id}",
+            //    defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional },
+            //    namespaces: new[] { "Frontend_12102025.Controllers" }  // Chỉ root namespace
+            //);
+
+            //// Default route
+            //routes.MapRoute(
+            //    name: "Default",
+            //    url: "{controller}/{action}/{id}",
+            //    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+            //    namespaces: new[] { "Frontend_12102025.Controllers" }  // Chỉ root namespace
+            //);
         }
     }
 }

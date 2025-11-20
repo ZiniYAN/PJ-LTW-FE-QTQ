@@ -10,7 +10,7 @@
             @foreach (var product in Model.RelatedProduct)
             {
                 <li class="related-products__item">
-                    <a href="@Url.Action("ProductDetails", "Home", new { id = product.BookEditionId })"
+                    <a href="@Url.Action("ProductDetail", "Home", new { id = product.BookEditionId })"
                        class="related-products__link">
                         <div class="related-products__image-wrapper">
                             <img src="@product.CoverImage"

@@ -37,7 +37,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
 
 
 
-        public ActionResult ProductDetails(int? id, int? quantity, int? page)
+        public ActionResult ProductDetail(int? id, int? quantity, int? page)
         {
             if (id == null)
             {
