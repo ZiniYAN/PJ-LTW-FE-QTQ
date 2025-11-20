@@ -153,6 +153,7 @@
     <Content Include="Content\Register.css" />
     <Content Include="Content\returnpolicy.css" />
     <Content Include="Content\shipping.css" />
+    <Content Include="Image\Header\Logo.png" />
     <Content Include="Models\BookStore.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BookStore.edmx</DependentUpon>
@@ -276,7 +277,6 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Image\Header\faviconIMG.png" />
-    <Content Include="Image\Header\Logo.png" />
     <Content Include="Image\Product\NhaGiaKim.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />

@@ -1,40 +1,170 @@
-﻿<!DOCTYPE html>
+﻿@model Frontend_12102025.Models.ViewModel.HomeProductVM
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="icon" href="~/Image/Header/faviconIMG.png" type="image/png">
+    <link rel="stylesheet" href="~/Content/Header.css" />
+    <link rel="stylesheet" href="~/Content/Footer.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+          integrity="sha512-nVo7Wk..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>@ViewBag.Title - Bookara</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("Styles", required: false)
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    @{
+        // Lấy giỏ hàng từ Session
+        var cart = Session["Cart"] as Frontend_12102025.Models.ViewModel.Cart;
+        int cartCount = 0;
+
+        if (cart != null && cart.Items.Any())
+        {
+            cartCount = cart.Items.Sum(i => i.Quantity);
+        }
+    }
+
+    @* 1. Header *@
+    <header style="width: 100%; height: 20%;">
+        <section class="header">
+            <!-- Logo -->
+            <a href="@Url.Action("Index", "Home")" id="container-img-header">
+                <img src="~/Image/Header/Logo.png" alt="Logo image">
+            </a>
+
+            <!-- Search -->
+            @*<input type="text" name="search" id="search"
+                placeholder="Tìm kiếm tên sách, tác giả, nhà xuất bản,...">*@
+            <section class="searchProd">
+                <div class="container">
+                    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+                    {
+                        <div class="search-container search" id=" search">
+                            @Html.TextBoxFor(m => m.SearchTerm, new
+                            {
+                                @class = "form-control search-input",
+                                placeholder = "Nhập tên, mô tả hoặc loại sản phẩm"
+                            })
+                            @*<button type="submit" class="btn search-button">Tìm kiếm</button>*@
+                        </div>
+                    }
+                </div>
+            </section>
+
+            <!-- Login/Logout & Cart -->
+            <div class="icon">
+                <!-- Login Container -->
+                <div class="login-container">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="user-menu">
+                            <a href="#" class="user-link">
+                                <i class="fa-regular fa-circle-user" style="color: #0d0d0d;"></i>
+                                <span>@User.Identity.Name</span>
+                            </a>
+                            <div class="user-dropdown">
+                                <a href="@Url.Action("ProfileInfo", "Account")">
+                                    <i class="fa-solid fa-user"></i> Thông tin tài khoản
+                                </a>
+                                <a href="@Url.Action("MyOrder", "Order")">
+                                    <i class="fa-solid fa-clock-rotate-left"></i> Lịch sử mua hàng
+                                </a>
+                                <a href="@Url.Action("Logout", "Account")"
+                                   onclick="return confirm('Bạn có chắc chắn muốn đăng xuất?');">
+                                    <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Login", "Account")">
+                            <i class="fa-regular fa-circle-user" style="color: #0d0d0d;"></i>
+                        </a>
+                    }
+                </div>
+
+                <!-- Cart Container -->
+                <div class="cart-container">
+                    <a href="@Url.Action("Index", "Cart")">
+                        <i class="fa-solid fa-cart-shopping" style="color: #19191a;"></i>
+                        @if (cartCount > 0)
+                        {
+                            <span class="cart-badge" id="cart-count">@cartCount</span>
+                        }
+                        else
+                        {
+                            <span class="cart-badge" id="cart-count" style="display: none;">0</span>
+                        }
+                    </a>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+        </section>
+
+        <!-- Navigation bar menu in header -->
+        <div class="container-nav-bar">
+            <nav class="nav-bar-header">
+                <ul class="nav-bar">
+                    <li>
+                        <a href="@Url.Action("Index", "Home")">
+                            <i class="fa-solid fa-house" style="color: black;"></i>
+                        </a>
+                    </li>
+                    <li><a href="@Url.Action("Category", "Book", new { categoryName = "Khoa-Hoc" })">Khoa Học</a></li>
+                    <li><a href="@Url.Action("Category", "Book", new { categoryName = "Tam-Ly-Hoc" })">Tâm Lý Học</a></li>
+                    <li><a href="@Url.Action("Category", "Book", new { categoryName = "Van-Hoc" })">Văn Học</a></li>
+                    <li><a href="@Url.Action("Category", "Book", new { categoryName = "Kinh-Te" })">Kinh Tế</a></li>
+                    <li><a href="@Url.Action("Category", "Book", new { categoryName = "Self-Help" })">Self-help</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    @* 2. Body *@
+    <main class="site-content">
+        @RenderBody()
+    </main>
+
+    @* 3. Footer *@
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section" id="footer-section1">
+                <h3>Liên hệ</h3>
+                <p>📧 info@Bookara.com</p>
+                <p>📱 0123 456 789</p>
+                <p>📍 Hồ Chí Minh, Việt Nam</p>
+            </div>
+            <div class="footer-section" id="footer-section2">
+                <h3>Về Bookara Books</h3>
+                <ul>
+                    <li><a href="@Url.Action("ContactUs", "Home")">Liên hệ</a></li>
+                    <li><a href="@Url.Action("AboutUs", "Home")">Về chúng tôi</a></li>
+                    <li><a href="@Url.Action("ReturnPolicy", "Home")">Chính sách hoàn trả và hoàn tiền</a></li>
+                    <li><a href="@Url.Action("PrivacyPolicy", "Home")">Chính sách bảo mật</a></li>
+                    <li><a href="@Url.Action("Shipping", "Home")">Chính sách vận chuyển</a></li>
+                </ul>
+            </div>
+            <div class="footer-section" id="footer-section3">
+                <h3>Danh mục</h3>
+                <ul>
+                    <li><a href="@Url.Action("Category", "Book", new { categoryName = "Khoa-Hoc" })">Khoa Học</a></li>
+                    <li><a href="@Url.Action("Category", "Book", new { categoryName = "Tam-Ly-Hoc" })">Tâm Lý Học</a></li>
+                    <li><a href="@Url.Action("Category", "Book", new { categoryName = "Van-Hoc" })">Văn Học</a></li>
+                    <li><a href="@Url.Action("Category", "Book", new { categoryName = "Kinh-Te" })">Kinh Tế</a></li>
+                    <li><a href="@Url.Action("Category", "Book", new { categoryName = "Self-Help" })">Self-help</a></li>
                 </ul>
             </div>
         </div>
-    </div>
-
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Bookara. Tất cả quyền được bảo lưu.</p>
+        </div>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/Header.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

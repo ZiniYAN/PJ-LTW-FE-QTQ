@@ -1,7 +1,7 @@
 ﻿@model Frontend_12102025.Models.ViewModel.HomeProductVM
 @{
     ViewBag.Title = "Customer HomePage";
-    //Layout = "~/Areas/Customer/Views/Shared/_CustomerLayout.cshtml";
+    Layout = "~/Areas/Customer/Views/Shared/_Layout.cshtml";
 }
 
 @*@section Styles {
@@ -19,7 +19,7 @@
 </section>
 
 @* Tim kiem san pham *@
-<section class="searchProd">
+@*<section class="searchProd">
     <div class="container">
         <h2>Tìm kiếm sản phẩm</h2>
         @using (Html.BeginForm("Index", "Home", FormMethod.Get))
@@ -34,7 +34,7 @@
             </div>
         }
     </div>
-</section>
+</section>*@
 
 <div id="products">
     @Html.Partial("_PVFeatureProduct", Model)
