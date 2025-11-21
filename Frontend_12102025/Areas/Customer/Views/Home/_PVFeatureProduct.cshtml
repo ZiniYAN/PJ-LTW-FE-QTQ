@@ -1,34 +1,37 @@
 ﻿@model Frontend_12102025.Models.ViewModel.HomeProductVM
-@using PagedList.Mvc
-<link rel="stylesheet" type="text/css" href="~/Content/PagedList.css" />
+
+<link rel="stylesheet" type="text/css" href="~/Content/Customer Stylesheet/FeatureProduct.css" />
 
 @if (Model.FeatureProducts != null && Model.FeatureProducts.Any())
 {
     <section class="listProd">
         <h2>Sản phẩm nổi bật</h2>
-        <div class="list-container">
-            @foreach (var product in Model.FeatureProducts)
-            {
-                <div class="fproduct-item">
-                    <div>
-                        <a href="@Url.Action("ProductDetail", "Home", new { id = product.BookEditionId})">
-                            <img src="@Html.DisplayFor(modelItem => product.CoverImage)" />
+        <div class="slider-area">
+            <button class="slider-btn slider-prev">‹</button>
+            <div class="list-container">
+                @foreach (var product in Model.FeatureProducts)
+                {
+                    <div class="fproduct-item">
+                        <a href="@Url.Action("ProductDetail", "Home", new { id = product.BookEditionId })">
+                            <img src="@product.CoverImage" alt="@product.BookTitle.Title" />
                         </a>
+                        <div>
+                            <p class="prodName">@product.BookTitle.Title</p>
+                            <p class="prodCate">@product.BookTitle.Category.CategoryName</p>
+                            <p class="prodPrice">@String.Format("{0:N0}", product.Price) đ</p>
+                            @{
+                                ViewBag.Quantity = 1;
+                                ViewBag.ShowBuyNow = true;
+                                ViewBag.addToCart = false;
+                                ViewBag.ShowViewDetails = true;
+                                ViewBag.ButtonClass = "product-buttons-compact";
+                            }
+                            @Html.Partial("_PVButtons", product)
+                        </div>
                     </div>
-                    <div>
-                        
-                        <p class="prodName">
-                            @Html.DisplayFor(modelItem => product.BookTitle.Title)
-                        </p>
-                        <p class="prodCate">
-                            @Html.DisplayFor(modelItem => product.BookTitle.Category.CategoryName)
-                        </p>
-                        <p class="prodPrice">@String.Format("{0:N0}", product.Price) đ</p>
-                    </div>
-                </div>
-            }
-
-
+                }
+            </div>
+            <button class="slider-btn slider-next">›</button>
         </div>
     </section>
 }
@@ -36,4 +39,3 @@ else
 {
     <p>Không tìm thấy sản phẩm</p>
 }
-

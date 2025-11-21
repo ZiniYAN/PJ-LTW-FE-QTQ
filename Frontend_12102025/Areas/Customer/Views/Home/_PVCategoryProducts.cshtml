@@ -1,14 +1,19 @@
-﻿@model Frontend_12102025.Models.ViewModel.ProductDetailVM
-@using PagedList.Mvc;
+﻿@model List<Frontend_12102025.Models.BookEdition>
+
+@{
+    string categoryName = ViewBag.CategoryName ?? "Sản phẩm";
+}
+
 <link rel="stylesheet" type="text/css" href="~/Content/Customer Stylesheet/FeatureProduct.css" />
-@if (Model.RelatedProduct != null && Model.RelatedProduct.Any())
+
+@if (Model != null && Model.Any())
 {
     <section class="listProd">
-        <h2>Sản phẩm tương tự</h2>
+        <h2>@categoryName</h2>
         <div class="slider-area">
             <button class="slider-btn slider-prev">‹</button>
             <div class="list-container">
-                @foreach (var product in Model.RelatedProduct)
+                @foreach (var product in Model)
                 {
                     <div class="fproduct-item">
                         <a href="@Url.Action("ProductDetail", "Home", new { id = product.BookEditionId })">
@@ -31,14 +36,10 @@
                 }
             </div>
             <button class="slider-btn slider-next">›</button>
-            </div>
+        </div>
     </section>
 }
 else
 {
-    <div class="related-products__empty">
-        <i class="fa-solid fa-box-open" style="font-size: 48px; margin-bottom: 15px; color: #bdc3c7;"></i>
-        <p>Không có sản phẩm tương tự</p>
-    </div>
+    <p style="text-align:center; padding:20px;">Không có sản phẩm @categoryName.ToLower()</p>
 }
-<script src="~/Scripts/Customer Script/Slider.js"></script>

@@ -3,13 +3,15 @@
     margin: 0;
     padding: 0;
     background-color: rgb(252,252,234);
-    font-family:'Segoe UI', sans-serif;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 header {
     max-width: 1920px;
     width: 100%;
     margin: 0 auto;
+    position: relative;
+    z-index: 200;
 }
 
 .header {
@@ -19,6 +21,8 @@ header {
     grid-template-rows: 100px;
     align-items: center;
     padding: 10px 0;
+    position: relative;
+    z-index: 200;
 }
 
 #container-img-header {
@@ -78,7 +82,18 @@ header {
 .user-menu {
     position: relative;
     display: inline-block;
+    z-index: 1001;
 }
+
+    .user-menu::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: transparent;
+    }
 
 .user-link {
     display: flex;
@@ -87,40 +102,56 @@ header {
     color: #0d0d0d;
     text-decoration: none;
     cursor: pointer;
+    font-size: 0.875rem;
 }
 
     .user-link span {
-        font-size: 14px;
+        font-size: 0.875rem;
         font-weight: 500;
     }
 
+    .user-link i {
+        font-size: 2.5rem;
+    }
+
 .user-dropdown {
-    display: none;
+    display: block;
+    opacity: 0;
+    visibility: hidden;
     position: absolute;
-    top: 100%;
+    top: calc(100% - 5px);
     right: 0;
     background-color: white;
     min-width: 200px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
     border-radius: 8px;
-    z-index: 1000;
-    margin-top: 5px;
+    z-index: 1002;
+    font-size: 0.875rem;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
 }
 
 .user-menu:hover .user-dropdown {
-    display: block;
+    opacity: 1;
+    visibility: visible;
 }
 
 .user-dropdown a {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 12px 16px;
+    padding: 10px 14px;
     color: #333;
     text-decoration: none;
     border-bottom: 1px solid #f0f0f0;
     transition: background-color 0.2s;
+    font-size: 0.875rem;
 }
+
+    .user-dropdown a i {
+        font-size: 1rem;
+        width: 18px;
+        text-align: center;
+    }
 
     .user-dropdown a:last-child {
         border-bottom: none;
@@ -231,13 +262,31 @@ header {
         padding: 8px 12px;
     }
 
-    .user-link span {
-        font-size: 13px;
+    .user-link {
+        font-size: 0.8125rem;
     }
+
+        .user-link span {
+            font-size: 0.8125rem;
+        }
+
+        .user-link i {
+            font-size: 2.2rem;
+        }
 
     .user-dropdown {
         min-width: 180px;
+        font-size: 0.8125rem;
     }
+
+        .user-dropdown a {
+            padding: 9px 12px;
+            font-size: 0.8125rem;
+        }
+
+            .user-dropdown a i {
+                font-size: 0.9rem;
+            }
 }
 
 @media screen and (max-width: 768px) {
@@ -270,14 +319,31 @@ header {
         padding: 7px 10px;
     }
 
-    .user-link span {
-        font-size: 12px;
+    .user-link {
+        font-size: 0.75rem;
     }
+
+        .user-link span {
+            font-size: 0.75rem;
+        }
+
+        .user-link i {
+            font-size: 1.8rem;
+        }
 
     .user-dropdown {
         min-width: 160px;
-        font-size: 0.9rem;
+        font-size: 0.75rem;
     }
+
+        .user-dropdown a {
+            padding: 8px 10px;
+            font-size: 0.75rem;
+        }
+
+            .user-dropdown a i {
+                font-size: 0.85rem;
+            }
 
     .cart-badge {
         font-size: 0.7rem;
@@ -320,10 +386,24 @@ header {
         display: none;
     }
 
+    .user-link i {
+        font-size: 1.5rem;
+    }
+
     .user-dropdown {
         min-width: 150px;
-        font-size: 0.85rem;
+        font-size: 0.7rem;
     }
+
+        .user-dropdown a {
+            padding: 7px 9px;
+            font-size: 0.7rem;
+        }
+
+            .user-dropdown a i {
+                font-size: 0.8rem;
+                width: 16px;
+            }
 }
 
 @media screen and (max-width: 480px) {
@@ -356,14 +436,24 @@ header {
         padding: 5px 7px;
     }
 
+    .user-link i {
+        font-size: 1.3rem;
+    }
+
     .user-dropdown {
         min-width: 140px;
-        font-size: 0.8rem;
+        font-size: 0.6875rem;
     }
 
         .user-dropdown a {
-            padding: 10px 12px;
+            padding: 6px 8px;
+            font-size: 0.6875rem;
         }
+
+            .user-dropdown a i {
+                font-size: 0.75rem;
+                width: 14px;
+            }
 
     .cart-badge {
         font-size: 0.65rem;
@@ -404,12 +494,22 @@ header {
         padding: 4px 6px;
     }
 
+    .user-link i {
+        font-size: 1.1rem;
+    }
+
     .user-dropdown {
         min-width: 130px;
-        font-size: 0.75rem;
+        font-size: 0.625rem;
     }
 
         .user-dropdown a {
-            padding: 8px 10px;
+            padding: 5px 7px;
+            font-size: 0.625rem;
         }
+
+            .user-dropdown a i {
+                font-size: 0.7rem;
+                width: 12px;
+            }
 }

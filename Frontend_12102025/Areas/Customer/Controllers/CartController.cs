@@ -60,6 +60,44 @@ namespace Frontend_12102025.Areas.Customer.Controllers
             return RedirectToAction("Index");
         }
 
+        //Mua ngay -> Checkout
+        [HttpPost]
+        public ActionResult BuyNow(int id, int quantity = 1)
+        {
+            var cartService = new CartService(this.Session);
+            var book = db.BookEditions.FirstOrDefault(b => b.BookEditionId == id);
+
+            if (book == null)
+            {
+                TempData["ErrorMessage"] = "Không tìm thấy sách này.";
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (book.Stock < quantity)
+            {
+                TempData["ErrorMessage"] = "Số lượng sách trong kho không đủ.";
+                return RedirectToAction("ProductDetail", "Home", new { id = id });
+            }
+
+            var cart = cartService.GetCart();
+
+            // Thêm sách vào giỏ
+            cart.AddItem(
+                book.BookEditionId,
+                book.CoverImage,
+                book.BookTitle.Title,
+                book.BookTitle.Author.AuthorName,
+                book.ISBN,
+                book.Price,
+                quantity,
+                book.Stock
+            );
+
+            cartService.SaveCart(cart);
+
+            // Redirect THẲNG đến trang thanh toán
+            return RedirectToAction("Checkout", "Order");
+        }
         // Cập nhật số lượng
         [HttpPost]
         public ActionResult UpdateQuantity(int id, int quantity)

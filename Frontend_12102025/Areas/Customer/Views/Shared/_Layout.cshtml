@@ -1,4 +1,4 @@
-﻿@model Frontend_12102025.Models.ViewModel.HomeProductVM
+﻿
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,20 +36,18 @@
 
             <!-- Search -->
             @*<input type="text" name="search" id="search"
-                placeholder="Tìm kiếm tên sách, tác giả, nhà xuất bản,...">*@
+        placeholder="Tìm kiếm tên sách, tác giả, nhà xuất bản,...">*@
             <section class="searchProd">
                 <div class="container">
-                    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
-                    {
-                        <div class="search-container search" id=" search">
-                            @Html.TextBoxFor(m => m.SearchTerm, new
-                            {
-                                @class = "form-control search-input",
-                                placeholder = "Nhập tên, mô tả hoặc loại sản phẩm"
-                            })
-                            @*<button type="submit" class="btn search-button">Tìm kiếm</button>*@
+                    <form action="@Url.Action("Index", "Home")" method="get">
+                        <div class="search-container search" id="search">
+                            <input type="text"
+                                   name="SearchTerm"
+                                   class="form-control search-input"
+                                   placeholder="Nhập tên, mô tả hoặc loại sản phẩm"
+                                   value="@Request.QueryString["SearchTerm"]" />
                         </div>
-                    }
+                    </form>
                 </div>
             </section>
 
@@ -112,11 +110,11 @@
                             <i class="fa-solid fa-house" style="color: black;"></i>
                         </a>
                     </li>
-                    <li><a href="@Url.Action("Category", "Book", new { categoryName = "Khoa-Hoc" })">Khoa Học</a></li>
-                    <li><a href="@Url.Action("Category", "Book", new { categoryName = "Tam-Ly-Hoc" })">Tâm Lý Học</a></li>
-                    <li><a href="@Url.Action("Category", "Book", new { categoryName = "Van-Hoc" })">Văn Học</a></li>
-                    <li><a href="@Url.Action("Category", "Book", new { categoryName = "Kinh-Te" })">Kinh Tế</a></li>
-                    <li><a href="@Url.Action("Category", "Book", new { categoryName = "Self-Help" })">Self-help</a></li>
+                    <li><a href="@Url.Action("Index", "Category", new { categoryName = "Khoa-hoc" })">Khoa học</a></li>
+                    <li><a href="@Url.Action("Index", "Category", new { categoryName = "Tam-ly-hoc" })">Tâm lý học</a></li>
+                    <li><a href="@Url.Action("Index", "Category", new { categoryName = "Van-hoc" })">Văn học</a></li>
+                    <li><a href="@Url.Action("Index", "Category", new { categoryName = "Kinh-te" })">Kinh tế</a></li>
+                    <li><a href="@Url.Action("Index", "Category", new { categoryName = "Self-Help" })">Self-Help</a></li>
                 </ul>
             </nav>
         </div>
@@ -149,11 +147,11 @@
             <div class="footer-section" id="footer-section3">
                 <h3>Danh mục</h3>
                 <ul>
-                    <li><a href="@Url.Action("Category", "Book", new { categoryName = "Khoa-Hoc" })">Khoa Học</a></li>
-                    <li><a href="@Url.Action("Category", "Book", new { categoryName = "Tam-Ly-Hoc" })">Tâm Lý Học</a></li>
-                    <li><a href="@Url.Action("Category", "Book", new { categoryName = "Van-Hoc" })">Văn Học</a></li>
-                    <li><a href="@Url.Action("Category", "Book", new { categoryName = "Kinh-Te" })">Kinh Tế</a></li>
-                    <li><a href="@Url.Action("Category", "Book", new { categoryName = "Self-Help" })">Self-help</a></li>
+                    <li><a href="@Url.Action("Index", "Category", new { categoryName = "Khoa-hoc" })">Khoa học</a></li>
+                    <li><a href="@Url.Action("Index", "Category", new { categoryName = "Tam-ly-hoc" })">Tâm lý học</a></li>
+                    <li><a href="@Url.Action("Index", "Category", new { categoryName = "Van-hoc" })">Văn học</a></li>
+                    <li><a href="@Url.Action("Index", "Category", new { categoryName = "Kinh-te" })">Kinh tế</a></li>
+                    <li><a href="@Url.Action("Index", "Category", new { categoryName = "Self-Help" })">Self-Help</a></li>
                 </ul>
             </div>
         </div>

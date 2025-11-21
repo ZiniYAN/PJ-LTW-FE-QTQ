@@ -4,12 +4,22 @@
     ViewBag.Title = "ProductDetails";
     Layout = "~/Areas/Customer/Views/Shared/_Layout.cshtml";
 }
+<link rel="stylesheet" type="text/css" href="~/Content/Customer Stylesheet/ProductDetail.css" />
 
-<div class="product-details" style="max-width:2304px;margin:0 auto;">
+<div class="product-details">
     <div class="product-details__container">
         <!-- Image Section -->
         <div class="product-details__image">
             <img src="@Model.product.CoverImage" alt="@Model.product.BookTitle.Title" />
+            @if (Model.product.BookImages != null && Model.product.BookImages.Count > 1)
+            {
+                <div class="product-details__images-gallery">
+                    @foreach (var img in Model.product.BookImages)
+                    {
+                        <img src="@img.ImageUrl" class="gallery-image" />
+                    }
+                </div>
+            }
         </div>
 
         <!-- Info Section -->
@@ -21,15 +31,33 @@
             <div class="product-details__meta">
                 <span class="product-details__sold">Đã bán: @Model.product.OrderDetails.Count</span>
             </div>
-
-            <div class="product-details__price">Giá
-                @Model.product.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))
+            <div class="product-details__stat">
+                <span>@(Model.product.Stock > 0 ? "Còn hàng" : "Hết hàng")</span>
             </div>
-
-            <div style="margin: 20px 0;">
-                <span class="product-details__category">Thể loại:
-                    @Model.product.BookTitle.Category.CategoryName
+            <div class="product-details__price">
+                Giá @Model.product.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))
+            </div>
+            <div>
+                <span class="product-details__category">
+                    Thể loại: @Model.product.BookTitle.Category.CategoryName
                 </span>
+            </div>
+            <div>
+                <span class="product-details__author">Tác giả: @Model.product.BookTitle.Author.AuthorName</span>
+            </div>
+            @if (!string.IsNullOrEmpty(Model.product.BookTitle.Author.Bio))
+            {
+                <div class="author-bio">@Model.product.BookTitle.Author.Bio</div>
+            }
+            <div>
+                <span class="product-details__publisher">
+                    Nhà xuất bản: @Model.product.BookTitle.Publisher.PublisherName
+                    (@Model.product.BookTitle.Publisher.Address)
+                </span>
+            </div>
+            <div>
+                <span>ISBN: @Model.product.ISBN</span> <br />
+                <span>Ngày xuất bản: @Model.product.PublishDate</span>
             </div>
 
             <h2 class="product-details__description-title">Mô tả sản phẩm</h2>
@@ -37,26 +65,21 @@
                 @Model.product.BookTitle.Description
                 @if (!string.IsNullOrEmpty(Model.product.ExtraDescription))
                 {
-                    <br />
-                    @Model.product.ExtraDescription
+                    <br />@Model.product.ExtraDescription
                 }
             </p>
         </div>
-
         <!-- Order Section -->
         <div class="product-details__order">
             @using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post))
             {
                 @Html.Hidden("id", Model.product.BookEditionId)
-
                 <div class="product-details__quantity-group">
                     <label class="product-details__order-title">Số lượng</label>
-
                     <div class="quantity-selector">
                         <button type="button" class="quantity-btn quantity-btn--minus" onclick="decreaseQuantity()">
                             <i class="fa-solid fa-minus"></i>
                         </button>
-
                         <input type="number"
                                id="quantityInput"
                                name="quantity"
@@ -65,43 +88,40 @@
                                max="@Model.product.Stock"
                                class="quantity-input"
                                readonly />
-
                         <button type="button" class="quantity-btn quantity-btn--plus" onclick="increaseQuantity()">
                             <i class="fa-solid fa-plus"></i>
                         </button>
                     </div>
                 </div>
-
                 <div class="product-details__estimate">
                     <div class="product-details__estimate-label">Tạm tính</div>
                     <div class="product-details__estimate-value">
                         <span id="estimateDisplay">@Model.estimatedValue.ToString("N0")</span> ₫
                     </div>
                 </div>
-
                 <button type="submit" class="product-details__add-to-cart">
-                    <i class="fa-solid fa-cart-plus"></i> Thêm vào giỏ hàng
+                    <i class="fa-solid"></i> Thêm vào giỏ hàng
+                </button>
+            }
+            @using (Html.BeginForm("BuyNow", "Cart", FormMethod.Post))
+            {
+                @Html.Hidden("id", Model.product.BookEditionId)
+                <input type="hidden" id="buyNowQuantity" name="quantity" value="@Model.quantity" />
+                <button type="submit" class="product-details__buy-now" onclick="syncBuyNowQuantity()">
+                    <i class="fa-solid"></i> Mua ngay
                 </button>
             }
         </div>
     </div>
-
     <!-- Related Products -->
     <div class="product-details__related">
         @Html.Partial("_PVRelatedProduct", Model)
     </div>
-
-    <!-- Top Products -->
-    <div class="product-details__related">
-        @Html.Partial("_PVTopProduct", Model)
-    </div>
 </div>
-
 <script>
     const unitPrice = @Model.product.Price;
     const maxStock = @Model.product.Stock;
     const quantityInput = document.getElementById('quantityInput');
-
     window.addEventListener('DOMContentLoaded', function() {
         let initialValue = parseInt(quantityInput.value) || 1;
         if (initialValue < 1) {
@@ -110,7 +130,6 @@
         quantityInput.value = initialValue;
         updateEstimate();
     });
-
     function increaseQuantity() {
         let currentValue = parseInt(quantityInput.value) || 1;
         if (currentValue < maxStock && currentValue < 999) {
@@ -118,7 +137,6 @@
             updateEstimate();
         }
     }
-
     function decreaseQuantity() {
         let currentValue = parseInt(quantityInput.value) || 1;
         if (currentValue > 1) {
@@ -126,15 +144,12 @@
             updateEstimate();
         }
     }
-
     function updateEstimate() {
         let quantity = parseInt(quantityInput.value) || 1;
-
         if (quantity < 1) {
             quantity = 1;
             quantityInput.value = 1;
         }
-
         let estimate = quantity * unitPrice;
         document.getElementById('estimateDisplay').innerText = estimate.toLocaleString('vi-VN');
     }
