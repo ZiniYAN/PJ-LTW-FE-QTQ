@@ -1,12 +1,9 @@
 ﻿@model Frontend_12102025.Models.ViewModel.HomeProductVM
 @{
     ViewBag.Title = "Customer HomePage";
-    //Layout = "~/Areas/Customer/Views/Shared/_CustomerLayout.cshtml";
+    Layout = "~/Areas/Customer/Views/Shared/_Layout.cshtml";
 }
 
-@*@section Styles {
-    <link rel="stylesheet" type="text/css" href="~/Content/CustomerHome.css" />
-}*@
 
 <section class="banner" style="max-width:2304px;margin: 0 auto;">
     <div class="container">
@@ -18,25 +15,38 @@
     </div>
 </section>
 
-@* Tim kiem san pham *@
-<section class="searchProd">
-    <div class="container">
-        <h2>Tìm kiếm sản phẩm</h2>
-        @using (Html.BeginForm("Index", "Home", FormMethod.Get))
-        {
-            <div class="search-container">
-                @Html.TextBoxFor(m => m.SearchTerm, new
-                {
-                    @class = "form-control search-input",
-                    placeholder = "Nhập tên, mô tả hoặc loại sản phẩm"
-                })
-                <button type="submit" class="btn search-button">Tìm kiếm</button>
-            </div>
-        }
-    </div>
-</section>
-
 <div id="products">
     @Html.Partial("_PVFeatureProduct", Model)
-    @Html.Partial("_PVNewProduct", Model)
 </div>
+<!-- Khoa học -->
+@{
+    ViewBag.CategoryName = "Khoa học";
+}
+@Html.Partial("_PVCategoryProducts", ViewBag.KhoaHocProducts as List<Frontend_12102025.Models.BookEdition>)
+
+<!-- Tâm lý học -->
+@{
+    ViewBag.CategoryName = "Tâm lý học";
+}
+@Html.Partial("_PVCategoryProducts", ViewBag.TamLyHocProducts as List<Frontend_12102025.Models.BookEdition>)
+
+<!-- Văn học -->
+@{
+    ViewBag.CategoryName = "Văn học";
+}
+@Html.Partial("_PVCategoryProducts", ViewBag.VanHocProducts as List<Frontend_12102025.Models.BookEdition>)
+
+<!-- Kinh tế -->
+@{
+    ViewBag.CategoryName = "Kinh tế";
+}
+@Html.Partial("_PVCategoryProducts", ViewBag.KinhTeProducts as List<Frontend_12102025.Models.BookEdition>)
+
+<!-- Self-Help -->
+@{
+    ViewBag.CategoryName = "Self-Help";
+}
+@Html.Partial("_PVCategoryProducts", ViewBag.SelfHelpProducts as List<Frontend_12102025.Models.BookEdition>)
+
+@* Load JS một lần duy nhất ở cuối *@
+<script src="~/Scripts/Customer Script/Slider.js"></script>

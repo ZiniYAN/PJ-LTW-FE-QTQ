@@ -15,29 +15,73 @@ namespace Frontend_12102025.Areas.Customer.Controllers
     {
         // GET: Customer/Home
         private dbprojectltwEntities db = new dbprojectltwEntities();
-        public ActionResult Index(string searchTerm, int? page)
+        public ActionResult Index(string SearchTerm, int? page)
         {
             var model = new HomeProductVM();
-            var products = db.BookEditions.AsQueryable();
 
-            if (!string.IsNullOrEmpty(searchTerm))
+            // Feature Products
+            model.FeatureProducts = db.BookEditions
+                .Where(b => b.Stock > 0)
+                .OrderByDescending(b => b.OrderDetails.Count)
+                .Take(10)
+                .ToList();
+
+            // New Products với phân trang
+            int pageSize = 12;
+            int pageNumber = (page ?? 1);
+
+            var newProductsQuery = db.BookEditions
+                .Where(b => b.Stock > 0)
+                .OrderByDescending(b => b.PublishDate);
+
+            if (!string.IsNullOrEmpty(SearchTerm))
             {
-                products = products.Where(p =>
-                                        p.BookTitle.Title.Contains(searchTerm) ||
-                                        p.BookTitle.Description.Contains(searchTerm) ||
-                                        p.BookTitle.Category.CategoryName.Contains(searchTerm));
+                newProductsQuery = (IOrderedQueryable<BookEdition>)newProductsQuery
+                    .Where(b => b.BookTitle.Title.Contains(SearchTerm) ||
+                               b.BookTitle.Description.Contains(SearchTerm) ||
+                               b.BookTitle.Category.CategoryName.Contains(SearchTerm));
             }
-            int pageNumber = page ?? 1;
-            int pageSize = 6;
-            model.FeatureProducts = products.OrderByDescending(p => p.OrderDetails.Count()).Take(10).ToList();
 
-            model.NewProducts = products.OrderBy(p => p.OrderDetails.Count()).Take(20).ToPagedList(pageNumber, pageSize);
+            model.NewProducts = newProductsQuery.ToPagedList(pageNumber, pageSize);
+            model.SearchTerm = SearchTerm;
+
+            // ✅ THÊM: Sản phẩm theo từng category
+            ViewBag.KhoaHocProducts = db.BookEditions
+                .Where(b => b.BookTitle.Category.CategoryName == "Khoa học" && b.Stock > 0)
+                .OrderByDescending(b => b.PublishDate)
+                .Take(10)
+                .ToList();
+
+            ViewBag.TamLyHocProducts = db.BookEditions
+                .Where(b => b.BookTitle.Category.CategoryName == "Tâm lý học" && b.Stock > 0)
+                .OrderByDescending(b => b.PublishDate)
+                .Take(10)
+                .ToList();
+
+            ViewBag.VanHocProducts = db.BookEditions
+                .Where(b => b.BookTitle.Category.CategoryName == "Văn học" && b.Stock > 0)
+                .OrderByDescending(b => b.PublishDate)
+                .Take(10)
+                .ToList();
+
+            ViewBag.KinhTeProducts = db.BookEditions
+                .Where(b => b.BookTitle.Category.CategoryName == "Kinh tế" && b.Stock > 0)
+                .OrderByDescending(b => b.PublishDate)
+                .Take(10)
+                .ToList();
+
+            ViewBag.SelfHelpProducts = db.BookEditions
+                .Where(b => b.BookTitle.Category.CategoryName == "Self-Help" && b.Stock > 0)
+                .OrderByDescending(b => b.PublishDate)
+                .Take(10)
+                .ToList();
+
             return View(model);
         }
 
 
 
-        public ActionResult ProductDetails(int? id, int? quantity, int? page)
+        public ActionResult ProductDetail(int? id, int? quantity, int? page)
         {
             if (id == null)
             {
