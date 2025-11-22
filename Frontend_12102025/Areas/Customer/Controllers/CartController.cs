@@ -95,7 +95,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
 
             cartService.SaveCart(cart);
 
-            // Redirect THẲNG đến trang thanh toán
+            // Redirect đến trang thanh toán
             return RedirectToAction("Checkout", "Order");
         }
         // Cập nhật số lượng

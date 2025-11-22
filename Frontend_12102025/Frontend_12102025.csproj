@@ -333,6 +333,7 @@
     <Content Include="Areas\Customer\Views\Category\Index.cshtml" />
     <Content Include="Areas\Customer\Views\Home\_PVButtons.cshtml" />
     <Content Include="Areas\Customer\Views\Home\_PVCategoryProducts.cshtml" />
+    <Content Include="Areas\Customer\Views\Account\Index.cshtml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />

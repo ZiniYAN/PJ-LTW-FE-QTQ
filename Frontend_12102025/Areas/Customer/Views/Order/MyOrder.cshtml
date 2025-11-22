@@ -1,0 +1,107 @@
+﻿@model List<Frontend_12102025.Models.Order>
+
+@{
+    ViewBag.Title = "Lịch sử mua hàng";
+    Layout = "~/Areas/Customer/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-5">
+    <h2 class="mb-4 text-center"><i class="fa-solid fa-clock-rotate-left me-2"></i>Lịch sử mua hàng</h2>
+
+    <!-- Form tìm kiếm -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            @using (Html.BeginForm("MyOrder", "Order", FormMethod.Get, new { @class = "row g-3 align-items-end" }))
+            {
+                <div class="col-md-4">
+                    <label class="form-label fw-bold">Mã đơn hàng</label>
+                    <input type="text" name="orderCode" class="form-control" placeholder="Nhập mã đơn..." value="@Request.QueryString["orderCode"]" />
+                </div>
+                @*<div class="col-md-4">
+                    <label class="form-label fw-bold">Tên sách</label>
+                    <input type="text" name="bookTitle" class="form-control" placeholder="Nhập tên sách..." value="@Request.QueryString["bookTitle"]" />
+                </div>*@
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fa-solid fa-magnifying-glass me-2"></i>Tìm kiếm
+                    </button>
+                </div>
+                <div class="col-md-2">
+                    <a href="@Url.Action("MyOrder", "Order")" class="btn btn-outline-secondary w-100">
+                        <i class="fa-solid fa-rotate-right me-2"></i>Làm mới
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Danh sách đơn hàng -->
+    @if (Model != null && Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle bg-white shadow-sm">
+                <thead class="table-light text-center">
+                    <tr>
+                        <th>Mã đơn</th>
+                        <th>Ngày đặt</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
+                        <th>Địa chỉ giao</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center fw-bold">#@item.OrderId</td>
+                            <td class="text-center">@item.OrderDate.Value.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td class="text-end text-danger fw-bold">
+                                @((item.TotalAmount ?? 0).ToString("N0")) đ
+                            </td>
+                            <td class="text-center">
+                                @if (item.OrderStatus == "Pending")
+                                {
+                                    <span class="badge bg-warning text-dark">Chờ xử lý</span>
+                                }
+                                else if (item.OrderStatus == "Completed")
+                                {
+                                    <span class="badge bg-success">Hoàn thành</span>
+                                }
+                                else if (item.OrderStatus == "Cancelled")
+                                {
+                                    <span class="badge bg-danger">Đã hủy</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-info">@item.OrderStatus</span>
+                                }
+                            </td>
+                            <td>
+                                @if (item.ShippingAddress != null)
+                                {
+                                    <small>@item.ShippingAddress.AddressLine</small>
+                                }
+                                else
+                                {
+                                    <small class="text-muted">Không có thông tin</small>
+                                }
+                            </td>
+                            <td class="text-center">
+                                <a href="@Url.Action("OrderDetail", "Order", new { id = item.OrderId })" class="btn btn-sm btn-info text-white">
+                                    <i class="fa-solid fa-eye me-1"></i>Chi tiết
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center">
+            <i class="fa-solid fa-circle-info me-2"></i>Bạn chưa có đơn hàng nào hoặc không tìm thấy kết quả phù hợp.
+        </div>
+    }
+</div>
