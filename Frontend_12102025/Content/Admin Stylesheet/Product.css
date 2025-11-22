@@ -1,0 +1,579 @@
+﻿/* ===================================
+   HOMEPAGE PRODUCT PAGE STYLES
+   =================================== */
+
+/* Page Container */
+.content-wrapper {
+    max-width: 2304px;
+    padding: 2rem;
+    background: #f8f9fa;
+    min-height: 100vh;
+}
+
+/* Page Header */
+h2 {
+    color: #2c3e50;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid #3498db;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+    h2::before {
+        content: "📦";
+        font-size: 2.5rem;
+    }
+
+/* Action Bar */
+p {
+    margin-bottom: 1.5rem;
+}
+
+    p a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: #28a745;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(40, 167, 69, 0.2);
+    }
+
+        p a:hover {
+            background: #218838;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+            color: white;
+        }
+
+        p a::before {
+            content: "➕";
+            font-size: 1.2rem;
+        }
+
+/* Table Container */
+.table-container {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+/* Table Styles */
+.table {
+    max-width: 2000px;
+    width: 100px;
+    margin-bottom: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.9rem;
+}
+
+    .table thead tr {
+/*        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);*/
+    }
+
+    .table thead th {
+        color: white;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        letter-spacing: 0.5px;
+        padding: 1.2rem 1rem;
+        border: none;
+        vertical-align: middle;
+        white-space: nowrap;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+        .table thead th:first-child {
+            border-top-left-radius: 8px;
+            padding-left: 1.5rem;
+        }
+
+        .table thead th:last-child {
+            border-top-right-radius: 8px;
+            padding-right: 1.5rem;
+        }
+
+    /* Table Body */
+    .table tbody tr {
+        transition: all 0.2s ease;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+
+        .table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+    .table tbody td {
+        padding: 1rem;
+        vertical-align: middle;
+        color: #495057;
+        border: none;
+    }
+
+        .table tbody td:first-child {
+            padding-left: 1.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .table tbody td:last-child {
+            padding-right: 1.5rem;
+        }
+
+    /* Column Specific Styling */
+
+    /* Title Column */
+    .table tbody tr td:nth-child(1) {
+        max-width: 200px;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+    /* Price Column */
+    .table tbody tr td:nth-child(2) {
+        font-weight: 700;
+        color: #28a745;
+        font-size: 1rem;
+    }
+
+        .table tbody tr td:nth-child(2)::after {
+            font-weight: 600;
+        }
+
+    /* Stock Column */
+    .table tbody tr td:nth-child(3) {
+        font-weight: 600;
+    }
+
+    /* ISBN Column */
+    .table tbody tr td:nth-child(4) {
+        font-family: 'Courier New', monospace;
+        background: #f8f9fa;
+        padding: 0.5rem 0.75rem;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        color: #e83e8c;
+    }
+
+    /* Description Column */
+    .table tbody tr td:nth-child(5) {
+        max-width: 300px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: #6c757d;
+        font-size: 0.875rem;
+    }
+
+    /* Images Column */
+    .table tbody tr td:nth-child(6) {
+        color: #17a2b8;
+        font-weight: 500;
+    }
+
+    /* Publish Date Column */
+    .table tbody tr td:nth-child(7) {
+        font-size: 0.875rem;
+        color: #6c757d;
+    }
+
+    /* Author Column */
+    .table tbody tr td:nth-child(8) {
+        font-style: italic;
+        color: #6c757d;
+    }
+
+        .table tbody tr td:nth-child(8)::before {
+            content: "✍️ ";
+        }
+
+    /* Category Column */
+    .table tbody tr td:nth-child(9) {
+        display: inline-block;
+        background: #6c757d;
+        color: white;
+        padding: 0.35rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    /* Publisher Column */
+    .table tbody tr td:nth-child(10) {
+        color: #6c757d;
+        font-size: 0.875rem;
+    }
+
+        .table tbody tr td:nth-child(10)::before {
+            content: "🏢 ";
+        }
+
+    /* Action Links */
+    .table tbody td:last-child {
+        white-space: nowrap;
+    }
+
+        .table tbody td:last-child a {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            margin: 0 0.2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+            .table tbody td:last-child a:first-child {
+                background: #007bff;
+                color: white;
+            }
+
+                .table tbody td:last-child a:first-child:hover {
+                    background: #0056b3;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+                }
+
+            .table tbody td:last-child a:nth-child(2) {
+                background: #17a2b8;
+                color: white;
+            }
+
+                .table tbody td:last-child a:nth-child(2):hover {
+                    background: #138496;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 8px rgba(23, 162, 184, 0.3);
+                }
+
+            .table tbody td:last-child a:last-child {
+                background: #dc3545;
+                color: white;
+            }
+
+                .table tbody td:last-child a:last-child:hover {
+                    background: #c82333;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+                }
+
+            /* Separator between links */
+            .table tbody td:last-child a + a::before {
+                content: "";
+                display: inline-block;
+                width: 4px;
+            }
+
+    /* Empty State */
+    .table tbody tr:empty::after {
+        content: "Không có dữ liệu";
+        display: block;
+        text-align: center;
+        padding: 3rem;
+        color: #6c757d;
+        font-style: italic;
+    }
+
+/* Responsive Table */
+@media (max-width: 1400px) {
+    .table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
+        .table thead,
+        .table tbody,
+        .table tr {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+}
+
+@media (max-width: 1200px) {
+    h2 {
+        font-size: 1.75rem;
+    }
+
+    .table {
+        font-size: 0.85rem;
+        min-width: 1200px;
+    }
+
+        .table thead th {
+            font-size: 0.75rem;
+            padding: 1rem 0.75rem;
+        }
+
+        .table tbody td {
+            padding: 0.875rem 0.75rem;
+        }
+}
+
+@media (max-width: 992px) {
+    .content-wrapper {
+        padding: 1.5rem;
+    }
+
+    .table-container {
+        padding: 1rem;
+    }
+
+    .table tbody tr td:nth-child(5) {
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    h2 {
+        font-size: 1.5rem;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    p a {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .table {
+        font-size: 0.8rem;
+    }
+
+        .table thead th {
+            padding: 0.75rem 0.5rem;
+        }
+
+        .table tbody td {
+            padding: 0.75rem 0.5rem;
+        }
+
+            .table tbody td:last-child a {
+                padding: 0.35rem 0.6rem;
+                font-size: 0.75rem;
+            }
+}
+
+@media (max-width: 576px) {
+    .content-wrapper {
+        padding: 1rem;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    .table-container {
+        padding: 0.5rem;
+        border-radius: 8px;
+    }
+
+    /* Stack table on mobile */
+    .table {
+        min-width: auto;
+    }
+
+        .table thead {
+            display: none;
+        }
+
+        .table tbody tr {
+            display: block;
+            margin-bottom: 1rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1rem;
+            background: white;
+        }
+
+        .table tbody td {
+            display: block;
+            text-align: left;
+            padding: 0.5rem 0;
+            border: none;
+        }
+
+            .table tbody td::before {
+                content: attr(data-label);
+                font-weight: 600;
+                display: block;
+                margin-bottom: 0.25rem;
+                color: #2c3e50;
+                font-size: 0.75rem;
+                text-transform: uppercase;
+            }
+
+            .table tbody td:first-child,
+            .table tbody td:last-child {
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .table tbody td:last-child {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                margin-top: 1rem;
+                padding-top: 1rem;
+                border-top: 1px solid #e9ecef;
+            }
+
+                .table tbody td:last-child a {
+                    width: 100%;
+                    text-align: center;
+                    margin: 0;
+                }
+
+            .table tbody td:nth-child(9) {
+                display: inline-block;
+                width: auto;
+            }
+}
+
+/* Loading State */
+.table tbody tr.loading {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+    .table tbody tr.loading td::after {
+        content: "⏳";
+        margin-left: 0.5rem;
+    }
+
+/* Print Styles */
+@media print {
+    .content-wrapper {
+        background: white;
+        padding: 0;
+    }
+
+    p {
+        display: none;
+    }
+
+    .table-container {
+        box-shadow: none;
+        padding: 0;
+    }
+
+    .table {
+        font-size: 9pt;
+    }
+
+        .table thead th {
+            background: #2c3e50 !important;
+            color: white !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .table tbody tr:hover {
+            background: transparent !important;
+        }
+
+        .table tbody td:last-child a:first-child,
+        .table tbody td:last-child a:nth-child(2) {
+            display: none;
+        }
+
+        .table tbody td:last-child a:last-child {
+            display: none;
+        }
+}
+
+/* Accessibility */
+.table tbody td:last-child a:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* Smooth Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.table tbody tr {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Custom Scrollbar for Table */
+.table-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+    .table-container::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+/* Tooltip for long content */
+.table tbody td[title] {
+    cursor: help;
+    position: relative;
+}
+
+    .table tbody td[title]:hover::after {
+        content: attr(title);
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #2c3e50;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        white-space: normal;
+        width: max-content;
+        max-width: 300px;
+        z-index: 1000;
+        font-size: 0.875rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+/* Status Indicators */
+.table tbody tr[data-status="out-of-stock"] {
+    background: rgba(220, 53, 69, 0.05);
+}
+
+.table tbody tr[data-status="low-stock"] {
+    background: rgba(255, 193, 7, 0.05);
+}
+
+.table tbody tr[data-status="in-stock"] {
+    background: rgba(40, 167, 69, 0.02);
+}

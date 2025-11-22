@@ -4,7 +4,9 @@
     ViewBag.Title = " ";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/Admin Stylesheet/Inventory.css"/>
+</head>
 <div class="inventory-container">
     <h2>Quản lý kho hàng</h2>
     <ul class="need-import" id="inventoryTabs">
@@ -17,7 +19,7 @@
                 <span class="badge bg-danger ms-2">@Model.NeedImportBooks.Count</span>
             </button>
         </li>
-        <li class="instock">
+        <li class="nav-item" role="presentation">
             <button class="nav-link" id="in-stock-tab"
                     data-bs-toggle="tab" data-bs-target="#in-stock"
                     type="button" role="tab">

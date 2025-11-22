@@ -153,25 +153,17 @@ main {
     background: #f5f7fa;
 }
 .side-bar-container {
-    margin-left: 20px;
     margin-right: 10px;
     width: 20%;
     align-items: start;
     text-align: start;
-    background-color: #cbd5e1;
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.08);
+    background-color: rgb(252,246,221);
 }
     .side-bar{
         margin: 5px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 500;
     }
-        .side-bar h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid black;
-        }
         .side-bar ul{
             list-style: none;
             margin: 0;
@@ -185,7 +177,7 @@ main {
             border-radius: 8px;
         }
             .side-bar li .side-link:hover {
-                background: #f1f5f9;
+                background: rgb(235, 220, 160);
                 color: #1e293b;
             }
 .main-content{

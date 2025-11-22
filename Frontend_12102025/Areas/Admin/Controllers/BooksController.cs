@@ -17,7 +17,10 @@ namespace Frontend_12102025.Areas.Admin
         // GET: Admin/Books
         public ActionResult Index()
         {
-            var Books = db.BookEditions.Include(e => e.BookTitle.Author).Include(e => e.BookTitle.Category).Include(e => e.BookTitle.Publisher);
+            var Books = db.BookEditions
+                .Include(e => e.BookTitle.Author)
+                .Include(e => e.BookTitle.Category)
+                .Include(e => e.BookTitle.Publisher);
             return View(Books.ToList());
         }
 
@@ -28,12 +31,17 @@ namespace Frontend_12102025.Areas.Admin
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BookTitle Book = db.BookTitles.Find(id);
-            if (Book == null)
+            BookEdition book = db.BookEditions
+                .Include(e => e.BookTitle.Author)
+                .Include(e => e.BookTitle.Category)
+                .Include(e => e.BookTitle.Publisher)
+                .FirstOrDefault(e => e.BookTitleId == id);
+            
+            if (book == null)
             {
                 return HttpNotFound();
             }
-            return View(Book);
+            return View(book);
         }
 
         // GET: Admin/Books/Create
@@ -46,23 +54,41 @@ namespace Frontend_12102025.Areas.Admin
         }
 
         // POST: Admin/Books/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BookID,Title,AuthorID,PublisherID,CategoryID,Price,Stock,ISBN,Description,ImageURL,PublishDate")] BookTitle Book)
+        public ActionResult Create(BookEdition bookEdition, int AuthorID, int PublisherID, int CategoryID)
         {
             if (ModelState.IsValid)
             {
-                db.BookTitles.Add(Book);
+                // Tạo BookTitle trước
+                var bookTitle = new BookTitle
+                {
+                    Title = bookEdition.BookTitle.Title,
+                    AuthorId = AuthorID,
+                    PublisherId = PublisherID,
+                    CategoryId = CategoryID,
+                    Description = bookEdition.BookTitle.Description
+                };
+                
+                db.BookTitles.Add(bookTitle);
                 db.SaveChanges();
+                
+                // Sau đó tạo BookEdition với BookTitleId vừa tạo
+                bookEdition.BookTitleId = bookTitle.BookTitleId;
+                bookEdition.BookTitle = null; // Prevent duplicate insert
+                
+                db.BookEditions.Add(bookEdition);
+                db.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "AuthorName", Book.AuthorId);
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", Book.CategoryId);
-            ViewBag.PublisherID = new SelectList(db.Publishers, "PublisherID", "PublisherName", Book.PublisherId);
-            return View(Book);
+            // Nếu validation fail, giữ lại ViewBag
+            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "AuthorName", AuthorID);
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", CategoryID);
+            ViewBag.PublisherID = new SelectList(db.Publishers, "PublisherID", "PublisherName", PublisherID);
+            
+            return View(bookEdition);
         }
 
         // GET: Admin/Books/Edit/5
@@ -72,34 +98,65 @@ namespace Frontend_12102025.Areas.Admin
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BookTitle Book = db.BookTitles.Find(id);
-            if (Book == null)
+            
+            BookEdition book = db.BookEditions
+                .Include(e => e.BookTitle)
+                .FirstOrDefault(e => e.BookTitleId == id);
+            
+            if (book == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "AuthorName", Book.AuthorId);
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", Book.CategoryId);
-            ViewBag.PublisherID = new SelectList(db.Publishers, "PublisherID", "PublisherName", Book.PublisherId);
-            return View(Book);
+            
+            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "AuthorName", book.BookTitle.AuthorId);
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", book.BookTitle.CategoryId);
+            ViewBag.PublisherID = new SelectList(db.Publishers, "PublisherID", "PublisherName", book.BookTitle.PublisherId);
+            
+            return View(book);
         }
 
         // POST: Admin/Books/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BookID,Title,AuthorID,PublisherID,CategoryID,Price,Stock,ISBN,Description,ImageURL,PublishDate")] BookTitle Book)
+        public ActionResult Edit(BookEdition bookEdition, int AuthorID, int PublisherID, int CategoryID)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(Book).State = EntityState.Modified;
+                // Update BookTitle
+                var bookTitle = db.BookTitles.Find(bookEdition.BookTitleId);
+                if (bookTitle != null)
+                {
+                    bookTitle.Title = bookEdition.BookTitle.Title;
+                    bookTitle.AuthorId = AuthorID;
+                    bookTitle.PublisherId = PublisherID;
+                    bookTitle.CategoryId = CategoryID;
+                    bookTitle.Description = bookEdition.BookTitle.Description;
+                    
+                    db.Entry(bookTitle).State = EntityState.Modified;
+                }
+                
+                // Update BookEdition
+                var existingEdition = db.BookEditions.Find(bookEdition.BookEditionId);
+                if (existingEdition != null)
+                {
+                    existingEdition.ISBN = bookEdition.ISBN;
+                    existingEdition.Price = bookEdition.Price;
+                    existingEdition.Stock = bookEdition.Stock;
+                    existingEdition.PublishDate = bookEdition.PublishDate;
+                    existingEdition.CoverImage = bookEdition.CoverImage;
+                    
+                    db.Entry(existingEdition).State = EntityState.Modified;
+                }
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "AuthorName", Book.AuthorId);
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", Book.CategoryId);
-            ViewBag.PublisherID = new SelectList(db.Publishers, "PublisherID", "PublisherName", Book.PublisherId);
-            return View(Book);
+            
+            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "AuthorName", AuthorID);
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", CategoryID);
+            ViewBag.PublisherID = new SelectList(db.Publishers, "PublisherID", "PublisherName", PublisherID);
+            
+            return View(bookEdition);
         }
 
         // GET: Admin/Books/Delete/5
@@ -109,12 +166,19 @@ namespace Frontend_12102025.Areas.Admin
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BookTitle Book = db.BookTitles.Find(id);
-            if (Book == null)
+            
+            BookEdition book = db.BookEditions
+                .Include(e => e.BookTitle.Author)
+                .Include(e => e.BookTitle.Category)
+                .Include(e => e.BookTitle.Publisher)
+                .FirstOrDefault(e => e.BookTitleId == id);
+            
+            if (book == null)
             {
                 return HttpNotFound();
             }
-            return View(Book);
+            
+            return View(book);
         }
 
         // POST: Admin/Books/Delete/5
@@ -122,8 +186,22 @@ namespace Frontend_12102025.Areas.Admin
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            BookTitle Book = db.BookTitles.Find(id);
-            db.BookTitles.Remove(Book);
+            // Tìm BookEdition theo BookTitleId
+            var bookEditions = db.BookEditions.Where(e => e.BookTitleId == id).ToList();
+            
+            // Xóa tất cả BookEditions liên quan
+            foreach (var edition in bookEditions)
+            {
+                db.BookEditions.Remove(edition);
+            }
+            
+            // Xóa BookTitle
+            BookTitle bookTitle = db.BookTitles.Find(id);
+            if (bookTitle != null)
+            {
+                db.BookTitles.Remove(bookTitle);
+            }
+            
             db.SaveChanges();
             return RedirectToAction("Index");
         }

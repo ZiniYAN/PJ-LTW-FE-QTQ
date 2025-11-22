@@ -15,7 +15,7 @@
 </head>
 <body>
     @* 1. Header*@
-    <header style="width: 100%; height: 20%;">
+    <header style="width: 100%; height: 15%; margin: 0;">
         <section class="header">
             <!-- Logo -->
             <a href="/Home/HomePage" id="container-img-header"><img src="~/Image/Header/Logo.png" alt="Logo image"></a>
@@ -34,15 +34,14 @@
     <main>
         <div class="side-bar-container">
             <aside class="side-bar">
-                <h3>Admin Route</h3>
                 <ul>
                     <li>@Html.ActionLink("📊 Dashboard", "Index", "Home", null, new {@class = "side-link"})<li>
                     <li>@Html.ActionLink("📋 Category", "Index", "Categories", null, new {@class="side-link"})</li>
                     <li>@Html.ActionLink("📚 Product", "Index", "Books", null,new { @class = "side-link" })</li>
                     <li>@Html.ActionLink("📦 Inventory", "Index", "Inventory", null, new {@class = "side-link"})</li>
-                    <li>User</li>
-                    <li>Customer</li>
-                    <li>Order</li>
+                    <li>@Html.ActionLink("👤 User", "Index", "Users", null, new {@class = "side-link"})</li>
+                    <li>@Html.ActionLink("🧑‍🦱 Customer", "Index", "Customers", null, new { @class = "side-link" })</li>
+                    <li>@Html.ActionLink("💵 Order", "Index", "", null, new { @class = "side-link" })</li>
                 </ul>
             </aside>
         </div>

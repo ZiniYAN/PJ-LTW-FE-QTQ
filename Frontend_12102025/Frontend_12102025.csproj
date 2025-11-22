@@ -123,6 +123,11 @@
     <Content Include="Content\aboutus.css" />
     <Content Include="Content\Admin Stylesheet\AdminLayout.css" />
     <Content Include="Content\Admin Stylesheet\Category.css" />
+    <Content Include="Content\Admin Stylesheet\Customer.css" />
+    <Content Include="Content\Admin Stylesheet\Inventory.css" />
+    <Content Include="Content\Admin Stylesheet\Order.css" />
+    <Content Include="Content\Admin Stylesheet\Product.css" />
+    <Content Include="Content\Admin Stylesheet\User.css" />
     <Content Include="Content\contactus.css" />
     <Content Include="Content\Detail.css" />
     <Content Include="Content\OrderHistory.css" />
@@ -148,8 +153,11 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\BooksController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CustomersController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\InventoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrdersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Customer\CustomerAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -261,6 +269,16 @@
     <Content Include="Areas\Admin\Views\Books\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Inventory\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Customers\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Customers\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Customers\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Customers\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Customers\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Orders\Index.cshtml" />
     <None Include="Areas\Admin\Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Scripts\Detail.js" />
     <Content Include="Scripts\Header.js" />
@@ -272,6 +290,11 @@
     <Content Include="Models\BookStore.edmx.diagram">
       <DependentUpon>BookStore.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\Users\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
