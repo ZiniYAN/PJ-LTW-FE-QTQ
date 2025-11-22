@@ -57,6 +57,9 @@
         @Html.AntiForgeryToken()
         @Html.HiddenFor(m => m.UserId)
         @Html.HiddenFor(m => m.Username)
+        @Html.HiddenFor(m => m.FullName)
+        @Html.HiddenFor(m => m.Email)
+        @Html.HiddenFor(m => m.Phone)
         @Html.HiddenFor(m => m.SubTotal)
         @Html.HiddenFor(m => m.ShippingFee)
         @Html.HiddenFor(m => m.DiscountAmount, new { id = "hdnDiscountAmount" })
@@ -185,21 +188,21 @@
                             </label>
                         </div>
                         @*<div class="form-check mb-2">
-                            @Html.RadioButtonFor(m => m.PaymentMethod, "Banking",
-                                new { @class = "form-check-input", id = "paymentBanking" })
-                            <label class="form-check-label" for="paymentBanking">
-                                <i class="fas fa-university text-primary"></i>
-                                <strong>Chuyển khoản ngân hàng</strong>
-                            </label>
-                        </div>
-                        <div class="form-check mb-2">
-                            @Html.RadioButtonFor(m => m.PaymentMethod, "Momo",
-                                new { @class = "form-check-input", id = "paymentMomo" })
-                            <label class="form-check-label" for="paymentMomo">
-                                <i class="fas fa-mobile-alt text-danger"></i>
-                                <strong>Ví điện tử Momo</strong>
-                            </label>
-                        </div>*@
+                                @Html.RadioButtonFor(m => m.PaymentMethod, "Banking",
+                                    new { @class = "form-check-input", id = "paymentBanking" })
+                                <label class="form-check-label" for="paymentBanking">
+                                    <i class="fas fa-university text-primary"></i>
+                                    <strong>Chuyển khoản ngân hàng</strong>
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                @Html.RadioButtonFor(m => m.PaymentMethod, "Momo",
+                                    new { @class = "form-check-input", id = "paymentMomo" })
+                                <label class="form-check-label" for="paymentMomo">
+                                    <i class="fas fa-mobile-alt text-danger"></i>
+                                    <strong>Ví điện tử Momo</strong>
+                                </label>
+                            </div>*@
                         @Html.ValidationMessageFor(m => m.PaymentMethod, "", new { @class = "text-danger small d-block mt-2" })
                     </div>
                 </div>

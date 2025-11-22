@@ -45,7 +45,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
             model.NewProducts = newProductsQuery.ToPagedList(pageNumber, pageSize);
             model.SearchTerm = SearchTerm;
 
-            // ✅ THÊM: Sản phẩm theo từng category
+            // Sản phẩm theo từng category
             ViewBag.KhoaHocProducts = db.BookEditions
                 .Where(b => b.BookTitle.Category.CategoryName == "Khoa học" && b.Stock > 0)
                 .OrderByDescending(b => b.PublishDate)

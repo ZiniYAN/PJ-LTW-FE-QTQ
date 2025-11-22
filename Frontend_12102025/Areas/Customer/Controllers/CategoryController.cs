@@ -17,7 +17,6 @@ namespace Frontend_12102025.Areas.Customer.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-
             // Dictionary mapping URL slug → Tên tiếng Việt trong DB
             var categoryMapping = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {

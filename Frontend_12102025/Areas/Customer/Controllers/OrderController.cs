@@ -79,9 +79,23 @@ namespace Frontend_12102025.Areas.Customer.Controllers
         [Authorize]
         public ActionResult Checkout(CheckoutVM model)
         {
-            // Validate address
-            if (model.UseNewAddress)
+            // Nếu dùng địa chỉ cũ -> Bỏ qua lỗi validate của form nhập mới
+            if (!model.UseNewAddress)
             {
+                ModelState.Remove("NewAddress.RecipientName");
+                ModelState.Remove("NewAddress.AddressLine");
+                ModelState.Remove("NewAddress.Phone");
+
+                if (!model.SelectedAddressId.HasValue)
+                {
+                    ModelState.AddModelError("", "Vui lòng chọn địa chỉ giao hàng");
+                }
+            }
+            // Nếu dùng địa chỉ mới -> Bỏ qua lỗi validate của form chọn cũ
+            else
+            {
+                ModelState.Remove("SelectedAddressId");
+
                 if (string.IsNullOrEmpty(model.NewAddress?.RecipientName) ||
                     string.IsNullOrEmpty(model.NewAddress?.AddressLine) ||
                     string.IsNullOrEmpty(model.NewAddress?.Phone))
@@ -89,38 +103,14 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                     ModelState.AddModelError("", "Vui lòng điền đầy đủ thông tin địa chỉ mới");
                 }
             }
-            else if (!model.SelectedAddressId.HasValue)
-            {
-                ModelState.AddModelError("", "Vui lòng chọn địa chỉ giao hàng");
-            }
 
+            // --- BƯỚC 2: KIỂM TRA MODEL STATE ---
             if (!ModelState.IsValid)
             {
-                // Reload data
-                var cartService = GetCartService();
-                var cart = cartService.GetCart();
-                model.CartItems = cart.Items.ToList();
-                model.SubTotal = cart.TotalValue();
-                model.ShippingFee = CalculateShippingFee(model.SubTotal);
-                model.TotalAmount = model.SubTotal + model.ShippingFee - model.DiscountAmount;
-
-                var user = db.Users.Find(model.UserId);
-                model.SavedAddresses = db.ShippingAddresses
-                    .Where(a => a.UserId == model.UserId)
-                    .Select(a => new ShippingAddressVM
-                    {
-                        AddressId = a.AddressId,
-                        RecipientName = a.RecipientName,
-                        AddressLine = a.AddressLine,
-                        Phone = a.Phone,
-                        IsDefault = a.IsDefault ?? false
-                    })
-                    .OrderByDescending(a => a.IsDefault)
-                    .ToList();
-
                 return View(model);
             }
 
+            // --- BƯỚC 3: XỬ LÝ GIAO DỊCH ---
             using (var transaction = db.Database.BeginTransaction())
             {
                 try
@@ -134,7 +124,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                         return RedirectToAction("Index", "Cart");
                     }
 
-                    // 1. Xử lý địa chỉ giao hàng
+                    // 3.1. Xử lý địa chỉ giao hàng
                     int shippingAddressId;
 
                     if (model.UseNewAddress)
@@ -148,15 +138,11 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                             IsDefault = model.NewAddress.IsDefault
                         };
 
-                        // Nếu đặt làm mặc định, bỏ mặc định các địa chỉ khác
+                        // Nếu đặt làm mặc định -> Reset các cái cũ
                         if (newAddress.IsDefault == true)
                         {
-                            var otherAddresses = db.ShippingAddresses
-                                .Where(a => a.UserId == model.UserId);
-                            foreach (var addr in otherAddresses)
-                            {
-                                addr.IsDefault = false;
-                            }
+                            var otherAddresses = db.ShippingAddresses.Where(a => a.UserId == model.UserId);
+                            foreach (var addr in otherAddresses) { addr.IsDefault = false; }
                         }
 
                         db.ShippingAddresses.Add(newAddress);
@@ -168,30 +154,26 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                         shippingAddressId = model.SelectedAddressId.Value;
                     }
 
-                    // 2. Kiểm tra và áp dụng coupon
+                    // 3.2. Xử lý Coupon (Check lại lần cuối cho chắc)
                     int? couponId = null;
                     decimal discountValue = 0;
 
                     if (!string.IsNullOrEmpty(model.CouponCode))
                     {
-                        var coupon = db.Coupons
-                            .FirstOrDefault(c => c.Code == model.CouponCode
-                                && c.StartDate <= DateTime.Now
-                                && c.EndDate >= DateTime.Now);
-
+                        var coupon = db.Coupons.FirstOrDefault(c => c.Code == model.CouponCode && c.StartDate <= DateTime.Now && c.EndDate >= DateTime.Now);
                         if (coupon != null)
                         {
                             couponId = coupon.CouponId;
-                            discountValue = coupon.DiscountValue;
+                            discountValue = coupon.DiscountValue; // Hoặc logic tính %
                         }
                     }
 
-                    // 3. Tính tổng tiền
+                    // 3.3. Tính toán tiền
                     decimal subTotal = cart.TotalValue();
                     decimal shippingFee = CalculateShippingFee(subTotal);
                     decimal totalAmount = subTotal + shippingFee - discountValue;
 
-                    // 4. Tạo Order
+                    // 3.4. Tạo Order
                     var order = new Order
                     {
                         UserId = model.UserId,
@@ -205,24 +187,15 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                     };
 
                     db.Orders.Add(order);
-                    db.SaveChanges(); // Save để lấy OrderId
+                    db.SaveChanges();
 
-                    // 5. Tạo OrderDetails và cập nhật Stock
+                    // 3.5. Tạo OrderDetail & Trừ Stock
                     foreach (var item in cart.Items)
                     {
                         var bookEdition = db.BookEditions.Find(item.BookEditionId);
+                        if (bookEdition == null) throw new Exception($"Không tìm thấy sách: {item.Title}");
+                        if (bookEdition.Stock < item.Quantity) throw new Exception($"Sách '{item.Title}' không đủ hàng (Còn: {bookEdition.Stock})");
 
-                        if (bookEdition == null)
-                        {
-                            throw new Exception($"Không tìm thấy sách: {item.Title}");
-                        }
-
-                        if (bookEdition.Stock < item.Quantity)
-                        {
-                            throw new Exception($"Sách '{item.Title}' không đủ hàng. Còn lại: {bookEdition.Stock}");
-                        }
-
-                        // Tạo OrderDetail
                         var orderDetail = new OrderDetail
                         {
                             OrderId = order.OrderId,
@@ -232,27 +205,21 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                         };
                         db.OrderDetails.Add(orderDetail);
 
-                        // Giảm stock
                         bookEdition.Stock -= item.Quantity;
                         db.Entry(bookEdition).State = EntityState.Modified;
                     }
 
-                    // 6. Cập nhật thông tin Customer
+                    // 3.6. Update Customer Stats
                     var customer = db.Customers.FirstOrDefault(c => c.UserId == model.UserId);
                     if (customer != null)
                     {
                         customer.TotalOrders = (customer.TotalOrders ?? 0) + 1;
                         customer.TotalSpent = (customer.TotalSpent ?? 0) + totalAmount;
                         customer.LastOrderDate = DateTime.Now;
-                        customer.UpdatedAt = DateTime.Now;
 
-                        // Cập nhật CustomerType dựa trên tổng chi tiêu
-                        if (customer.TotalSpent >= 10000000) // 10 triệu
-                            customer.CustomerType = "VIP";
-                        else if (customer.TotalSpent >= 5000000) // 5 triệu
-                            customer.CustomerType = "Regular";
-                        else
-                            customer.CustomerType = "New";
+                        // Update Rank logic
+                        if (customer.TotalSpent >= 10000000) customer.CustomerType = "VIP";
+                        else if (customer.TotalSpent >= 5000000) customer.CustomerType = "Regular";
 
                         db.Entry(customer).State = EntityState.Modified;
                     }
@@ -260,40 +227,20 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                     db.SaveChanges();
                     transaction.Commit();
 
-                    // Xóa giỏ hàng
+                    // 3.7. Clear giỏ hàng & Redirect
                     cartService.ClearCart();
-
                     TempData["SuccessMessage"] = "Đặt hàng thành công!";
                     return RedirectToAction("OrderSuccess", new { id = order.OrderId });
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    TempData["Message"] = "Có lỗi xảy ra: " + ex.Message;
+                    ModelState.AddModelError("", "Lỗi xử lý đơn hàng: " + ex.Message);
 
-                    // Reload data
-                    var cart = GetCartService().GetCart();
-                    model.CartItems = cart.Items.ToList();
-                    model.SubTotal = cart.TotalValue();
-                    model.ShippingFee = CalculateShippingFee(model.SubTotal);
-                    model.TotalAmount = model.SubTotal + model.ShippingFee - model.DiscountAmount;
-
-                    model.SavedAddresses = db.ShippingAddresses
-                        .Where(a => a.UserId == model.UserId)
-                        .Select(a => new ShippingAddressVM
-                        {
-                            AddressId = a.AddressId,
-                            RecipientName = a.RecipientName,
-                            AddressLine = a.AddressLine,
-                            Phone = a.Phone,
-                            IsDefault = a.IsDefault ?? false
-                        })
-                        .OrderByDescending(a => a.IsDefault)
-                        .ToList();
-
+                    // RELOAD DATA NẾU CÓ LỖI EXCEPTION
                     return View(model);
                 }
-            }
+            }  
         }
 
         // POST: Apply Coupon (AJAX)
@@ -364,7 +311,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
 
         // GET: My Orders
         [Authorize]
-        public ActionResult MyOrders(string orderCode = null, string bookTitle = null)
+        public ActionResult MyOrder(string orderCode = null, string bookTitle = null)
         {
             var user = db.Users.SingleOrDefault(u => u.Username == User.Identity.Name);
             if (user == null)
