@@ -7,59 +7,120 @@
 
 @section styles {
     <style>
-        .register-container {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .register-wrapper {
+            min-height: 80vh;
             display: flex;
-            align-items: center;
-            padding: 40px 0;
+            justify-content: center;
+            padding-top: 60px;
+            padding-bottom: 60px;
+            background-color: #fff;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
 
-        .register-card {
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            background: white;
+        .simple-register-container {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
         }
 
-        .register-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 15px 15px 0 0;
-            padding: 30px;
+        .register-title {
+            font-size: 30px;
+            font-weight: 700;
+            color: #333;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
             text-align: center;
         }
 
-            .register-header h2 {
-                margin: 0;
-                font-weight: 700;
-            }
-
-        .register-body {
-            padding: 40px;
+        .custom-label {
+            display: block;
+            font-weight: 700;
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 8px;
         }
 
-        .form-control:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
-        }
-
-        .btn-register {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            padding: 12px 40px;
+        .custom-input {
+            width: 100%;
+            height: 45px;
+            padding: 10px 15px;
             font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            border-radius: 0;
+            box-shadow: none;
+            color: #555;
+            margin-bottom: 5px;
         }
 
-            .btn-register:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            .custom-input:focus {
+                border-color: #aaa;
+                outline: none;
+                box-shadow: none;
             }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .btn-orange {
+            background-color: #f29c58;
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 12px 35px;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-transform: uppercase;
+            width: 100%;
+            display: block;
+        }
+
+            .btn-orange:hover {
+                background-color: #e08b4b;
+                color: white;
+            }
+
+        .login-link {
+            color: #4186a5;
+            text-decoration: none;
+            font-size: 15px;
+            margin-top: 15px;
+            display: inline-block;
+        }
+
+            .login-link:hover {
+                text-decoration: underline;
+            }
+
+        .text-danger {
+            font-size: 13px;
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* Password Toggle & Strength */
+        .password-wrapper {
+            position: relative;
+        }
+
+        .toggle-password-btn {
+            position: absolute;
+            right: 10px;
+            top: 8px;
+            background: none;
+            border: none;
+            color: #777;
+            cursor: pointer;
+            padding: 5px;
+        }
 
         .password-strength {
-            height: 5px;
-            border-radius: 3px;
+            height: 4px;
+            border-radius: 2px;
             margin-top: 5px;
             transition: all 0.3s;
         }
@@ -79,249 +140,165 @@
             width: 100%;
         }
 
-        .validation-icon {
-            position: absolute;
-            right: 10px;
-            top: 38px;
+        /* Custom Radio for Gender */
+        .gender-options {
+            display: flex;
+            gap: 20px;
+            padding-top: 5px;
         }
 
-        .input-group-relative {
-            position: relative;
+        .gender-option label {
+            font-weight: normal;
+            margin-left: 5px;
+            cursor: pointer;
         }
     </style>
 }
 
-<div class="register-container">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 col-md-10">
-                <div class="register-card">
-                    <div class="register-header">
-                        <h2><i class="fas fa-user-plus"></i> Đăng ký tài khoản</h2>
-                        <p class="mb-0">Tạo tài khoản để mua sắm dễ dàng hơn</p>
+<div class="register-wrapper">
+    <div class="simple-register-container">
+        <h1 class="register-title">Register</h1>
+
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show mb-4">
+                @TempData["Message"]
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+        }
+
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "needs-validation", id = "registerForm", novalidate = "novalidate" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="row">
+                @* Username *@
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="custom-label" for="txtUsername">Username *</label>
+                        @Html.TextBoxFor(m => m.Username, new { @class = "custom-input", id = "txtUsername" })
+                        <small id="usernameStatus" class="form-text"></small>
+                        @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
                     </div>
+                </div>
 
-                    <div class="register-body">
-                        @if (TempData["Message"] != null)
-                        {
-                            <div class="alert alert-danger alert-dismissible fade show">
-                                @TempData["Message"]
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            </div>
-                        }
-
-                        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "needs-validation", id = "registerForm", novalidate = "novalidate" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
-
-                            <div class="row">
-                                @* Username *@
-                                <div class="col-md-6">
-                                    <div class="form-group input-group-relative">
-                                        @Html.LabelFor(m => m.Username, new { @class = "font-weight-bold" })
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                            </div>
-                                            @Html.TextBoxFor(m => m.Username, new
-                                            {
-                                                @class = "form-control",
-                                                placeholder = "Nhập tên đăng nhập",
-                                                id = "txtUsername"
-                                            })
-                                        </div>
-                                        <small id="usernameStatus" class="form-text"></small>
-                                        @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger small" })
-                                    </div>
-                                </div>
-
-                                @* Full Name *@
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.FullName, new { @class = "font-weight-bold" })
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-id-card"></i></span>
-                                            </div>
-                                            @Html.TextBoxFor(m => m.FullName, new
-                                            {
-                                                @class = "form-control",
-                                                placeholder = "Nhập họ và tên"
-                                            })
-                                        </div>
-                                        @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger small" })
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                @* Email *@
-                                <div class="col-md-6">
-                                    <div class="form-group input-group-relative">
-                                        @Html.LabelFor(m => m.Email, new { @class = "font-weight-bold" })
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                            </div>
-                                            @Html.TextBoxFor(m => m.Email, new
-                                            {
-                                                @class = "form-control",
-                                                placeholder = "example@email.com",
-                                                type = "email",
-                                                id = "txtEmail"
-                                            })
-                                        </div>
-                                        <small id="emailStatus" class="form-text"></small>
-                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger small" })
-                                    </div>
-                                </div>
-
-                                @* Phone *@
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.Phone, new { @class = "font-weight-bold" })
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                                            </div>
-                                            @Html.TextBoxFor(m => m.Phone, new
-                                            {
-                                                @class = "form-control",
-                                                placeholder = "0123456789"
-                                            })
-                                        </div>
-                                        @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger small" })
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                @* Password *@
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.Password, new { @class = "font-weight-bold" })
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                            </div>
-                                            @Html.PasswordFor(m => m.Password, new
-                                            {
-                                                @class = "form-control",
-                                                placeholder = "Nhập mật khẩu",
-                                                id = "txtPassword"
-                                            })
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                                                    <i class="fas fa-eye"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div id="passwordStrength" class="password-strength"></div>
-                                        <small class="form-text text-muted">
-                                            Mật khẩu phải có ít nhất 6 ký tự, bao gồm chữ hoa, chữ thường và số
-                                        </small>
-                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger small" })
-                                    </div>
-                                </div>
-
-                                @* Confirm Password *@
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "font-weight-bold" })
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                            </div>
-                                            @Html.PasswordFor(m => m.ConfirmPassword, new
-                                            {
-                                                @class = "form-control",
-                                                placeholder = "Nhập lại mật khẩu",
-                                                id = "txtConfirmPassword"
-                                            })
-                                        </div>
-                                        <small id="confirmPasswordStatus" class="form-text"></small>
-                                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger small" })
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                @* Date of Birth *@
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.DateOfBirth, new { @class = "font-weight-bold" })
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                            </div>
-                                            @Html.TextBoxFor(m => m.DateOfBirth, new
-                                            {
-                                                @class = "form-control",
-                                                type = "date",
-                                                max = DateTime.Now.AddYears(-13).ToString("yyyy-MM-dd")
-                                            })
-                                        </div>
-                                        @Html.ValidationMessageFor(m => m.DateOfBirth, "", new { @class = "text-danger small" })
-                                    </div>
-                                </div>
-
-                                @* Gender *@
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @Html.LabelFor(m => m.Gender, new { @class = "font-weight-bold" })
-                                        <div class="mt-2">
-                                            <div class="form-check form-check-inline">
-                                                @Html.RadioButtonFor(m => m.Gender, "Nam", new { @class = "form-check-input", id = "genderMale" })
-                                                <label class="form-check-label" for="genderMale">
-                                                    <i class="fas fa-mars text-primary"></i> Nam
-                                                </label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                @Html.RadioButtonFor(m => m.Gender, "Nữ", new { @class = "form-check-input", id = "genderFemale" })
-                                                <label class="form-check-label" for="genderFemale">
-                                                    <i class="fas fa-venus text-danger"></i> Nữ
-                                                </label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                @Html.RadioButtonFor(m => m.Gender, "Khác", new { @class = "form-check-input", id = "genderOther" })
-                                                <label class="form-check-label" for="genderOther">
-                                                    <i class="fas fa-transgender text-info"></i> Khác
-                                                </label>
-                                            </div>
-                                        </div>
-                                        @Html.ValidationMessageFor(m => m.Gender, "", new { @class = "text-danger small" })
-                                    </div>
-                                </div>
-                            </div>
-                            @* Submit Button *@
-                            <div class="form-group text-center mt-4">
-                                <button type="submit" class="btn btn-primary btn-register btn-lg btn-block">
-                                    <i class="fas fa-user-plus"></i> Đăng ký
-                                </button>
-                            </div>
-
-                            <div class="text-center">
-                                <p class="mb-0">
-                                    Đã có tài khoản?
-                                    @Html.ActionLink("Đăng nhập ngay", "Login", "Account",
-                                        new { area = "Customer" },
-                                        new { @class = "font-weight-bold" })
-                                </p>
-                            </div>
-
-                        }
+                @* Full Name *@
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="custom-label" for="FullName">Full Name *</label>
+                        @Html.TextBoxFor(m => m.FullName, new { @class = "custom-input" })
+                        @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
-        </div>
+
+            <div class="row">
+                @* Email *@
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="custom-label" for="txtEmail">Email address *</label>
+                        @Html.TextBoxFor(m => m.Email, new { @class = "custom-input", type = "email", id = "txtEmail" })
+                        <small id="emailStatus" class="form-text"></small>
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @* Phone *@
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="custom-label" for="Phone">Phone number *</label>
+                        @Html.TextBoxFor(m => m.Phone, new { @class = "custom-input" })
+                        @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                @* Password *@
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="custom-label" for="txtPassword">Password *</label>
+                        <div class="password-wrapper">
+                            @Html.PasswordFor(m => m.Password, new { @class = "custom-input", id = "txtPassword", style = "padding-right: 40px;" })
+                            <button type="button" id="togglePassword" class="toggle-password-btn">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div id="passwordStrength" class="password-strength"></div>
+                        <small class="text-muted mt-1 d-block" style="font-size: 12px;">
+                            Min 6 characters, including uppercase, lowercase and number
+                        </small>
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @* Confirm Password *@
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="custom-label" for="txtConfirmPassword">Confirm Password *</label>
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "custom-input", id = "txtConfirmPassword" })
+                        <small id="confirmPasswordStatus" class="form-text"></small>
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                @* Date of Birth *@
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="custom-label" for="DateOfBirth">Date of Birth</label>
+                        @Html.TextBoxFor(m => m.DateOfBirth, "{0:dd/MM/yyyy}", new { @class = "form-control", type = "text", placeholder = "dd/mm/yyyy (VD: 04/04/2006)" })
+                        @Html.ValidationMessageFor(m => m.DateOfBirth, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @* Gender *@
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="custom-label">Gender</label>
+                        <div class="gender-options">
+                            <div class="gender-option">
+                                @Html.RadioButtonFor(m => m.Gender, "Nam", new { id = "genderMale" })
+                                <label for="genderMale">Male</label>
+                            </div>
+                            <div class="gender-option">
+                                @Html.RadioButtonFor(m => m.Gender, "Nữ", new { id = "genderFemale" })
+                                <label for="genderFemale">Female</label>
+                            </div>
+                            <div class="gender-option">
+                                @Html.RadioButtonFor(m => m.Gender, "Khác", new { id = "genderOther" })
+                                <label for="genderOther">Other</label>
+                            </div>
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Gender, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            @* Submit Button *@
+            <div class="form-group mt-4">
+                <button type="submit" class="btn-orange">
+                    Register
+                </button>
+            </div>
+
+            <div class="text-center">
+                <p class="mb-0">
+                    Already have an account?
+                    @Html.ActionLink("Log in", "Login", "Account",
+                        new { area = "Customer" },
+                        new { @class = "login-link" })
+                </p>
+            </div>
+        }
     </div>
 </div>
 
 @section scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-<script>
+    <script>
         $(document).ready(function() {
             // Toggle password visibility
             $('#togglePassword').click(function() {
@@ -368,10 +345,10 @@
 
                 if (confirmPassword.length > 0) {
                     if (password === confirmPassword) {
-                        status.html('<i class="fas fa-check-circle text-success"></i> Mật khẩu khớp')
+                        status.html('<span class="text-success" style="font-size:13px;">Passwords match</span>')
                             .removeClass('text-danger').addClass('text-success');
                     } else {
-                        status.html('<i class="fas fa-times-circle text-danger"></i> Mật khẩu không khớp')
+                        status.html('<span class="text-danger" style="font-size:13px;">Passwords do not match</span>')
                             .removeClass('text-success').addClass('text-danger');
                     }
                 } else {
@@ -394,11 +371,9 @@
                             data: { username: username },
                             success: function(response) {
                                 if (response.available) {
-                                    status.html('<i class="fas fa-check-circle text-success"></i> ' + response.message)
-                                        .removeClass('text-danger').addClass('text-success');
+                                    status.html('<span class="text-success" style="font-size:13px;">' + response.message + '</span>');
                                 } else {
-                                    status.html('<i class="fas fa-times-circle text-danger"></i> ' + response.message)
-                                        .removeClass('text-success').addClass('text-danger');
+                                    status.html('<span class="text-danger" style="font-size:13px;">' + response.message + '</span>');
                                 }
                             }
                         });
@@ -423,11 +398,9 @@
                             data: { email: email },
                             success: function(response) {
                                 if (response.available) {
-                                    status.html('<i class="fas fa-check-circle text-success"></i> ' + response.message)
-                                        .removeClass('text-danger').addClass('text-success');
+                                    status.html('<span class="text-success" style="font-size:13px;">' + response.message + '</span>');
                                 } else {
-                                    status.html('<i class="fas fa-times-circle text-danger"></i> ' + response.message)
-                                        .removeClass('text-success').addClass('text-danger');
+                                    status.html('<span class="text-danger" style="font-size:13px;">' + response.message + '</span>');
                                 }
                             }
                         });
@@ -437,5 +410,5 @@
                 }
             });
         });
-</script>
+    </script>
 }

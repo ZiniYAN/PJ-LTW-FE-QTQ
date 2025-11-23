@@ -6,7 +6,7 @@
 }
 
 <div class="container py-5">
-    <h2 class="mb-4 text-center"><i class="fa-solid fa-clock-rotate-left me-2"></i>Lịch sử mua hàng</h2>
+    <h2 class="mb-4 text-center"><i class="fa-solid  me-2"></i>Lịch sử mua hàng</h2>
 
     <!-- Form tìm kiếm -->
     <div class="card mb-4 shadow-sm">
@@ -17,18 +17,14 @@
                     <label class="form-label fw-bold">Mã đơn hàng</label>
                     <input type="text" name="orderCode" class="form-control" placeholder="Nhập mã đơn..." value="@Request.QueryString["orderCode"]" />
                 </div>
-                @*<div class="col-md-4">
-                    <label class="form-label fw-bold">Tên sách</label>
-                    <input type="text" name="bookTitle" class="form-control" placeholder="Nhập tên sách..." value="@Request.QueryString["bookTitle"]" />
-                </div>*@
                 <div class="col-md-2">
                     <button type="submit" class="btn btn-primary w-100">
-                        <i class="fa-solid fa-magnifying-glass me-2"></i>Tìm kiếm
+                        <i class="fa-solid me-2"></i>Tìm kiếm
                     </button>
                 </div>
                 <div class="col-md-2">
-                    <a href="@Url.Action("MyOrzder", "Order")" class="btn btn-outline-secondary w-100">
-                        <i class="fa-solid fa-rotate-right me-2"></i>Làm mới
+                    <a href="@Url.Action("MyOrder", "Order")" class="btn btn-outline-secondary w-100">
+                        <i class="fa-solid me-2"></i>Làm mới
                     </a>
                 </div>
             }
@@ -89,7 +85,7 @@
                             </td>
                             <td class="text-center">
                                 <a href="@Url.Action("OrderDetail", "Order", new { id = item.OrderId })" class="btn btn-sm btn-info text-white">
-                                    <i class="fa-solid fa-eye me-1"></i>Chi tiết
+                                    <i class="fa-solid me-1"></i>Chi tiết
                                 </a>
                             </td>
                         </tr>
