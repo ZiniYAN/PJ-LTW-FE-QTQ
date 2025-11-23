@@ -22,7 +22,6 @@
                     <th class="table-header">@Html.DisplayNameFor(model => model.TotalOrders)</th>
                     <th class="table-header">@Html.DisplayNameFor(model => model.TotalSpent)</th>
                     <th class="table-header">@Html.DisplayNameFor(model => model.LastOrderDate)</th>
-                    <th class="table-header">@Html.DisplayNameFor(model => model.CustomerStatus)</th>
                     <th class="table-header">@Html.DisplayNameFor(model => model.CreatedAt)</th>
                     <th class="table-header">@Html.DisplayNameFor(model => model.UpdatedAt)</th>
                     <th class="table-header">Actions</th>
@@ -52,11 +51,6 @@
                         </td>
                         <td class="table-cell cell-date">
                             @(item.LastOrderDate.HasValue ? item.LastOrderDate.Value.ToString("dd/MM/yyyy") : "N/A")
-                        </td>
-                        <td class="table-cell">
-                            <span class="cell-status @(item.CustomerStatus == "Active" ? "status-active" : "status-inactive")">
-                                @Html.DisplayFor(modelItem => item.CustomerStatus)
-                            </span>
                         </td>
                         <td class="table-cell cell-date">
                             @(item.CreatedAt.HasValue ? item.CreatedAt.Value.ToString("dd/MM/yyyy") : "N/A")

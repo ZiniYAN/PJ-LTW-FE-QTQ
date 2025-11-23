@@ -77,15 +77,17 @@
 
     .btn-edit:hover {
         background: #5C6BC0;
+        color: white;
         box-shadow: 0 4px 8px rgba(121, 134, 203, 0.3);
     }
 
 .btn-back {
     background: #e5e5e5;
-    color: #333;
+    color: white;
 }
 
     .btn-back:hover {
+        color: white;
         background: #d5d5d5;
     }
 
