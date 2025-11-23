@@ -4,6 +4,7 @@
     max-width: 1632px;
     margin-left: auto;
     margin-right: auto;
+    padding: 0 10px;
 }
 
 .slider-area {
@@ -27,60 +28,286 @@
     flex-shrink: 0;
 }
 
-/* Grid sản phẩm căn giữa */
 .list-container {
     max-width: 1632px;
     margin-left: auto;
     margin-right: auto;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 24px;
-    overflow-x: auto;
     padding-bottom: 8px;
-    scroll-snap-type: x mandatory;
-    justify-items: center; /* căn giữa ngang từng item */
-    align-items: center; /* căn giữa dọc từng item */
 }
 
-
 .fproduct-item {
-    width: 80%;
-    min-width: 220px;
+    width: 100%;
+    min-width: 0;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 3px 8px rgba(0,0,0,0.06);
     padding: 16px;
-    margin-bottom: 8px;
-    scroll-snap-align: start;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center; /* căn giữa nội dung trong sản phẩm */
+    justify-content: space-between;
+    height: 100%;
     min-height: 410px;
     transition: box-shadow 0.2s;
 }
+
+    .fproduct-item:hover {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
 
     .fproduct-item img {
         width: 100%;
         aspect-ratio: 3 / 4;
         object-fit: cover;
         border-radius: 6px;
+        margin-bottom: 10px;
     }
 
-/* Responsive cho iPad */
+.product-buttons-compact {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    margin-top: 12px;
+}
+
+    .product-buttons-compact a,
+    .product-buttons-compact button,
+    .product-buttons-compact .btn {
+        flex: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 4px;
+        font-size: 13px;
+        font-weight: 600;
+        border-radius: 4px;
+        text-align: center;
+        text-decoration: none;
+        border: 1px solid transparent;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.3s ease;
+    }
+
+        .product-buttons-compact button[type="submit"],
+        .product-buttons-compact .btn-primary {
+            background-color: #f29c58;
+            color: white;
+            border-color: #f29c58;
+        }
+
+            .product-buttons-compact button[type="submit"]:hover,
+            .product-buttons-compact .btn-primary:hover {
+                background-color: #e08b4b;
+            }
+
+        .product-buttons-compact a:not(.btn-primary),
+        .product-buttons-compact .btn-secondary {
+            background-color: #f8f9fa;
+            color: #333;
+            border-color: #ddd;
+        }
+
+            .product-buttons-compact a:not(.btn-primary):hover,
+            .product-buttons-compact .btn-secondary:hover {
+                background-color: #e2e6ea;
+            }
+
+.prodName {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin: 8px 0 4px 0;
+    text-align: center;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.4em;
+    max-height: 2.9em;
+}
+
+.prodCate {
+    font-size: 0.9em;
+    color: #777;
+    margin-bottom: 4px;
+    text-align: center;
+}
+
+.prodPrice {
+    font-weight: bold;
+    color: #d9534f;
+    font-size: 1.1em;
+    text-align: center;
+    margin: 6px 0;
+}
+
 @media (max-width: 900px) {
     .list-container {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
     }
 
-    .fproduct-item img {
-        height: 170px;
+    .fproduct-item {
+        min-height: 380px;
+        padding: 14px;
+    }
+
+    .prodName {
+        font-size: 1em;
+    }
+
+    .prodPrice {
+        font-size: 1em;
     }
 }
 
-/* Responsive cho mobile */
 @media (max-width: 600px) {
+    .listProd {
+        padding: 0 8px;
+    }
+
     .list-container {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .fproduct-item {
+        min-height: 360px;
+        padding: 12px;
+    }
+
+        .fproduct-item img {
+            margin-bottom: 8px;
+        }
+
+    .prodName {
+        font-size: 0.95em;
+        margin: 6px 0 3px 0;
+    }
+
+    .prodCate {
+        font-size: 0.85em;
+        margin-bottom: 3px;
+    }
+
+    .prodPrice {
+        font-size: 0.95em;
+    }
+
+    .product-buttons-compact {
+        gap: 5px;
+        margin-top: 8px;
+    }
+
+        .product-buttons-compact a,
+        .product-buttons-compact button {
+            font-size: 11px;
+            padding: 6px 2px;
+        }
+
+    .slider-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 1.3em;
+    }
+}
+
+@media (max-width: 480px) {
+    .listProd {
+        padding: 0 6px;
+        margin-bottom: 24px;
+    }
+
+    .list-container {
+        gap: 10px;
+    }
+
+    .fproduct-item {
+        min-height: 340px;
+        padding: 10px;
+        border-radius: 6px;
+    }
+
+        .fproduct-item img {
+            border-radius: 4px;
+            margin-bottom: 6px;
+        }
+
+    .prodName {
+        font-size: 0.9em;
+        margin: 5px 0 2px 0;
+        line-height: 1.3em;
+        max-height: 2.7em;
+    }
+
+    .prodCate {
+        font-size: 0.8em;
+        margin-bottom: 2px;
+    }
+
+    .prodPrice {
+        font-size: 0.9em;
+        margin: 4px 0;
+    }
+
+    .product-buttons-compact {
+        gap: 4px;
+        margin-top: 6px;
+    }
+
+        .product-buttons-compact a,
+        .product-buttons-compact button {
+            font-size: 10px;
+            padding: 5px 2px;
+            border-radius: 3px;
+        }
+
+    .slider-btn {
+        width: 28px;
+        height: 28px;
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 360px) {
+    .listProd {
+        padding: 0 4px;
+        margin-bottom: 20px;
+    }
+
+    .list-container {
+        gap: 8px;
+    }
+
+    .fproduct-item {
+        min-height: 320px;
+        padding: 8px;
+    }
+
+    .prodName {
+        font-size: 0.85em;
+    }
+
+    .prodCate {
+        font-size: 0.75em;
+    }
+
+    .prodPrice {
+        font-size: 0.85em;
+    }
+
+    .product-buttons-compact a,
+    .product-buttons-compact button {
+        font-size: 9px;
+        padding: 4px 2px;
+    }
+
+    .slider-btn {
+        width: 26px;
+        height: 26px;
+        font-size: 1.1em;
     }
 }

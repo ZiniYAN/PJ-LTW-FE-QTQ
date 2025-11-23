@@ -13,11 +13,11 @@
             justify-content: center;
             padding-top: 60px;
             padding-bottom: 60px;
-            background-color: #fff;
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
 
         .simple-register-container {
+            border: 2px solid black;
             width: 100%;
             max-width: 800px;
             padding: 20px;
@@ -285,8 +285,8 @@
 
             <div class="text-center">
                 <p class="mb-0">
-                    Already have an account?
-                    @Html.ActionLink("Log in", "Login", "Account",
+                    Bạn đã có tài khoản?
+                    @Html.ActionLink("Đăng nhập", "Login", "Account",
                         new { area = "Customer" },
                         new { @class = "login-link" })
                 </p>
