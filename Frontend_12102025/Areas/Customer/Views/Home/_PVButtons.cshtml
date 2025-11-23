@@ -1,0 +1,121 @@
+﻿@model Frontend_12102025.Models.BookEdition
+
+@{
+    int defaultQuantity = ViewBag.Quantity ?? 1;
+    bool showBuyNow = ViewBag.ShowBuyNow ?? true;
+    bool addToCart = ViewBag.addToCart ?? true;
+    bool showViewDetails = ViewBag.ShowViewDetails ?? true;
+    string cssClass = ViewBag.ButtonClass ?? "product-buttons";
+}
+
+<div class="@cssClass">
+    @if (showViewDetails)
+    {
+        <a href="@Url.Action("ProductDetail", "Home", new { id = Model.BookEditionId })"
+           class="btn btn-view-details">
+            <i class="fa-solid"></i> Xem chi tiết
+        </a>
+    }
+
+    @if (Model.Stock > 0)
+    {
+        if (addToCart) 
+        { 
+            using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post, new { @class = "inline-form" }))
+            {
+            @Html.Hidden("id", Model.BookEditionId)
+            @Html.Hidden("quantity", defaultQuantity)
+
+            <button type="submit" class="btn btn-add-to-cart">
+                <i class="fa-solid"></i> Thêm vào giỏ
+            </button>
+            }
+        }
+
+        if (showBuyNow)
+        {
+            using (Html.BeginForm("BuyNow", "Cart", FormMethod.Post, new { @class = "inline-form" }))
+            {
+                @Html.Hidden("id", Model.BookEditionId)
+                @Html.Hidden("quantity", defaultQuantity)
+
+                <button type="submit" class="btn btn-buy-now">
+                    <i class="fa-solid"></i> Mua ngay
+                </button>
+            }
+        }
+    }
+    else
+    {
+        <button class="btn btn-out-of-stock" disabled>
+            <i class="fa-solid"></i> Hết hàng
+        </button>
+    }
+</div>
+
+<style>
+    .product-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+    }
+
+    .inline-form {
+        display: inline-block;
+        margin: 0;
+    }
+
+    .btn {
+        padding: 10px 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-view-details {
+        background-color: #A08963;
+        color: white;
+    }
+
+        .btn-view-details:hover {
+            background-color: #8a7555;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+    .btn-add-to-cart {
+        background-color: #28a745;
+        color: white;
+    }
+
+        .btn-add-to-cart:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+    .btn-buy-now {
+        background-color: #ff6b00;
+        color: white;
+    }
+
+        .btn-buy-now:hover {
+            background-color: #e55d00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+    .btn-out-of-stock {
+        background-color: #ccc;
+        color: #666;
+        cursor: not-allowed;
+    }
+</style>

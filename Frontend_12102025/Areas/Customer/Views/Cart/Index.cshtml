@@ -1,0 +1,325 @@
+﻿@model Frontend_12102025.Models.ViewModel.Cart
+
+@{
+    ViewBag.Title = "Giỏ Hàng";
+    Layout = "~/Areas/Customer/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    h2 {
+        max-width: 2304px;
+        margin: 0 auto;
+        padding: 20px 10px;
+        color: #333;
+    }
+
+    .shoppingcart {
+        background-color: ghostwhite;
+        max-width: 2304px;
+        margin: 0 auto;
+        padding-bottom: 20px;
+    }
+
+    .cart-section {
+        background-color: white;
+        border: 1px groove #ffffff;
+        border-radius: 10px;
+        padding: 10px 5px;
+        margin: 10px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .cart-button {
+        width: 250px;
+        border: 1px solid #808080;
+        margin: 5px;
+        padding: 10px;
+        font-weight: bold;
+    }
+
+    .shoppingcart tr {
+        font-size: smaller;
+    }
+
+    .book-image {
+        max-height: 100px;
+        max-width: 80px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    .remove-icon {
+        max-height: 20px;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+        .remove-icon:hover {
+            transform: scale(1.2);
+        }
+
+    .quantity-control {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .quantity-btn {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #ddd;
+        background-color: #f8f9fa;
+        cursor: pointer;
+        border-radius: 4px;
+        font-weight: bold;
+    }
+
+        .quantity-btn:hover {
+            background-color: #e9ecef;
+        }
+
+    .quantity-input {
+        width: 60px;
+        text-align: center;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+    }
+
+    .cart-summary {
+        position: sticky;
+        top: 20px;
+    }
+
+    .total-value {
+        font-size: 1.3em;
+        color: red;
+        font-weight: bold;
+    }
+
+    .empty-cart-message {
+        text-align: center;
+        padding: 40px;
+        font-size: 1.2em;
+        color: #666;
+    }
+
+    .book-title {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .book-author {
+        color: #666;
+        font-size: 0.9em;
+        font-style: italic;
+    }
+
+    .alert-custom {
+        margin: 10px;
+        border-radius: 5px;
+    }
+</style>
+
+<script language="JavaScript">
+    function cartUpdateQuantity(id, newQuantity) {
+        if (newQuantity < 1) return;
+
+        const form = document.createElement('form');
+        form.method = 'post';
+        form.action = "@Url.Action("UpdateQuantity", "Cart")";
+
+        const idInput = document.createElement('input');
+        idInput.type = 'hidden';
+        idInput.name = 'id';
+        idInput.value = id;
+        form.appendChild(idInput);
+
+        const quantityInput = document.createElement('input');
+        quantityInput.type = 'hidden';
+        quantityInput.name = 'quantity';
+        quantityInput.value = newQuantity;
+        form.appendChild(quantityInput);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    function confirmClearCart() {
+        return confirm('Bạn có chắc chắn muốn xóa tất cả sách trong giỏ hàng?');
+    }
+
+    function confirmRemoveItem() {
+        return confirm('Bạn có chắc chắn muốn xóa sách này khỏi giỏ hàng?');
+    }
+</script>
+
+<h2>
+    <i class="fas fa-shopping-cart"></i> GIỎ HÀNG CỦA BẠN
+</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-custom">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-custom">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<div class="shoppingcart">
+    @if (!Model.Items.Any())
+    {
+        <div class="cart-section">
+            <div class="empty-cart-message">
+                <i class="fas fa-shopping-basket" style="font-size: 3em; color: #ccc;"></i>
+                <p>Bạn chưa có cuốn sách nào trong giỏ hàng.</p>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <!-- Danh sách sách trong giỏ -->
+            <div class="col-md-8">
+                <div class="cart-section">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th colspan="2">Sản phẩm</th>
+                                    <th>Tác giả</th>
+                                    <th>ISBN</th>
+                                    <th>Số lượng</th>
+                                    <th>Đơn giá</th>
+                                    <th>Thành tiền</th>
+                                    <th title="Xóa tất cả sách trong giỏ hàng">
+                                        <a href="@Url.Action("ClearCart", "Cart")"
+                                           onclick="return confirmClearCart();">
+                                            <img src="~/Content/images/Remove.png"
+                                                 class="remove-icon"
+                                                 alt="Xóa tất cả" />
+                                        </a>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Items)
+                                {
+                                    <tr>
+                                        <td style="width: 100px;">
+                                            <img src="@item.CoverImage"
+                                                 alt="@item.Title"
+                                                 class="book-image" />
+                                        </td>
+                                        <td class="col-md-3">
+                                            <div class="book-title">@item.Title</div>
+                                        </td>
+                                        <td>
+                                            <span class="book-author">@item.AuthorName</span>
+                                        </td>
+                                        <td>
+                                            <small>@item.ISBN</small>
+                                        </td>
+                                        <td>
+                                            @using (Html.BeginForm("UpdateQuantity", "Cart", FormMethod.Post))
+                                            {
+                                                <div class="quantity-control">
+                                                    <input type="hidden" name="id" value="@item.BookEditionId" />
+                                                    <button type="button"
+                                                            class="quantity-btn"
+                                                            onclick="cartUpdateQuantity(@item.BookEditionId, @item.Quantity - 1)"
+                                                            @(item.Quantity <= 1 ? "disabled" : "")>
+                                                        -
+                                                    </button>
+                                                    <input type="number"
+                                                           name="quantity"
+                                                           value="@item.Quantity"
+                                                           min="1"
+                                                           max="@item.Stock"
+                                                           class="quantity-input"
+                                                           readonly />
+                                                    <button type="button"
+                                                            class="quantity-btn"
+                                                            onclick="cartUpdateQuantity(@item.BookEditionId, @item.Quantity + 1)"
+                                                            @(item.Quantity >= item.Stock ? "disabled" : "")>
+                                                        +
+                                                    </button>
+                                                </div>
+                                            }
+                                            @if (item.Quantity >= item.Stock)
+                                            {
+                                                <small class="text-warning">Đã đạt tối đa</small>
+                                            }
+                                        </td>
+                                        <td>
+                                            <strong>@item.UnitPrice.ToString("N0") đ</strong>
+                                        </td>
+                                        <td>
+                                            <strong class="text-danger">
+                                                @item.TotalPrice.ToString("N0") đ
+                                            </strong>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("RemoveFromCart", "Cart", new { id = item.BookEditionId })"
+                                               onclick="return confirmRemoveItem();">
+                                                <img src="~/Content/images/Remove.png"
+                                                     class="remove-icon"
+                                                     alt="Xóa"
+                                                     title="Xóa sách này" />
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tổng kết đơn hàng -->
+            <div class="col-md-4">
+                <div class="cart-section cart-summary">
+                    <h4>Tổng kết đơn hàng</h4>
+                    <hr />
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Tổng số sách:</span>
+                        <strong>@Model.Items.Sum(i => i.Quantity) cuốn</strong>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Tạm tính:</span>
+                        <strong>@Model.TotalValue().ToString("N0") đ</strong>
+                    </div>
+                    <hr />
+                    <div class="d-flex justify-content-between mb-3">
+                        <h5>Tổng cộng:</h5>
+                        <h5 class="total-value">@Model.TotalValue().ToString("N0") đ</h5>
+                    </div>
+
+                    <div class="text-center">
+                        @Html.ActionLink("Thanh toán", "Checkout", "Order", null,
+                            new { @class = "btn btn-danger btn-lg cart-button" })
+                    </div>
+
+                    <div class="text-center mt-2">
+                        <small class="text-muted">
+                            <i class="fas fa-shield-alt"></i>
+                            Thanh toán an toàn & bảo mật
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Nút tiếp tục mua hàng -->
+    <div class="col-md-12 text-center" style="margin-top: 20px;">
+        @Html.ActionLink("« Tiếp tục mua sách", "Index", "Home", null,
+            new { @class = "btn btn-warning cart-button" })
+    </div>
+</div>

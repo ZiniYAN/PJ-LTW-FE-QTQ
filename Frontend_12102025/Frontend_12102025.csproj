@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BCrypt.Net-Next, Version=4.0.3.0, Culture=neutral, PublicKeyToken=1e11be04b6288443, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt.Net-Next.4.0.3\lib\net472\BCrypt.Net-Next.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -58,9 +61,28 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -145,12 +167,16 @@
     <Content Include="Content\Admin Stylesheet\UserDetail.css" />
     <Content Include="Content\Admin Stylesheet\UserEdit.css" />
     <Content Include="Content\contactus.css" />
+    <Content Include="Content\Customer Stylesheet\FeatureProduct.css" />
+    <Content Include="Content\Customer Stylesheet\ProductDetail.css" />
     <Content Include="Content\Detail.css" />
     <Content Include="Content\OrderHistory.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\privacypolicy.css" />
     <Content Include="Content\Register.css" />
     <Content Include="Content\returnpolicy.css" />
     <Content Include="Content\shipping.css" />
+    <Content Include="Image\Header\Logo.png" />
     <Content Include="Models\BookStore.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BookStore.edmx</DependentUpon>
@@ -171,9 +197,14 @@
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomersController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Customer\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Customer\Controllers\CartController.cs" />
+    <Compile Include="Areas\Customer\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Customer\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\InventoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrdersController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
+    <Compile Include="Areas\Customer\Controllers\OrderController.cs" />
     <Compile Include="Areas\Customer\CustomerAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -233,8 +264,18 @@
     <Compile Include="Models\User.cs">
       <DependentUpon>BookStore.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModel\Cart.cs" />
+    <Compile Include="Models\ViewModel\CartItem.cs" />
+    <Compile Include="Models\ViewModel\CartService.cs" />
+    <Compile Include="Models\ViewModel\ChangePasswordVM.cs" />
+    <Compile Include="Models\ViewModel\CheckoutVM.cs" />
+    <Compile Include="Models\ViewModel\HomeProductVM.cs" />
+    <Compile Include="Models\ViewModel\LoginVM.cs" />
+    <Compile Include="Models\ViewModel\ProductDetailVM.cs" />
     <Compile Include="Models\ViewModels\DashboardVM.cs" />
     <Compile Include="Models\ViewModels\InventoryVM.cs" />
+    <Compile Include="Models\ViewModel\RegisterVM.cs" />
+    <Compile Include="Models\ViewModel\ShippingAddressVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -263,7 +304,6 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Image\Header\faviconIMG.png" />
-    <Content Include="Image\Header\Logo.png" />
     <Content Include="Image\Product\NhaGiaKim.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -296,6 +336,7 @@
     <Content Include="Areas\Admin\Views\Orders\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Orders\Index.cshtml" />
     <None Include="Areas\Admin\Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Scripts\Customer Script\Slider.js" />
     <Content Include="Scripts\Detail.js" />
     <Content Include="Scripts\Header.js" />
     <Content Include="Scripts\HomePage.js" />
@@ -311,6 +352,27 @@
     <Content Include="Areas\Admin\Views\Users\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
+    <Content Include="Areas\Customer\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Customer\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Customer\Views\Home\_PVFeatureProduct.cshtml" />
+    <Content Include="Areas\Customer\Views\Home\_PVNewProduct.cshtml" />
+    <Content Include="Areas\Customer\Views\Home\ProductDetail.cshtml" />
+    <Content Include="Areas\Customer\Views\Home\_PVRelatedProduct.cshtml" />
+    <Content Include="Areas\Customer\Views\Home\_PVTopProduct.cshtml" />
+    <Content Include="Areas\Customer\Views\Cart\Index.cshtml" />
+    <Content Include="Areas\Customer\Views\Order\Checkout.cshtml" />
+    <Content Include="Areas\Customer\Views\Order\OrderSuccess.cshtml" />
+    <Content Include="Areas\Customer\Views\Order\MyOrder.cshtml" />
+    <Content Include="Areas\Customer\Views\Order\OrderDetail.cshtml" />
+    <Content Include="Areas\Customer\Views\Order\_PVOrderCard.cshtml" />
+    <Content Include="Areas\Customer\Views\Account\Register.cshtml" />
+    <Content Include="Areas\Customer\Views\Account\Login.cshtml" />
+    <Content Include="Areas\Customer\Views\Account\ProfileInfo.cshtml" />
+    <Content Include="Areas\Customer\Views\Category\Index.cshtml" />
+    <Content Include="Areas\Customer\Views\Home\_PVButtons.cshtml" />
+    <Content Include="Areas\Customer\Views\Home\_PVCategoryProducts.cshtml" />
+    <Content Include="Areas\Customer\Views\Account\Index.cshtml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -358,9 +420,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Customer\Controllers\" />
     <Folder Include="Areas\Customer\Data\" />
-    <Folder Include="Areas\Customer\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

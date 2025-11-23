@@ -1,0 +1,45 @@
+﻿@model List<Frontend_12102025.Models.BookEdition>
+
+@{
+    string categoryName = ViewBag.CategoryName ?? "Sản phẩm";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/Customer Stylesheet/FeatureProduct.css" />
+
+@if (Model != null && Model.Any())
+{
+    <section class="listProd">
+        <h2>@categoryName</h2>
+        <div class="slider-area">
+            <button class="slider-btn slider-prev">‹</button>
+            <div class="list-container">
+                @foreach (var product in Model)
+                {
+                    <div class="fproduct-item">
+                        <a href="@Url.Action("ProductDetail", "Home", new { id = product.BookEditionId })">
+                            <img src="@product.CoverImage" alt="@product.BookTitle.Title" />
+                        </a>
+                        <div>
+                            <p class="prodName">@product.BookTitle.Title</p>
+                            <p class="prodCate">@product.BookTitle.Category.CategoryName</p>
+                            <p class="prodPrice">@String.Format("{0:N0}", product.Price) đ</p>
+                            @{
+                                ViewBag.Quantity = 1;
+                                ViewBag.ShowBuyNow = true;
+                                ViewBag.addToCart = false;
+                                ViewBag.ShowViewDetails = true;
+                                ViewBag.ButtonClass = "product-buttons-compact";
+                            }
+                            @Html.Partial("_PVButtons", product)
+                        </div>
+                    </div>
+                }
+            </div>
+            <button class="slider-btn slider-next">›</button>
+        </div>
+    </section>
+}
+else
+{
+    <p style="text-align:center; padding:20px;">Không có sản phẩm @categoryName.ToLower()</p>
+}

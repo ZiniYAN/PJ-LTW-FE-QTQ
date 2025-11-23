@@ -1,0 +1,86 @@
+﻿.listProd {
+    position: relative;
+    margin-bottom: 32px;
+    max-width: 1632px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.slider-area {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    width: 100%;
+}
+
+.slider-btn {
+    background: gray;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    font-size: 1.5em;
+    cursor: pointer;
+    z-index: 10;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.14);
+    flex-shrink: 0;
+}
+
+/* Grid sản phẩm căn giữa */
+.list-container {
+    max-width: 1632px;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scroll-snap-type: x mandatory;
+    justify-items: center; /* căn giữa ngang từng item */
+    align-items: center; /* căn giữa dọc từng item */
+}
+
+
+.fproduct-item {
+    width: 80%;
+    min-width: 220px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+    padding: 16px;
+    margin-bottom: 8px;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* căn giữa nội dung trong sản phẩm */
+    min-height: 410px;
+    transition: box-shadow 0.2s;
+}
+
+    .fproduct-item img {
+        width: 100%;
+        aspect-ratio: 3 / 4;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+
+/* Responsive cho iPad */
+@media (max-width: 900px) {
+    .list-container {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .fproduct-item img {
+        height: 170px;
+    }
+}
+
+/* Responsive cho mobile */
+@media (max-width: 600px) {
+    .list-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

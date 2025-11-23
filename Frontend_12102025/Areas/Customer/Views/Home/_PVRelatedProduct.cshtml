@@ -1,0 +1,44 @@
+﻿@model Frontend_12102025.Models.ViewModel.ProductDetailVM
+@using PagedList.Mvc;
+<link rel="stylesheet" type="text/css" href="~/Content/Customer Stylesheet/FeatureProduct.css" />
+@if (Model.RelatedProduct != null && Model.RelatedProduct.Any())
+{
+    <section class="listProd">
+        <h2>Sản phẩm tương tự</h2>
+        <div class="slider-area">
+            <button class="slider-btn slider-prev">‹</button>
+            <div class="list-container">
+                @foreach (var product in Model.RelatedProduct)
+                {
+                    <div class="fproduct-item">
+                        <a href="@Url.Action("ProductDetail", "Home", new { id = product.BookEditionId })">
+                            <img src="@product.CoverImage" alt="@product.BookTitle.Title" />
+                        </a>
+                        <div>
+                            <p class="prodName">@product.BookTitle.Title</p>
+                            <p class="prodCate">@product.BookTitle.Category.CategoryName</p>
+                            <p class="prodPrice">@String.Format("{0:N0}", product.Price) đ</p>
+                            @{
+                                ViewBag.Quantity = 1;
+                                ViewBag.ShowBuyNow = true;
+                                ViewBag.addToCart = false;
+                                ViewBag.ShowViewDetails = true;
+                                ViewBag.ButtonClass = "product-buttons-compact";
+                            }
+                            @Html.Partial("_PVButtons", product)
+                        </div>
+                    </div>
+                }
+            </div>
+            <button class="slider-btn slider-next">›</button>
+            </div>
+    </section>
+}
+else
+{
+    <div class="related-products__empty">
+        <i class="fa-solid fa-box-open" style="font-size: 48px; margin-bottom: 15px; color: #bdc3c7;"></i>
+        <p>Không có sản phẩm tương tự</p>
+    </div>
+}
+<script src="~/Scripts/Customer Script/Slider.js"></script>
