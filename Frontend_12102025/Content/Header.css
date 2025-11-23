@@ -23,6 +23,7 @@ header {
     padding: 10px 0;
     position: relative;
     z-index: 200;
+    border-bottom: 1px solid black;
 }
 
 #container-img-header {
@@ -131,6 +132,7 @@ header {
 }
 
 .user-menu:hover .user-dropdown {
+    margin-top: 10px;
     opacity: 1;
     visibility: visible;
 }

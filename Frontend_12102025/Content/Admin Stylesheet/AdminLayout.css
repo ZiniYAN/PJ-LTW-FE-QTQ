@@ -1,8 +1,4 @@
-﻿/* Minimal admin layout styles (copy to Content/Admin.css if preferred) */
-main {
-    background: rgb(252,246,221);
-}
-html, body{
+﻿html, body{
     height: 100%;
     margin: 0;
     font-family: Segoe UI, Roboto, Arial, sans-serif;
@@ -10,6 +6,8 @@ html, body{
 }
 
 .admin-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
     display: flex;
     min-height: 100vh;
     align-items: stretch;
@@ -149,18 +147,21 @@ html, body{
         z-index: 50;
     }
 }
-/* small helper to hide sidebar when toggled */
+
 main {
     width: 100%;
     display: flex;
-    background: #f5f7fa;
+    background: rgb(252,246,221);
 }
 .side-bar-container {
+    margin-top: 20px;
     margin-right: 10px;
     width: 20%;
     align-items: start;
     text-align: start;
-    background-color: rgb(252,246,221);
+    background-color: rgb(252,220,150);
+    border-radius: 6px;
+    height: 80%;
 }
     .side-bar{
         margin: 5px;

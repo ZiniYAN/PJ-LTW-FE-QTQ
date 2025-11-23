@@ -51,6 +51,7 @@ namespace Frontend_12102025.Areas.Admin
         {
             if (ModelState.IsValid)
             {
+                user.CreatedAt = DateTime.Now;
                 db.Users.Add(user);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
