@@ -22,6 +22,7 @@ header {
     padding: 15px 0;
     position: relative;
     z-index: 200;
+    border-bottom: 1px solid black;
     min-height: 80px;
 }
 
@@ -195,6 +196,7 @@ header {
 }
 
 .user-menu:hover .user-dropdown {
+    margin-top: 10px;
     opacity: 1;
     visibility: visible;
     transform: translateY(0);

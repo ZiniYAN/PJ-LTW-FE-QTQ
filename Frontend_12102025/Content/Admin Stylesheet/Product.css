@@ -1,21 +1,21 @@
 ﻿
 /* Page Container */
 .content-wrapper {
-    max-width: 100%;
-    padding: 1.5rem;
     background: white;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    min-height: 100vh;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
 }
 
 /* Page Header */
 h2 {
-    color: #5D4E37; /* Nâu coffee */
+    color: black; 
     font-size: 1.75rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
     padding-bottom: 0.75rem;
-    border-bottom: 2px solid #C4A661; /* Vàng đồng */
+    border-bottom: 2px solid #C4A661;
 }
 
 /* Action Bar */
@@ -45,6 +45,10 @@ p {
             color: white;
         }
 /* Table Styles */
+.table-container{
+    overflow: auto;
+    max-height: 600px;
+}
 .table {
     width: 100%;
     border-collapse: collapse;
@@ -228,7 +232,7 @@ p {
                         box-shadow: 0 4px 8px rgba(229, 115, 115, 0.3);
                     }
 
-/* Responsive Design */
+/* responsive */
 @media (max-width: 1400px) {
     .table {
         font-size: 0.8rem;
@@ -386,101 +390,6 @@ p {
     }
 }
 
-/* Loading State */
-.table tbody tr.loading {
-    opacity: 0.5;
-    pointer-events: none;
-}
 
-/* Print Styles */
-@media print {
-    .content-wrapper {
-        background: white;
-        padding: 0;
-    }
 
-    p {
-        display: none;
-    }
 
-    .table-container {
-        box-shadow: none;
-        padding: 0;
-        max-height: none;
-    }
-
-    .table {
-        font-size: 9pt;
-    }
-
-        .table thead th {
-            background: #5D4E37 !important;
-            color: white !important;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-        }
-
-        .table tbody td:last-child a:not(:last-child) {
-            display: none;
-        }
-}
-
-/* Accessibility */
-.table tbody td:last-child a:focus {
-    outline: 2px solid #7986CB;
-    outline-offset: 2px;
-}
-
-/* Smooth Animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.table tbody tr {
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-/* Tooltip for long content */
-.table tbody td[title] {
-    cursor: help;
-    position: relative;
-}
-
-    .table tbody td[title]:hover::after {
-        content: attr(title);
-        position: absolute;
-        bottom: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        background: #5D4E37;
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 6px;
-        white-space: normal;
-        width: max-content;
-        max-width: 300px;
-        z-index: 1000;
-        font-size: 0.85rem;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    }
-
-/* Status Indicators */
-.table tbody tr[data-status="out-of-stock"] {
-    background: rgba(229, 115, 115, 0.1);
-}
-
-.table tbody tr[data-status="low-stock"] {
-    background: rgba(255, 183, 77, 0.1);
-}
-
-.table tbody tr[data-status="in-stock"] {
-    background: rgba(129, 199, 132, 0.05);
-}

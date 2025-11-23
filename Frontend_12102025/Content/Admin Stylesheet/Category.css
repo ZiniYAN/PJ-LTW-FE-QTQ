@@ -29,33 +29,36 @@
     border-radius: 8px;
     color: white;
 }
-    .btn-actions .btn-edit {
-        background-color: #072060;
-    }
+.btn-actions .btn-edit {
+    background: #7986CB;
+}
     .btn-actions .btn-edit:hover {
-        background-color: #1d4ed8;
+        background: #5C6BC0;
+        box-shadow: 0 4px 8px rgba(121, 134, 203, 0.3);
     }
         .btn-actions .btn-edit:active {
             background-color: #1d4ed8;
             color: white;
             border: none;   
         }
-    .btn-actions .btn-detail {
-        background-color: #115675;
-    }
+.btn-actions .btn-detail {
+    background: #4DB6AC;
+}
     .btn-actions .btn-detail:hover {
-        background-color: #0ea5e9;
+        background: #26A69A;
+        box-shadow: 0 4px 8px rgba(77, 182, 172, 0.3);
     }
         .btn-actions .btn-detail:active {
             background-color: #0ea5e9;
             color: white;
             border: none;
         }
-    .btn-actions .btn-delete {
-        background-color: #841616;
-    }
+.btn-actions .btn-delete {
+    background: #E57373;
+}
     .btn-actions .btn-delete:hover {
-        background-color: #dc2626;
+        background: #E53935;
+        box-shadow: 0 4px 8px rgba(229, 115, 115, 0.3);
     }
         .btn-actions .btn-delete:active {
             background-color: #dc2626;

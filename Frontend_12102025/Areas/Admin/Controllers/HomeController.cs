@@ -18,7 +18,10 @@ namespace Frontend_12102025.Areas.Admin.Controllers
             dashboard.TotalUsers = db.Users.Count();
             dashboard.TotalProducts = db.BookEditions.Count();
             dashboard.TotalOrders= db.Orders.Count();
-            dashboard.TotalRevenue = db.Orders.Where(o => o.PaymentStatus == "success").Sum(o => (decimal?)o.TotalAmount) ?? 0;
+            dashboard.TotalRevenue = db.Orders
+                .Where(o => o.PaymentStatus != null &&
+                           o.PaymentStatus.ToLower() == "paid")
+                .Sum(o => (decimal?)o.TotalAmount) ?? 0;
             dashboard.LastOrders = db.Orders.OrderByDescending(o => o.OrderDate).Take(5).ToList();
             return View(dashboard);
         }

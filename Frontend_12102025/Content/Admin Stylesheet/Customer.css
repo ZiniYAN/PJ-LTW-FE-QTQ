@@ -1,15 +1,15 @@
 ﻿/* Page Container */
 .content-wrapper {
-    max-width: 100%;
-    padding: 1.5rem;
     background: white;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 30px;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
 }
 
 /* Page Header */
 .page-title {
-    color: #5D4E37;
+    color: black;
     font-size: 1.75rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
@@ -45,7 +45,7 @@
 
 .table-header {
     font-weight: 600;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     letter-spacing: 0.5px;
     padding: 0.75rem 0.5rem;
     border: none;

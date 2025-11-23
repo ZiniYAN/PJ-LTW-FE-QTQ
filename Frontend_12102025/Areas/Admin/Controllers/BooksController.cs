@@ -58,6 +58,27 @@ namespace Frontend_12102025.Areas.Admin
         [ValidateAntiForgeryToken]
         public ActionResult Create(BookEdition bookEdition, string ImageUrl)
         {
+            var authorName = bookEdition.BookTitle.Author.AuthorName.Trim();
+            var author = db.Authors.FirstOrDefault(a => a.AuthorName.ToLower() == authorName.ToLower());
+            if (author == null)
+            {
+                author = new Author { AuthorName = authorName };
+                db.Authors.Add(author);
+                db.SaveChanges();
+            }
+            var publisherName = bookEdition.BookTitle.Publisher.PublisherName.Trim();
+            var publisher = db.Publishers.FirstOrDefault(p => p.PublisherName.ToLower() == publisherName.ToLower());
+
+            if (publisher == null)
+            {
+                // Tạo Publisher mới
+                publisher = new Publisher
+                {
+                    PublisherName = publisherName
+                };
+                db.Publishers.Add(publisher);
+                db.SaveChanges(); // Lưu để lấy PublisherId
+            }
             if (ModelState.IsValid)
             {
                 // 1. Tạo BookTitle trước
@@ -65,8 +86,8 @@ namespace Frontend_12102025.Areas.Admin
                 {
                     Title = bookEdition.BookTitle.Title,
                     Description = bookEdition.BookTitle.Description,
-                    AuthorId = int.Parse(Request.Form["AuthorId"]),
-                    PublisherId = int.Parse(Request.Form["PublisherId"]),
+                    AuthorId = author.AuthorId,
+                    PublisherId = publisher.PublisherId,
                     CategoryId = int.Parse(Request.Form["CategoryId"])
                 };
 
@@ -80,31 +101,17 @@ namespace Frontend_12102025.Areas.Admin
                     Price = bookEdition.Price,
                     Stock = bookEdition.Stock,
                     ISBN = bookEdition.ISBN,
-                    PublishDate = bookEdition.PublishDate
+                    PublishDate = bookEdition.PublishDate,
+                    CoverImage = ImageUrl
                 };
 
                 db.BookEditions.Add(newBookEdition);
-                db.SaveChanges(); // Lấy BookEditionId
-
-                // 3. Lưu Image URL vào BookImages
-                if (!string.IsNullOrEmpty(ImageUrl))
-                {
-                    var bookImage = new BookImage
-                    {
-                        BookEditionId = newBookEdition.BookEditionId,
-                        ImageUrl = ImageUrl
-                    };
-
-                    db.BookImages.Add(bookImage);
-                    db.SaveChanges();
-                }
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
 
             // Nếu lỗi, load lại dropdown
-            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorId", "AuthorName", bookEdition.BookTitle.AuthorId);
-            ViewBag.PublisherID = new SelectList(db.Publishers, "PublisherId", "PublisherName", bookEdition.BookTitle.PublisherId);
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryId", "CategoryName", bookEdition.BookTitle.CategoryId);
 
             return View(bookEdition);
@@ -181,23 +188,32 @@ namespace Frontend_12102025.Areas.Admin
         // GET: Admin/Books/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                BookEdition book = db.BookEditions
+                    .Include(e => e.BookTitle.Author)
+                    .Include(e => e.BookTitle.Category)
+                    .Include(e => e.BookTitle.Publisher)
+                    .FirstOrDefault(e => e.BookTitleId == id);
+
+                if (book == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(book);
             }
-            
-            BookEdition book = db.BookEditions
-                .Include(e => e.BookTitle.Author)
-                .Include(e => e.BookTitle.Category)
-                .Include(e => e.BookTitle.Publisher)
-                .FirstOrDefault(e => e.BookTitleId == id);
-            
-            if (book == null)
+            catch(Exception ex)
             {
-                return HttpNotFound();
+                System.Diagnostics.Debug.WriteLine($"Exception: {ex.ToString()}");
+                TempData["ErrorMessage"] = "Error: " + ex.Message;
+                return RedirectToAction("Index");
             }
-            
-            return View(book);
         }
 
         // POST: Admin/Books/Delete/5
@@ -205,24 +221,46 @@ namespace Frontend_12102025.Areas.Admin
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            // Tìm BookEdition theo BookTitleId
-            var bookEditions = db.BookEditions.Where(e => e.BookTitleId == id).ToList();
-            
-            // Xóa tất cả BookEditions liên quan
-            foreach (var edition in bookEditions)
+            try
             {
-                db.BookEditions.Remove(edition);
-            }
-            
-            // Xóa BookTitle
-            BookTitle bookTitle = db.BookTitles.Find(id);
-            if (bookTitle != null)
-            {
+                BookTitle bookTitle = db.BookTitles.Find(id);
+                if (bookTitle == null)
+                {
+                    return HttpNotFound();
+                }
+                var bookEditions = db.BookEditions
+                    .Where(e => e.BookTitleId == id)
+                    .ToList();
+                var editionIds = bookEditions.Select(e => e.BookEditionId).ToList();
+                bool hasOrders = db.OrderDetails
+                                .Any(od => editionIds.Contains(od.BookEditionId));
+                // Ktra xem sach co trong order ko
+                if (hasOrders)
+                {
+                    TempData["ErrorMessage"] = "Cannot delete this book because it has been ordered by customers!";
+                    return RedirectToAction("Index");
+                }
+
+                foreach (var edition in bookEditions)
+                {
+                    var bookImages = db.BookImages
+                        .Where(img => img.BookEditionId == edition.BookEditionId)
+                        .ToList();
+                    db.BookImages.RemoveRange(bookImages);
+                }
+
+                db.BookEditions.RemoveRange(bookEditions);
                 db.BookTitles.Remove(bookTitle);
+                db.SaveChanges();
+
+                TempData["SuccessMessage"] = "Book deleted successfully!";
+                return RedirectToAction("Index");
             }
-            
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Error: " + ex.Message;
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)

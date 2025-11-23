@@ -1,8 +1,9 @@
 ﻿.dashboard-container {
-    max-width: 100%;
-    padding: 1.5rem;
-    background: rgba(222, 195, 148, 0.20);
-    min-height: 100vh;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
 }
 .table thead{
     background: black;

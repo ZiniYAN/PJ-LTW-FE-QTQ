@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="~/Content/Admin Stylesheet/Dashboard.css"/>
 </head>
     
-<div class="dashboard-container" style="max-width: 2304px; margin: 0 auto">
+<div class="dashboard-container">
     <h2>Dashboard</h2>
     <div class="row">
         <div class="col-md-3">
@@ -35,7 +35,7 @@
         <div class="col-md-3">
             <div class="card bg-danger text-white p-3">
                 <h4>Revenue</h4>
-                <h2>@Model.TotalRevenue </h2>
+                <h2>@Model.TotalRevenue.ToString("N0") đ</h2>
             </div>
         </div>
     </div>
