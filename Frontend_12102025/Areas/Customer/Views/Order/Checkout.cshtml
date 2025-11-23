@@ -41,7 +41,7 @@
 
 <div class="container mt-4 mb-5">
     <h2 class="text-center bg-success text-white p-3 mb-4 rounded">
-        <i class="fas fa-shopping-cart"></i> ĐẶT HÀNG
+        <i class="fas "></i> ĐẶT HÀNG
     </h2>
 
     @if (TempData["Message"] != null)
@@ -75,7 +75,7 @@
                 @* Thông tin khách hàng *@
                 <div class="card shadow-sm mb-4">
                     <div class="card-header bg-info text-white">
-                        <h5 class="mb-0"><i class="fas fa-user"></i> Thông tin khách hàng</h5>
+                        <h5 class="mb-0"><i class="fas"></i> Thông tin khách hàng</h5>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -94,7 +94,7 @@
                 @* Địa chỉ giao hàng *@
                 <div class="card shadow-sm mb-4">
                     <div class="card-header bg-primary text-white">
-                        <h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> Địa chỉ giao hàng</h5>
+                        <h5 class="mb-0"><i class="fas "></i> Địa chỉ giao hàng</h5>
                     </div>
                     <div class="card-body">
                         @if (Model.SavedAddresses != null && Model.SavedAddresses.Any())
@@ -109,14 +109,14 @@
                                         <div class="d-flex justify-content-between align-items-start">
                                             <div>
                                                 <h6 class="mb-1">
-                                                    <i class="fas fa-user-circle"></i> @address.RecipientName
+                                                    <i>Tên: </i> @address.RecipientName
                                                     @if (address.IsDefault)
                                                     {
                                                         <span class="badge badge-success ml-2">Mặc định</span>
                                                     }
                                                 </h6>
-                                                <p class="mb-1"><i class="fas fa-map-marker-alt"></i> @address.AddressLine</p>
-                                                <p class="mb-0"><i class="fas fa-phone"></i> @address.Phone</p>
+                                                <p class="mb-1"><i >Địa chỉ:</i> @address.AddressLine</p>
+                                                <p class="mb-0"><i >SDT: </i> @address.Phone</p>
                                             </div>
                                             <div>
                                                 <input type="radio"
@@ -176,14 +176,14 @@
                 @* Phương thức thanh toán *@
                 <div class="card shadow-sm mb-4">
                     <div class="card-header bg-warning">
-                        <h5 class="mb-0"><i class="fas fa-credit-card"></i> Phương thức thanh toán</h5>
+                        <h5 class="mb-0"><i></i> Phương thức thanh toán</h5>
                     </div>
                     <div class="card-body">
                         <div class="form-check mb-2">
                             @Html.RadioButtonFor(m => m.PaymentMethod, "COD",
                                 new { @class = "form-check-input", id = "paymentCOD", @checked = "checked" })
                             <label class="form-check-label" for="paymentCOD">
-                                <i class="fas fa-money-bill-wave text-success"></i>
+                                <i class="fas text-success"></i>
                                 <strong>Thanh toán khi nhận hàng (COD)</strong>
                             </label>
                         </div>
@@ -210,7 +210,7 @@
                 @* Ghi chú *@
                 <div class="card shadow-sm mb-4">
                     <div class="card-header bg-secondary text-white">
-                        <h5 class="mb-0"><i class="fas fa-sticky-note"></i> Ghi chú đơn hàng</h5>
+                        <h5 class="mb-0"> Ghi chú đơn hàng</h5>
                     </div>
                     <div class="card-body">
                         @Html.TextAreaFor(m => m.OrderNotes, 3, 50,
@@ -222,9 +222,9 @@
 
             @* Cột phải - Tóm tắt đơn hàng *@
             <div class="col-lg-4">
-                <div class="card shadow-sm mb-4 sticky-top" style="top: 20px;">
+                <div class="card shadow-sm mb-4" style="top: 20px;">
                     <div class="card-header bg-dark text-white">
-                        <h5 class="mb-0"><i class="fas fa-file-invoice"></i> Tóm tắt đơn hàng</h5>
+                        <h5 class="mb-0"> Tóm tắt đơn hàng</h5>
                     </div>
                     <div class="card-body">
                         @* Sản phẩm *@
@@ -248,9 +248,7 @@
 
                         @* Mã giảm giá *@
                         <div class="coupon-section mb-3">
-                            <label class="font-weight-bold mb-2">
-                                <i class="fas fa-tag"></i> Mã giảm giá
-                            </label>
+                            <label class="font-weight-bold mb-2">Mã giảm giá</label>
                             <div class="input-group">
                                 @Html.TextBoxFor(m => m.CouponCode,
                                     new { @class = "form-control", id = "txtCouponCode", placeholder = "Nhập mã giảm giá" })
@@ -288,9 +286,7 @@
                                 </h5>
                             </div>
 
-                            <button type="submit" class="btn btn-success btn-block btn-lg">
-                                <i class="fas fa-check-circle"></i> Đặt hàng
-                            </button>
+                            <button type="submit" class="btn btn-success btn-block btn-lg"> Đặt hàng</button>
                             @Html.ActionLink("Quay lại giỏ hàng", "Index", "Cart", null,
                                 new { @class = "btn btn-outline-secondary btn-block mt-2" })
                         </div>

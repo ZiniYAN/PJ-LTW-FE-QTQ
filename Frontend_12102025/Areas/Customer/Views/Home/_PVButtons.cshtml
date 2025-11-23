@@ -1,4 +1,5 @@
 ﻿@model Frontend_12102025.Models.BookEdition
+<link rel="stylesheet" type="text/css" href="~/Content/Customer Stylesheet/Buttons.css" />
 
 @{
     int defaultQuantity = ViewBag.Quantity ?? 1;
@@ -19,16 +20,16 @@
 
     @if (Model.Stock > 0)
     {
-        if (addToCart) 
-        { 
+        if (addToCart)
+        {
             using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post, new { @class = "inline-form" }))
             {
-            @Html.Hidden("id", Model.BookEditionId)
-            @Html.Hidden("quantity", defaultQuantity)
+                @Html.Hidden("id", Model.BookEditionId)
+                @Html.Hidden("quantity", defaultQuantity)
 
-            <button type="submit" class="btn btn-add-to-cart">
-                <i class="fa-solid"></i> Thêm vào giỏ
-            </button>
+                <button type="submit" class="btn btn-add-to-cart">
+                    <i class="fa-solid"></i> Thêm vào giỏ
+                </button>
             }
         }
 
@@ -53,69 +54,4 @@
     }
 </div>
 
-<style>
-    .product-buttons {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-top: 10px;
-    }
 
-    .inline-form {
-        display: inline-block;
-        margin: 0;
-    }
-
-    .btn {
-        padding: 10px 16px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 0.9rem;
-        font-weight: 500;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        transition: all 0.3s ease;
-    }
-
-    .btn-view-details {
-        background-color: #A08963;
-        color: white;
-    }
-
-        .btn-view-details:hover {
-            background-color: #8a7555;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-    .btn-add-to-cart {
-        background-color: #28a745;
-        color: white;
-    }
-
-        .btn-add-to-cart:hover {
-            background-color: #218838;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-    .btn-buy-now {
-        background-color: #ff6b00;
-        color: white;
-    }
-
-        .btn-buy-now:hover {
-            background-color: #e55d00;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-    .btn-out-of-stock {
-        background-color: #ccc;
-        color: #666;
-        cursor: not-allowed;
-    }
-</style>

@@ -201,9 +201,7 @@
                                     <th title="Xóa tất cả sách trong giỏ hàng">
                                         <a href="@Url.Action("ClearCart", "Cart")"
                                            onclick="return confirmClearCart();">
-                                            <img src="~/Content/images/Remove.png"
-                                                 class="remove-icon"
-                                                 alt="Xóa tất cả" />
+                                            <i class="fa fa-trash"></i>Xóa tất cả
                                         </a>
                                     </th>
                                 </tr>
@@ -268,10 +266,7 @@
                                         <td>
                                             <a href="@Url.Action("RemoveFromCart", "Cart", new { id = item.BookEditionId })"
                                                onclick="return confirmRemoveItem();">
-                                                <img src="~/Content/images/Remove.png"
-                                                     class="remove-icon"
-                                                     alt="Xóa"
-                                                     title="Xóa sách này" />
+                                                <i class="fa fa-trash"></i>Xóa
                                             </a>
                                         </td>
                                     </tr>
@@ -304,13 +299,6 @@
                     <div class="text-center">
                         @Html.ActionLink("Thanh toán", "Checkout", "Order", null,
                             new { @class = "btn btn-danger btn-lg cart-button" })
-                    </div>
-
-                    <div class="text-center mt-2">
-                        <small class="text-muted">
-                            <i class="fas fa-shield-alt"></i>
-                            Thanh toán an toàn & bảo mật
-                        </small>
                     </div>
                 </div>
             </div>

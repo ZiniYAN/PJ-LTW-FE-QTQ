@@ -167,6 +167,7 @@
     <Content Include="Content\Admin Stylesheet\UserDetail.css" />
     <Content Include="Content\Admin Stylesheet\UserEdit.css" />
     <Content Include="Content\contactus.css" />
+    <Content Include="Content\Customer Stylesheet\Buttons.css" />
     <Content Include="Content\Customer Stylesheet\FeatureProduct.css" />
     <Content Include="Content\Customer Stylesheet\ProductDetail.css" />
     <Content Include="Content\Detail.css" />

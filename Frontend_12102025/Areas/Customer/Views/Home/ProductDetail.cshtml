@@ -6,130 +6,151 @@
 }
 <link rel="stylesheet" type="text/css" href="~/Content/Customer Stylesheet/ProductDetail.css" />
 
-<div class="product-details">
-    <div class="product-details__container">
-        <!-- Image Section -->
-        <div class="product-details__image">
-            <img src="@Model.product.CoverImage" alt="@Model.product.BookTitle.Title" />
-            @if (Model.product.BookImages != null && Model.product.BookImages.Count > 1)
-            {
-                <div class="product-details__images-gallery">
-                    @foreach (var img in Model.product.BookImages)
+<div class="container product-details-wrapper">
+    <!-- Sử dụng Grid Bootstrap thay cho Grid CSS cứng -->
+    <div class="row">
+
+        <!-- Cột 1: Hình ảnh (Chiếm 4/12 trên PC, 5/12 trên Tablet) -->
+        <div class="col-lg-4 col-md-5 mb-4">
+            <div class="product-details__image">
+                <img src="@Model.product.CoverImage" alt="@Model.product.BookTitle.Title" class="img-fluid rounded" />
+                @if (Model.product.BookImages != null && Model.product.BookImages.Count > 1)
+                {
+                    <div class="product-details__images-gallery mt-2">
+                        @foreach (var img in Model.product.BookImages)
+                        {
+                            <img src="@img.ImageUrl" class="gallery-image" />
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Cột 2: Thông tin chi tiết (Chiếm 5/12 trên PC, 7/12 trên Tablet) -->
+        <div class="col-lg-5 col-md-7 mb-4">
+            <div class="product-details__info">
+                <h1 class="product-details__title">@Model.product.BookTitle.Title</h1>
+
+                <div class="mb-2">
+                    <div class="product-details__stock">
+                        <span class="product-details__sold">Số lượng: @Model.product.Stock</span>
+                    </div>
+                    <div class="product-details__meta">
+                        <span class="product-details__sold">Đã bán: @Model.product.OrderDetails.Count</span>
+                    </div>
+                    <div class="product-details__stat">
+                        <span class="@(Model.product.Stock > 0 ? "text-success" : "text-danger")">
+                            @(Model.product.Stock > 0 ? "Còn hàng" : "Hết hàng")
+                        </span>
+                    </div>
+                </div>
+
+                <div class="product-details__price">
+                    Giá: @Model.product.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))
+                </div>
+
+                <div class="product-meta-group">
+                    <div>
+                        <span class="product-details__category">
+                            <strong>Thể loại:</strong> @Model.product.BookTitle.Category.CategoryName
+                        </span>
+                    </div>
+                    <div>
+                        <span class="product-details__author"><strong>Tác giả:</strong> @Model.product.BookTitle.Author.AuthorName</span>
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.product.BookTitle.Author.Bio))
                     {
-                        <img src="@img.ImageUrl" class="gallery-image" />
+                        <div class="author-bio">@Model.product.BookTitle.Author.Bio</div>
+                    }
+                    <div>
+                        <span class="product-details__publisher">
+                            <strong>Nhà xuất bản:</strong> @Model.product.BookTitle.Publisher.PublisherName
+                            (@Model.product.BookTitle.Publisher.Address)
+                        </span>
+                    </div>
+                    <div class="text-muted small mt-2">
+                        <span>ISBN: @Model.product.ISBN</span> |
+                        <span>Ngày xuất bản: @(Model.product.PublishDate.HasValue ? Model.product.PublishDate.Value.ToString("dd/MM/yyyy") : "N/A")</span>
+                    </div>
+                </div>
+
+                <h2 class="product-details__description-title">Mô tả sản phẩm</h2>
+                <div class="product-details__description text-justify">
+                    @Model.product.BookTitle.Description
+                    @if (!string.IsNullOrEmpty(Model.product.ExtraDescription))
+                    {
+                        <br />@Model.product.ExtraDescription
                     }
                 </div>
-            }
+            </div>
         </div>
 
-        <!-- Info Section -->
-        <div class="product-details__info">
-            <h1 class="product-details__title">@Model.product.BookTitle.Title</h1>
-            <div class="product-details__stock">
-                <span class="product-details__sold">Số lượng: @Model.product.Stock</span>
-            </div>
-            <div class="product-details__meta">
-                <span class="product-details__sold">Đã bán: @Model.product.OrderDetails.Count</span>
-            </div>
-            <div class="product-details__stat">
-                <span>@(Model.product.Stock > 0 ? "Còn hàng" : "Hết hàng")</span>
-            </div>
-            <div class="product-details__price">
-                Giá @Model.product.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))
-            </div>
-            <div>
-                <span class="product-details__category">
-                    Thể loại: @Model.product.BookTitle.Category.CategoryName
-                </span>
-            </div>
-            <div>
-                <span class="product-details__author">Tác giả: @Model.product.BookTitle.Author.AuthorName</span>
-            </div>
-            @if (!string.IsNullOrEmpty(Model.product.BookTitle.Author.Bio))
-            {
-                <div class="author-bio">@Model.product.BookTitle.Author.Bio</div>
-            }
-            <div>
-                <span class="product-details__publisher">
-                    Nhà xuất bản: @Model.product.BookTitle.Publisher.PublisherName
-                    (@Model.product.BookTitle.Publisher.Address)
-                </span>
-            </div>
-            <div>
-                <span>ISBN: @Model.product.ISBN</span> <br />
-                <span>Ngày xuất bản: @Model.product.PublishDate</span>
-            </div>
+        <!-- Cột 3: Đặt hàng (Chiếm 3/12 trên PC, Full trên Tablet/Mobile) -->
+        <!-- Cột 3: Đặt hàng (Chiếm 3/12 trên PC, Full trên Tablet/Mobile) -->
+        <div class="col-lg-3 col-md-12">
+            <div class="card border-0 shadow-sm bg-light">
+                <div class="card-body p-3">
+                    <div class="product-details__order">
 
-            <h2 class="product-details__description-title">Mô tả sản phẩm</h2>
-            <p class="product-details__description">
-                @Model.product.BookTitle.Description
-                @if (!string.IsNullOrEmpty(Model.product.ExtraDescription))
-                {
-                    <br />@Model.product.ExtraDescription
-                }
-            </p>
-        </div>
-        <!-- Order Section -->
-        <div class="product-details__order">
-            @using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post))
-            {
-                @Html.Hidden("id", Model.product.BookEditionId)
-                <div class="product-details__quantity-group">
-                    <label class="product-details__order-title">Số lượng</label>
-                    <div class="quantity-selector">
-                        <button type="button" class="quantity-btn quantity-btn--minus" onclick="decreaseQuantity()">
-                            <i class="fa-solid fa-minus"></i>
-                        </button>
-                        <input type="number"
-                               id="quantityInput"
-                               name="quantity"
-                               value="@Model.quantity"
-                               min="1"
-                               max="@Model.product.Stock"
-                               class="quantity-input"
-                               readonly />
-                        <button type="button" class="quantity-btn quantity-btn--plus" onclick="increaseQuantity()">
-                            <i class="fa-solid fa-plus"></i>
-                        </button>
+                        <!-- Phần chọn số lượng (Giữ nguyên vì logic này riêng của trang chi tiết) -->
+                        @using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post, new { id = "addToCartForm" }))
+                        {
+                            <div class="product-details__quantity-group mb-3 justify-content-between">
+                                <label class="product-details__order-title mb-0">Số lượng</label>
+                                <div class="quantity-selector">
+                                    <button type="button" class="quantity-btn quantity-btn--minus" onclick="decreaseQuantity()">-</button>
+                                    <input type="number" id="quantityInput" name="quantity" value="1" min="1" max="@Model.product.Stock" class="quantity-input" readonly />
+                                    <button type="button" class="quantity-btn quantity-btn--plus" onclick="increaseQuantity()">+</button>
+                                </div>
+                            </div>
+
+                            <div class="product-details__estimate d-flex justify-content-between mb-3 border-bottom pb-2">
+                                <div class="product-details__estimate-label">Tạm tính</div>
+                                <div class="product-details__estimate-value">
+                                    <span id="estimateDisplay">@Model.product.Price.ToString("N0")</span> ₫
+                                </div>
+                            </div>
+                        }
+
+                        <!-- GỌI PARTIAL VIEW ĐỂ HIỂN THỊ NÚT BẤM -->
+                        <!-- Thiết lập ViewBag để điều khiển logic hiển thị của Partial -->
+                        @{
+                            ViewBag.Quantity = 1; // Mặc định là 1, JS sẽ cập nhật lại hidden field sau
+                            ViewBag.ShowBuyNow = true;
+                            ViewBag.addToCart = true; // Trang chi tiết cần nút thêm giỏ hàng
+                            ViewBag.ShowViewDetails = false; // Trang chi tiết rồi thì không cần nút "Xem chi tiết" nữa
+
+                            // Dùng class Bootstrap 'btn-block w-100' để nút full chiều rộng
+                            ViewBag.ButtonClass = "product-buttons-detail d-flex flex-column gap-2";
+                        }
+
+                        @Html.Partial("_PVButtons", Model.product)
+
                     </div>
                 </div>
-                <div class="product-details__estimate">
-                    <div class="product-details__estimate-label">Tạm tính</div>
-                    <div class="product-details__estimate-value">
-                        <span id="estimateDisplay">@Model.estimatedValue.ToString("N0")</span> ₫
-                    </div>
-                </div>
-                <button type="submit" class="product-details__add-to-cart">
-                    <i class="fa-solid"></i> Thêm vào giỏ hàng
-                </button>
-            }
-            @using (Html.BeginForm("BuyNow", "Cart", FormMethod.Post))
-            {
-                @Html.Hidden("id", Model.product.BookEditionId)
-                <input type="hidden" id="buyNowQuantity" name="quantity" value="@Model.quantity" />
-                <button type="submit" class="product-details__buy-now" onclick="syncBuyNowQuantity()">
-                    <i class="fa-solid"></i> Mua ngay
-                </button>
-            }
+            </div>
         </div>
+
     </div>
+
     <!-- Related Products -->
-    <div class="product-details__related">
+    <div class="product-details__related mt-5">
         @Html.Partial("_PVRelatedProduct", Model)
     </div>
 </div>
+
 <script>
     const unitPrice = @Model.product.Price;
     const maxStock = @Model.product.Stock;
     const quantityInput = document.getElementById('quantityInput');
+
     window.addEventListener('DOMContentLoaded', function() {
         let initialValue = parseInt(quantityInput.value) || 1;
-        if (initialValue < 1) {
-            initialValue = 1;
-        }
+        if (initialValue < 1) initialValue = 1;
         quantityInput.value = initialValue;
         updateEstimate();
     });
+
     function increaseQuantity() {
         let currentValue = parseInt(quantityInput.value) || 1;
         if (currentValue < maxStock && currentValue < 999) {
@@ -137,6 +158,7 @@
             updateEstimate();
         }
     }
+
     function decreaseQuantity() {
         let currentValue = parseInt(quantityInput.value) || 1;
         if (currentValue > 1) {
@@ -144,6 +166,7 @@
             updateEstimate();
         }
     }
+
     function updateEstimate() {
         let quantity = parseInt(quantityInput.value) || 1;
         if (quantity < 1) {
@@ -152,5 +175,41 @@
         }
         let estimate = quantity * unitPrice;
         document.getElementById('estimateDisplay').innerText = estimate.toLocaleString('vi-VN');
+
+        // Sync with hidden input for Buy Now form
+        const buyNowQty = document.getElementById('buyNowQuantity');
+        if(buyNowQty) buyNowQty.value = quantity;
     }
+
+    function syncBuyNowQuantity() {
+        const qty = document.getElementById('quantityInput').value;
+        const buyNowQty = document.getElementById('buyNowQuantity');
+        if(buyNowQty) buyNowQty.value = qty;
+    }
+
+    // Hàm cập nhật số lượng cho các form trong Partial View
+    function syncQuantityToForms() {
+        let currentQty = document.getElementById('quantityInput').value;
+
+        // Tìm tất cả các ô input hidden có name="quantity" nằm trong khối nút bấm
+        // Lưu ý: Class .product-buttons-detail là class mình vừa truyền vào ViewBag ở trên
+        let hiddenInputs = document.querySelectorAll('.product-buttons-detail input[name="quantity"]');
+
+        hiddenInputs.forEach(function (input) {
+            input.value = currentQty;
+        });
+    }
+
+    // Sửa lại hàm updateEstimate cũ để gọi thêm hàm sync này
+    function updateEstimate() {
+        let quantity = parseInt(quantityInput.value) || 1;
+        if (quantity < 1) quantity = 1;
+
+        let estimate = quantity * unitPrice;
+        document.getElementById('estimateDisplay').innerText = estimate.toLocaleString('vi-VN');
+
+        // Gọi hàm đồng bộ số lượng mới thêm
+        syncQuantityToForms();
+    }
+
 </script>

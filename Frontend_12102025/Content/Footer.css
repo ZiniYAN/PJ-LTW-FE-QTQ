@@ -81,8 +81,10 @@ footer {
         font-size: 16px;
         text-align: center;
     }
-
-    #footer-section2 ul, #footer-section3 ul {
+    #footer-section1 h5, #footer-section2 h5, #footer-section3 h5 {
+        text-align: center;
+    }
+    #footer-section1 ul ,#footer-section2 ul, #footer-section3 ul {
         text-align: center;
     }
 
