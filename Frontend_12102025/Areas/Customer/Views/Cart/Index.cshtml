@@ -201,9 +201,7 @@
                                     <th title="Xóa tất cả sách trong giỏ hàng">
                                         <a href="@Url.Action("ClearCart", "Cart")"
                                            onclick="return confirmClearCart();">
-                                            <img src="~/Content/images/Remove.png"
-                                                 class="remove-icon"
-                                                 alt="Xóa tất cả" />
+                                            <i class="fa fa-trash"></i>Xóa tất cả
                                         </a>
                                     </th>
                                 </tr>
@@ -268,10 +266,7 @@
                                         <td>
                                             <a href="@Url.Action("RemoveFromCart", "Cart", new { id = item.BookEditionId })"
                                                onclick="return confirmRemoveItem();">
-                                                <img src="~/Content/images/Remove.png"
-                                                     class="remove-icon"
-                                                     alt="Xóa"
-                                                     title="Xóa sách này" />
+                                                <i class="fa fa-trash"></i>Xóa
                                             </a>
                                         </td>
                                     </tr>
