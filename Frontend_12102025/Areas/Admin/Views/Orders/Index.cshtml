@@ -1,0 +1,80 @@
+﻿@model IEnumerable<Frontend_12102025.Models.Order>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/Admin Stylesheet/Order.css" />
+</head>
+
+<div class="content-wrapper">
+    <h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <div class="table-container">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.User.Username)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalAmount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PaymentMethod)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PaymentStatus)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderStatus)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Coupon.Code)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ShippingAddress.RecipientName)
+                </th>
+                <th>Actions</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="username">
+                        @Html.DisplayFor(modelItem => item.User.Username)
+                    </td>
+                    <td class="total">
+                        @Html.DisplayFor(modelItem => item.TotalAmount)
+                    </td>
+                    <td class="payment-method">
+                        @Html.DisplayFor(modelItem => item.PaymentMethod)
+                    </td>
+                    <td class="payment-status">
+                        @Html.DisplayFor(modelItem => item.PaymentStatus)
+                    </td>
+                    <td class="order-status">
+                        @Html.DisplayFor(modelItem => item.OrderStatus)
+                    </td>
+                    <td class="coupon">
+                        @Html.DisplayFor(modelItem => item.Coupon.Code)
+                    </td>
+                    <td class="recipient-name">
+                        @Html.DisplayFor(modelItem => item.ShippingAddress.RecipientName)
+                    </td>
+                    <td class="actions">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.OrderId }, new { @class = "btn-edit" })
+                        @Html.ActionLink("Details", "Details", new { id = item.OrderId }, new { @class = "btn-detail" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.OrderId }, new { @class = "btn-delete" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+    
+</div>
+

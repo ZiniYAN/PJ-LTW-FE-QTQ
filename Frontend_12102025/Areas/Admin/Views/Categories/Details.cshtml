@@ -7,31 +7,33 @@
 <head>
     <link rel="stylesheet" type="text/css" href="~/Content/Admin Stylesheet/Category.css" />
 </head>
+<div class="content-wrapper">
+    <h2>Details</h2>
 
-<h2>Details</h2>
+    <div class="details-container">
+        <dl class="dl-horizontal">
+            <dt class="label">
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </dt>
 
-<div class="details-container">
-    <dl class="dl-horizontal">
-        <dt class="label">
-            @Html.DisplayNameFor(model => model.CategoryName)
-        </dt>
+            <dd class="content">
+                @Html.DisplayFor(model => model.CategoryName)
+            </dd>
 
-        <dd class="content">
-            @Html.DisplayFor(model => model.CategoryName)
-        </dd>
+            <dt class="label">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
 
-        <dt class="label">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <dd class="content">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
 
-        <dd class="content">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-    </dl>
-    <p class="btn-container">
-        @Html.ActionLink("Edit", "Edit", new { id = Model.CategoryId }, new { @class = "btn-to-edit" }) |
-        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn-back" })
-    </p>
+        </dl>
+        <p class="btn-container">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.CategoryId }, new { @class = "btn-to-edit" }) |
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn-back" })
+        </p>
+    </div>
 </div>
+
 

@@ -1,6 +1,13 @@
 ﻿/*===============================*/
 /*=            INDEX            =*/
 /*===============================*/
+.content-wrapper {
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+}
 .title{
     font-size: 28px;
     font-weight:700;
@@ -11,9 +18,12 @@
     box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
     .table th {
-        background-color: #f3f4f6;
+        background-color: black;
+        color: white;
     }
-
+    .table tr{
+        background: white;
+    }
 .btn-actions .btn{
     padding:5px;
     border-radius: 8px;

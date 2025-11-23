@@ -5,109 +5,129 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Create</h2>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/Admin Stylesheet/ProductCreate.css" />
+</head>
 
+<div class="form-container">
+    <h2>Create New Book</h2>
+    <hr />
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Book</h4>
-        <hr />
+    @using (Html.BeginForm("Create", "Books", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.BookTitle.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BookTitle.Title, new { htmlAttributes = new { @class = "form-control" } })
+
+        <!-- Dòng 1: Title -->
+        <div class="form-row full-width">
+            <div class="form-group">
+                @Html.LabelFor(model => model.BookTitle.Title, "Book Title")
+                @Html.EditorFor(model => model.BookTitle.Title, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter book title" } })
                 @Html.ValidationMessageFor(model => model.BookTitle.Title, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.BookTitle.AuthorId, "AuthorID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("AuthorID", null, htmlAttributes: new { @class = "form-control" })
+        <!-- Dòng 2: Author | Publisher -->
+        <div class="form-row">
+            <div class="form-group">
+                @Html.LabelFor(model => model.BookTitle.AuthorId, "Author")
+                @Html.DropDownList("AuthorID", null, "-- Select Author --", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.BookTitle.AuthorId, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.BookTitle.PublisherId, "PublisherID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("PublisherID", null, htmlAttributes: new { @class = "form-control" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.BookTitle.PublisherId, "Publisher")
+                @Html.DropDownList("PublisherID", null, "-- Select Publisher --", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.BookTitle.PublisherId, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.BookTitle.CategoryId, "CategoryID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CategoryID", null, htmlAttributes: new { @class = "form-control" })
+        <!-- Dòng 3: Category | Price -->
+        <div class="form-row">
+            <div class="form-group">
+                @Html.LabelFor(model => model.BookTitle.CategoryId, "Category")
+                @Html.DropDownList("CategoryID", null, "-- Select Category --", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.BookTitle.CategoryId, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Price, "Price (VND)")
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", placeholder = "0", type = "number", step = "1000" } })
                 @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Stock, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control" } })
+        <!-- Dòng 4: Stock | ISBN -->
+        <div class="form-row">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Stock, "Stock Quantity")
+                @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control", placeholder = "0", type = "number" } })
                 @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ISBN, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ISBN, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="form-group">
+                @Html.LabelFor(model => model.ISBN, "ISBN")
+                @Html.EditorFor(model => model.ISBN, new { htmlAttributes = new { @class = "form-control", placeholder = "978-xxx-xxx-xxx" } })
                 @Html.ValidationMessageFor(model => model.ISBN, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.BookTitle.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BookTitle.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BookTitle.Description, "", new { @class = "text-danger" })
+        <!-- Dòng 5: Image URL | Publish Date -->
+        <div class="form-row">
+            <div class="form-group">
+                <label for="ImageUrl">Image URL</label>
+                <input type="url" id="ImageUrl" name="ImageUrl" class="form-control" placeholder="https://example.com/image.jpg" />
+                <span class="text-danger" id="imageUrlError"></span>
+                <div class="image-preview-container">
+                    <img id="imagePreview" class="image-preview" alt="Preview" />
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.BookImages, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BookImages, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BookImages, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PublishDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="form-group">
+                @Html.LabelFor(model => model.PublishDate, "Publish Date")
+                @Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
                 @Html.ValidationMessageFor(model => model.PublishDate, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+        <!-- Dòng 6: Description -->
+        <div class="form-row full-width">
+            <div class="form-group">
+                @Html.LabelFor(model => model.BookTitle.Description, "Description")
+                @Html.TextAreaFor(model => model.BookTitle.Description, new { @class = "form-control", placeholder = "Enter book description...", rows = 5 })
+                @Html.ValidationMessageFor(model => model.BookTitle.Description, "", new { @class = "text-danger" })
             </div>
         </div>
-    </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+        <div>
+            <input type="submit" value="Create Book" class="btn-submit" />
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn-back" })
+        </div>
+    }
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        // Preview image when URL is entered
+        document.getElementById('ImageUrl').addEventListener('input', function () {
+            var url = this.value.trim();
+            var preview = document.getElementById('imagePreview');
+
+            if (url) {
+                // Test if image loads
+                var img = new Image();
+                img.onload = function () {
+                    preview.src = url;
+                    preview.classList.add('show');
+                    document.getElementById('imageUrlError').textContent = '';
+                };
+                img.onerror = function () {
+                    preview.classList.remove('show');
+                    document.getElementById('imageUrlError').textContent = 'Invalid image URL';
+                };
+                img.src = url;
+            } else {
+                preview.classList.remove('show');
+                document.getElementById('imageUrlError').textContent = '';
+            }
+        });
+    </script>
 }

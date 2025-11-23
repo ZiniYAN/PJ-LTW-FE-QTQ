@@ -1,0 +1,391 @@
+﻿.inventory-container {
+    max-width: 100%;
+    padding: 1.5rem;
+    background: #FCF6DD; /* rgb(252,246,221) */
+}
+
+    .inventory-container h2 {
+        color: #5D4E37; /* Nâu coffee */
+        font-size: 1.75rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid #C4A661; /* Vàng đồng */
+    }
+
+/* Nav Tabs */
+.need-import {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+    border-bottom: 2px solid #E8DCC0;
+    gap: 0.5rem;
+}
+
+    .need-import .nav-item {
+        margin: 0;
+    }
+
+    .need-import .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.25rem;
+        background: #FFFBF0;
+        border: 2px solid black;
+        border-bottom: none;
+        border-radius: 8px 8px 0 0;
+        color: #5D4E37;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: all 0.2s;
+        cursor: pointer;
+    }
+
+        .need-import .nav-link:hover {
+            background: white;
+        }
+
+        .need-import .nav-link.active {
+            background: white;
+        }
+
+/* Badges */
+.badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.bg-danger {
+    background: #E57373;
+    color: white;
+}
+
+.bg-success {
+    background: #81C784;
+    color: white;
+}
+
+.bg-warning {
+    background: #FFB74D;
+    color: #5D4E37;
+}
+
+.bg-secondary {
+    background: #A1887F;
+    color: white;
+}
+
+/* Tab Content */
+.tab-content {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(93, 78, 55, 0.1);
+}
+
+.tab-pane {
+    display: none;
+}
+
+    .tab-pane.active {
+        display: block;
+        animation: fadeIn 0.3s;
+    }
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Alerts */
+.alert {
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.alert-warning {
+    background: #FFF3CD;
+    border: 1px solid #FFE69C;
+    color: #856404;
+}
+
+.alert-success {
+    background: #D4EDDA;
+    border: 1px solid #C3E6CB;
+    color: #155724;
+}
+
+.alert-info {
+    background: #D1ECF1;
+    border: 1px solid #BEE5EB;
+    color: #0C5460;
+}
+
+/* Table Container */
+.table-responsive {
+    overflow: auto;
+    max-height: 500px;
+    border-radius: 8px;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Table */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin: 0;
+    background: white;
+}
+
+    .table thead.table-dark {
+        background: #5D4E37;
+        color: white;
+    }
+
+    .table thead th {
+        padding: 0.75rem 0.5rem;
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        border: none;
+    }
+    .table tbody tr{
+        width: 100%;
+    }
+    .table tbody td {
+        padding: 0.75rem 0.5rem;
+        vertical-align: middle;
+        border-bottom: 1px solid #F5F5F5;
+    }
+
+    .table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+    /* Column Widths - Giảm chiều rộng */
+    /* Mã */
+    .table th:nth-child(1),
+    .table td:nth-child(1) {
+        text-align: center;
+        width: 60px;
+    }
+    /* Tên sách */
+
+    .table th:nth-child(2),
+    .table td:nth-child(2) {
+        width: 30%;
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Danh mục */
+    .table th:nth-child(3),
+    .table td:nth-child(3) {
+        width: 10%;
+    }
+
+    /* ISBN */
+    .table th:nth-child(4),
+    .table td:nth-child(4) {
+        width: 10%;
+    }
+
+    /* Tồn kho */
+    .table th:nth-child(6),
+    .table td:nth-child(6) {
+        width: 10%;
+        text-align: center;
+    }
+
+    /* Giá */
+    .table th:nth-child(7),
+    .table td:nth-child(7) {
+        width: 10%;
+    }
+
+    /* Trạng thái */
+    .table th:nth-child(8),
+    .table td:nth-child(8) {
+        width: 10%;
+    }
+
+
+
+/* Row Colors */
+.table-danger {
+    background: rgba(229, 115, 115, 0.1);
+}
+
+.table-warning {
+    background: rgba(255, 183, 77, 0.1);
+}
+
+.table-success {
+    background: rgba(129, 199, 132, 0.05);
+}
+
+.table-hover tbody tr:hover {
+    background: #FFFBF0;
+}
+
+/* Code tag */
+code {
+    background: #F5F5F5;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    color: #E57373;
+    font-family: monospace;
+}
+
+/* Buttons */
+.btn {
+    padding: 0.4rem 0.75rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: inline-block;
+    border: none;
+}
+
+.btn-primary {
+    background: #7986CB;
+    color: white;
+}
+
+    .btn-primary:hover {
+        background: #5C6BC0;
+        transform: translateY(-1px);
+    }
+
+.btn-info {
+    background: #4DB6AC;
+    color: white;
+}
+
+    .btn-info:hover {
+        background: #26A69A;
+        transform: translateY(-1px);
+    }
+
+/* Icons */
+.bi {
+    font-size: 1rem;
+}
+
+/* Text utilities */
+.text-danger {
+    color: #E57373;
+}
+
+.text-success {
+    color: #81C784;
+}
+
+.text-muted {
+    color: #9E9E9E;
+}
+
+.text-dark {
+    color: #5D4E37;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .inventory-container {
+        padding: 1rem;
+    }
+
+    .table {
+        font-size: 0.8rem;
+    }
+
+        .table thead th,
+        .table tbody td {
+            padding: 0.6rem 0.4rem;
+        }
+}
+
+@media (max-width: 992px) {
+    /* Ẩn cột Edition trên tablet */
+    .table th:nth-child(4),
+    .table td:nth-child(4) {
+        display: none;
+    }
+
+    .table th:nth-child(2),
+    .table td:nth-child(2) {
+        width: 150px;
+        max-width: 150px;
+    }
+}
+
+@media (max-width: 768px) {
+    .inventory-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .need-import .nav-link {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .tab-content {
+        padding: 1rem;
+    }
+
+    .table {
+        font-size: 0.75rem;
+    }
+
+        /* Ẩn thêm cột ISBN trên mobile */
+        .table th:nth-child(5),
+        .table td:nth-child(5) {
+            display: none;
+        }
+
+    .btn {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .inventory-container {
+        padding: 0.75rem;
+    }
+
+    .need-import {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+        .need-import .nav-link {
+            border-radius: 6px;
+            border: 1px solid #E8DCC0;
+        }
+
+            .need-import .nav-link.active {
+                border: 2px solid #C4A661;
+            }
+}

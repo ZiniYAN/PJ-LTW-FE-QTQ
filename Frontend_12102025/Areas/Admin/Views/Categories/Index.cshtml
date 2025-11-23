@@ -8,36 +8,39 @@
 <head>
     <link rel="stylesheet" type="text/css" href="~/Content/Admin Stylesheet/Category.css"/>
 </head>
-<h2 class="title">Homepage Category</h2>
+<div class="content-wrapper">
+    <h2 class="title">Homepage Category</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoryName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th style="width: 230px">Actions</th>
-    </tr>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th style="width: 230px">Actions</th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td class="btn-actions">
-            @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId }, new {@class = "btn btn-edit"}) |
-            @Html.ActionLink("Details", "Details", new { id = item.CategoryId },new {@class = "btn btn-detail"}) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId }, new {@class = "btn btn-delete"})
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td class="btn-actions">
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId }, new { @class = "btn btn-edit" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CategoryId }, new { @class = "btn btn-detail" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId }, new { @class = "btn btn-delete" })
+                </td>
+            </tr>
+        }
 
-</table>
-<div class="btn-create-cotainer">
-    @Html.ActionLink("Create New", "Create",null, new { @class = "btn btn-create" })
+    </table>
+    <div class="btn-create-cotainer">
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-create" })
+    </div>
 </div>
