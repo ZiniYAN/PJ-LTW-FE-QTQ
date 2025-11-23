@@ -1,2 +1,289 @@
-﻿body {
+﻿/* Content Wrapper */
+.content-wrapper {
+    padding: 30px;
+    background: white;
+    margin-bottom: 30px;
+}
+
+    .content-wrapper h2 {
+        color: #333;
+        margin-bottom: 25px;
+        font-size: 28px;
+        font-weight: 600;
+    }
+
+    /* Create Button */
+    .content-wrapper > p {
+        margin-bottom: 20px;
+    }
+
+        .content-wrapper > p a {
+            display: inline-block;
+            padding: 10px 24px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+            .content-wrapper > p a:hover {
+                background: #218838;
+                box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+            }
+
+/* Table */
+.table-container {
+    max-height: 600px;
+    overflow: auto;
+}
+.table {
+    width: 100%;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+    .table th {
+        background: #2c3e50;
+        color: white;
+        padding: 15px 12px;
+        text-align: left;
+        font-weight: 600;
+        font-size: 10px;
+        letter-spacing: 0.5px;
+    }
+
+    .table td {
+        padding: 12px;
+        border-bottom: 1px solid #e9ecef;
+        font-size: 14px;
+        color: #495057;
+        vertical-align: middle;
+    }
+
+    .table tr:last-child td {
+        border-bottom: none;
+    }
+
+    .table tr:hover {
+        background: #f8f9fa;
+    }
+
+    /* Column Widths */
+    .table th:nth-child(1),
+    .order-date {
+        width: 20%;
+    }
+
+    .table th:nth-child(2),
+    .total {
+        width: 10%;
+    }
+
+    .table th:nth-child(3),
+    .payment-method {
+        width: 10%;
+    }
+
+    .table th:nth-child(4),
+    .payment-status {
+        width: 10%;
+    }
+
+    .table th:nth-child(5),
+    .order-status {
+        width: 10%;
+    }
+
+    .table th:nth-child(6),
+    .coupon {
+        width: 10%;
+    }
+
+    .table th:nth-child(7),
+    .recipient-name {
+        width: 13%;
+    }
+
+    .table th:nth-child(8),
+    .username {
+        width: 10%;
+    }
+
+    .table th:nth-child(9),
+    .actions {
+        width: 15%;
+    }
+
+/* Order Date */
+.order-date {
+    color: #6c757d;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Total Amount */
+.total {
+    color: #28a745;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+/* Payment Method */
+.payment-method {
+    color: #495057;
+    font-weight: 500;
+}
+
+/* Payment Status */
+.payment-status {
+    font-weight: 600;
+}
+
+/* Order Status */
+.order-status {
+    font-weight: 600;
+}
+
+/* Coupon */
+.coupon {
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Recipient Name */
+.recipient-name {
+    color: #495057;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Username */
+.username {
+    color: #007bff;
+    font-weight: 500;
+}
+
+/* Actions - Vertical Stack */
+.actions {
+    text-align: center;
+    padding: 8px !important;
+}
+
+/* Action Buttons - Vertical Layout */
+.btn-edit,
+.btn-detail,
+.btn-delete {
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+    .btn-edit:last-child,
+    .btn-detail:last-child,
+    .btn-delete:last-child {
+        margin-bottom: 0;
+    }
+
+/* Edit Button */
+.btn-edit {
+    background: #7986CB;
+    color: #ffff;
+}
+
+    .btn-edit:hover {
+        background: #5C6BC0;
+        color: white;
+        box-shadow: 0 3px 8px rgba(255, 193, 7, 0.4);
+    }
+
+/* Details Button */
+.btn-detail {
+    background: #4DB6AC;
+    color: white;
+}
+
+    .btn-detail:hover {
+        background: #26A69A;
+        color: white;
+        box-shadow: 0 3px 8px rgba(23, 162, 184, 0.4);
+    }
+
+/* Delete Button */
+.btn-delete {
+    background: #E57373;
+    color: white;
+}
+
+    .btn-delete:hover {
+        background: #c82333;
+        color: white;
+        box-shadow: 0 3px 8px rgba(220, 53, 69, 0.4);
+    }
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .table {
+        font-size: 13px;
+    }
+
+        .table th,
+        .table td {
+            padding: 10px 8px;
+        }
+
+    .btn-edit,
+    .btn-detail,
+    .btn-delete {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 992px) {
+    .content-wrapper {
+        padding: 20px;
+    }
+
+        .content-wrapper h2 {
+            font-size: 24px;
+        }
+
+    .table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 768px) {
+    .content-wrapper {
+        padding: 15px;
+    }
+
+        .content-wrapper h2 {
+            font-size: 20px;
+        }
+
+    .btn-edit,
+    .btn-detail,
+    .btn-delete {
+        padding: 5px 8px;
+        font-size: 11px;
+        margin-bottom: 4px;
+    }
 }

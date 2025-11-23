@@ -130,6 +130,10 @@
     <Content Include="Content\Admin Stylesheet\Dashboard.css" />
     <Content Include="Content\Admin Stylesheet\Inventory.css" />
     <Content Include="Content\Admin Stylesheet\Order.css" />
+    <Content Include="Content\Admin Stylesheet\OrderCreate.css" />
+    <Content Include="Content\Admin Stylesheet\OrderDelete.css" />
+    <Content Include="Content\Admin Stylesheet\OrderDetail.css" />
+    <Content Include="Content\Admin Stylesheet\OrderEdit.css" />
     <Content Include="Content\Admin Stylesheet\Product.css" />
     <Content Include="Content\Admin Stylesheet\ProductCreate.css" />
     <Content Include="Content\Admin Stylesheet\ProductDelete.css" />

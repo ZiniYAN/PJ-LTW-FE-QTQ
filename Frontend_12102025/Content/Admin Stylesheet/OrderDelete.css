@@ -1,0 +1,127 @@
+﻿/* Page Container */
+.content-wrapper {
+    max-width: 100%;
+    padding: 1.5rem;
+    background: white;
+    margin-bottom: 30px;
+}
+
+    /* Page Title */
+    .content-wrapper h2 {
+        color: #5D4E37;
+        font-size: 1.75rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .content-wrapper h3 {
+        background: #fff3cd;
+        border: 1px solid #ffc107;
+        border-radius: 4px;
+        padding: 15px;
+        color: #856404;
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .content-wrapper h4 {
+        color: #333;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .content-wrapper hr {
+        border: none;
+        border-top: 2px solid #C4A661;
+        margin-bottom: 1.5rem;
+    }
+
+/* Details List */
+.dl-horizontal {
+    margin: 0;
+    padding: 0;
+}
+
+    .dl-horizontal dt {
+        font-weight: 600;
+        color: #333;
+        margin-top: 15px;
+        margin-bottom: 5px;
+        font-size: 0.95rem;
+    }
+
+    .dl-horizontal dd {
+        margin: 0 0 15px 0;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+        color: #666;
+        font-size: 1rem;
+    }
+
+/* Form Actions */
+.form-actions {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid #eee;
+}
+
+.btn-default {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #E57373;
+    color: white;
+    margin-right: 0.5rem;
+}
+
+    .btn-default:hover {
+        background: #E53935;
+        box-shadow: 0 4px 8px rgba(229, 115, 115, 0.3);
+    }
+
+.form-actions a {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    background: #e5e5e5;
+    color: #333;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+    .form-actions a:hover {
+        background: #d5d5d5;
+    }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .content-wrapper {
+        padding: 1rem;
+    }
+
+        .content-wrapper h2 {
+            font-size: 1.5rem;
+        }
+
+    .form-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .btn-default {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .form-actions a {
+        width: 100%;
+        text-align: center;
+    }
+}
