@@ -20,7 +20,7 @@
                             <p class="prodCate">@product.BookTitle.Category.CategoryName</p>
                             <p class="prodPrice">@String.Format("{0:N0}", product.Price) đ</p>
                             @{
-                                ViewBag.Quantity = 1;
+                                ViewBag.Quantity = 0;
                                 ViewBag.ShowBuyNow = true;
                                 ViewBag.addToCart = false;
                                 ViewBag.ShowViewDetails = true;
