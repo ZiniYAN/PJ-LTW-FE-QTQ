@@ -15,7 +15,7 @@
         @Html.ActionLink("Create New", "Create")
     </p>
     <table class="table">
-        <tr>
+        <tr class="header-table">
             <th>
                 @Html.DisplayNameFor(model => model.CoverImage)
             </th>
@@ -40,45 +40,39 @@
             <th>
                 @Html.DisplayNameFor(model => model.BookTitle.Category.CategoryName)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BookTitle.Publisher.PublisherName)
-            </th>
-            <th></th>
+            <th>Action</th>
         </tr>
 
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                <td class="img">
                     <img src="@Html.DisplayFor(modelItem => item.CoverImage)" style="max-width: 150px; height: auto"/>
                 </td>
-                <td>
+                <td class="title">
                     @Html.DisplayFor(modelItem => item.BookTitle.Title)
                 </td>
-                <td>
+                <td class="price">
                     @Html.DisplayFor(modelItem => item.Price) đ
                 </td>
-                <td>
+                <td class="stock">
                     @Html.DisplayFor(modelItem => item.Stock)
                 </td>
-                <td>
+                <td class="isbn">
                     @Html.DisplayFor(modelItem => item.ISBN)
                 </td>
-                <td>
+                <td class="publish-date">
                     @Html.DisplayFor(modelItem => item.PublishDate)
                 </td>
-                <td>
+                <td class="author-name">
                     @Html.DisplayFor(modelItem => item.BookTitle.Author.AuthorName)
                 </td>
-                <td>
+                <td class="category-name">
                     @Html.DisplayFor(modelItem => item.BookTitle.Category.CategoryName)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BookTitle.Publisher.PublisherName)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", "Books", new {area = "Admin", id = item.BookTitleId}, new {@class = "btn-edit"}) |
-                    @Html.ActionLink("Details", "Details","Books" , new { area = "Admin", id = item.BookTitleId }, new { @class = "btn-details" }) |
+                <td class="action-button">
+                    @Html.ActionLink("Edit", "Edit", "Books", new {area = "Admin", id = item.BookTitleId}, new {@class = "btn-edit"})
+                    @Html.ActionLink("Details", "Details","Books" , new { area = "Admin", id = item.BookTitleId }, new { @class = "btn-details" })
                     @Html.ActionLink("Delete", "Delete", "Books", new { area = "Admin", id = item.BookTitleId }, new { @class = "btn-delete" })
                 </td>
             </tr>

@@ -1,2 +1,344 @@
-﻿body {
+﻿/* USER MANAGEMENT - SIMPLE */
+
+.content-wrapper {
+    max-width: 100%;
+    padding: 1.5rem;
+    background: #FCF6DD;
+    min-height: 100vh;
+}
+
+h2 {
+    color: #5D4E37;
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #C4A661;
+}
+
+p {
+    margin-bottom: 1.5rem;
+}
+
+    p a {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        background: #7986CB;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+        p a:hover {
+            background: #5C6BC0;
+            color: white;
+        }
+
+/* Table Container */
+.table-container {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 600px;
+}
+
+    /* Scrollbar */
+    .table-container::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    .table-container::-webkit-scrollbar-track {
+        background: #F5F5F5;
+    }
+
+    .table-container::-webkit-scrollbar-thumb {
+        background: #C4A661;
+    }
+
+/* Table */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+    .table tr:first-child {
+        background: #5D4E37;
+        color: white;
+    }
+
+        .table tr:first-child th {
+            padding: 0.75rem 0.5rem;
+            font-weight: 600;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            background: #5D4E37;
+        }
+
+    .table tr:not(:first-child) {
+        border-bottom: 1px solid #F5F5F5;
+    }
+
+        .table tr:not(:first-child):hover {
+            background: #FFFBF0;
+        }
+
+    .table td {
+        padding: 0.75rem 0.5rem;
+        vertical-align: middle;
+    }
+
+        /* Username */
+        .table td:nth-child(1) {
+            font-weight: 600;
+            color: #5D4E37;
+        }
+
+        /* Password - Hidden */
+        .table td:nth-child(2) {
+            font-family: monospace;
+            color: #9E9E9E;
+            font-size: 0.75rem;
+            max-width: 100px;
+            overflow: hidden;
+        }
+
+        /* FullName */
+        .table td:nth-child(3) {
+            font-weight: 500;
+        }
+
+        /* Email */
+        .table td:nth-child(4) {
+            color: #4DB6AC;
+        }
+
+        /* Phone */
+        .table td:nth-child(5) {
+            font-family: monospace;
+        }
+
+        /* Role */
+        .table td:nth-child(6) {
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* Date */
+        .table td:nth-child(7) {
+            font-size: 0.8rem;
+            color: #9E9E9E;
+        }
+
+        /* Action Buttons */
+        .table td:last-child {
+            white-space: nowrap;
+            text-align: center;
+        }
+
+            .table td:last-child a {
+                display: inline-block;
+                padding: 0.4rem 0.75rem;
+                margin: 0 0.15rem;
+                border-radius: 5px;
+                text-decoration: none;
+                font-size: 0.8rem;
+                font-weight: 600;
+                color: white;
+            }
+
+                .table td:last-child a:nth-child(1) {
+                    background: #7986CB;
+                }
+
+                    .table td:last-child a:nth-child(1):hover {
+                        background: #5C6BC0;
+                    }
+
+                .table td:last-child a:nth-child(2) {
+                    background: #4DB6AC;
+                }
+
+                    .table td:last-child a:nth-child(2):hover {
+                        background: #26A69A;
+                    }
+
+                .table td:last-child a:last-child {
+                    background: #E57373;
+                }
+
+                    .table td:last-child a:last-child:hover {
+                        background: #E53935;
+                    }
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .content-wrapper {
+        padding: 1rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .table {
+        font-size: 0.75rem;
+    }
+
+    .table-container {
+        max-height: 450px;
+    }
+
+    /* Ẩn Password */
+    .table tr:first-child th:nth-child(2),
+    .table td:nth-child(2) {
+        display: none;
+    }
+}
+
+@media (max-width: 992px) {
+    .table-container {
+        padding: 1rem;
+        max-height: 400px;
+    }
+
+    /* Ẩn Phone */
+    .table tr:first-child th:nth-child(5),
+    .table td:nth-child(5) {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    p a {
+        width: 100%;
+        text-align: center;
+    }
+
+    .table {
+        font-size: 0.7rem;
+    }
+
+        .table tr:first-child th {
+            padding: 0.5rem 0.3rem;
+        }
+
+        .table td {
+            padding: 0.5rem 0.3rem;
+        }
+
+            .table td:last-child a {
+                padding: 0.3rem 0.5rem;
+                font-size: 0.7rem;
+            }
+
+    .table-container {
+        max-height: 350px;
+    }
+
+    /* Ẩn Date */
+    .table tr:first-child th:nth-child(7),
+    .table td:nth-child(7) {
+        display: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .content-wrapper {
+        padding: 0.75rem;
+    }
+
+    .table-container {
+        padding: 0.5rem;
+    }
+
+    /* Stack table */
+    .table tr:first-child {
+        display: none;
+    }
+
+    .table tr:not(:first-child) {
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid #E8DCC0;
+        border-radius: 8px;
+        padding: 1rem;
+    }
+
+    .table td {
+        display: block;
+        text-align: left;
+        padding: 0.5rem 0;
+        border: none;
+    }
+
+        .table td::before {
+            content: attr(data-label) ": ";
+            font-weight: 600;
+            color: #5D4E37;
+        }
+
+        .table td:last-child {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #E8DCC0;
+        }
+
+            .table td:last-child::before {
+                display: none;
+            }
+
+            .table td:last-child a {
+                width: 100%;
+                text-align: center;
+                margin: 0;
+            }
+
+        /* Hiện lại tất cả cột */
+        .table td:nth-child(2),
+        .table td:nth-child(5),
+        .table td:nth-child(7) {
+            display: block;
+        }
+}
+
+/* Print */
+@media print {
+    .content-wrapper {
+        background: white;
+        padding: 0;
+    }
+
+    p {
+        display: none;
+    }
+
+    .table-container {
+        padding: 0;
+        max-height: none;
+    }
+
+    /* Ẩn Password và Actions */
+    .table td:nth-child(2),
+    .table td:last-child {
+        display: none;
+    }
+
+    .table tr:first-child th:nth-child(2),
+    .table tr:first-child th:last-child {
+        display: none;
+    }
 }

@@ -1,32 +1,33 @@
 ﻿@model Frontend_12102025.Models.ViewModels.InventoryVM
 
 @{ 
-    ViewBag.Title = " ";
+    ViewBag.Title = "Quản lý kho hàng";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 <head>
     <link rel="stylesheet" type="text/css" href="~/Content/Admin Stylesheet/Inventory.css"/>
 </head>
 <div class="inventory-container">
-    <h2>Quản lý kho hàng</h2>
-    <ul class="need-import" id="inventoryTabs">
+    <h2>📦 Quản lý kho hàng</h2>
+    @* Navigation bar*@
+    <ul class="need-import" id="inventoryTabs" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="need-import-tab"
+            <a class="nav-link active" id="need-import-tab"
                     data-bs-toggle="tab" data-bs-target="#need-import"
-                    type="button" role="tab">
+                    data-toggle="tab" role="tab" href="#need-import">
                 <i class="bi bi-exclamation-triangle-fill text-danger"></i>
                 Cần Nhập Hàng
                 <span class="badge bg-danger ms-2">@Model.NeedImportBooks.Count</span>
-            </button>
+            </a>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="in-stock-tab"
+            <a class="nav-link" id="in-stock-tab"
                     data-bs-toggle="tab" data-bs-target="#in-stock"
-                    type="button" role="tab">
+                    data-toggle="tab" role="tab" href="#in-stock">
                 <i class="bi bi-check-circle-fill text-success"></i>
                 Còn Hàng
                 <span class="badge bg-success ms-2">@Model.InStockBooks.Count</span>
-            </button>
+            </a>
         </li>
     </ul>
         <!-- Tabs Content -->
@@ -48,7 +49,6 @@
                                     <th>Mã Phiên Bản</th>
                                     <th>Tên Sách</th>
                                     <th>Danh Mục</th>
-                                    <th>Edition</th>
                                     <th>ISBN</th>
                                     <th>Tồn Kho</th>
                                     <th>Giá</th>
@@ -62,8 +62,7 @@
                                     <tr class="table-danger">
                                         <td>@book.BookEditionId</td>
                                         <td>
-                                            <strong>@book.BookTitle?.Title</strong><br />
-                                            <small class="text-muted">@book.BookTitle?.Author</small>
+                                            <strong>@Html.DisplayFor(model => book.BookTitle.Title)</strong>
                                         </td>
                                         <td>
                                             <span class="badge bg-secondary">
@@ -118,7 +117,6 @@
                                     <th>Mã Phiên Bản</th>
                                     <th>Tên Sách</th>
                                     <th>Danh Mục</th>
-                                    <th>Edition</th>
                                     <th>ISBN</th>
                                     <th>Tồn Kho</th>
                                     <th>Giá</th>
@@ -136,8 +134,7 @@
                                     <tr class="@stockClass">
                                         <td>@book.BookEditionId</td>
                                         <td>
-                                            <strong>@book.BookTitle?.Title</strong><br />
-                                            <small class="text-muted">@book.BookTitle?.Author</small>
+                                            <strong>@Html.DisplayFor(model => book.BookTitle.Title)</strong>
                                         </td>
                                         <td>
                                             <span class="badge bg-secondary">

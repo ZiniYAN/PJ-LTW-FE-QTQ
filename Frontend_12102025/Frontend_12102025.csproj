@@ -127,6 +127,10 @@
     <Content Include="Content\Admin Stylesheet\Inventory.css" />
     <Content Include="Content\Admin Stylesheet\Order.css" />
     <Content Include="Content\Admin Stylesheet\Product.css" />
+    <Content Include="Content\Admin Stylesheet\ProductCreate.css" />
+    <Content Include="Content\Admin Stylesheet\ProductDelete.css" />
+    <Content Include="Content\Admin Stylesheet\ProductDetail.css" />
+    <Content Include="Content\Admin Stylesheet\ProductEdit.css" />
     <Content Include="Content\Admin Stylesheet\User.css" />
     <Content Include="Content\contactus.css" />
     <Content Include="Content\Detail.css" />

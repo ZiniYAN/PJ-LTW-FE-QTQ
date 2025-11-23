@@ -47,47 +47,66 @@ namespace Frontend_12102025.Areas.Admin
         // GET: Admin/Books/Create
         public ActionResult Create()
         {
-            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "AuthorName");
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
-            ViewBag.PublisherID = new SelectList(db.Publishers, "PublisherID", "PublisherName");
+            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorId", "AuthorName");
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryId", "CategoryName");
+            ViewBag.PublisherID = new SelectList(db.Publishers, "PublisherId", "PublisherName");
             return View();
         }
 
         // POST: Admin/Books/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(BookEdition bookEdition, int AuthorID, int PublisherID, int CategoryID)
+        public ActionResult Create(BookEdition bookEdition, string ImageUrl)
         {
             if (ModelState.IsValid)
             {
-                // Tạo BookTitle trước
+                // 1. Tạo BookTitle trước
                 var bookTitle = new BookTitle
                 {
                     Title = bookEdition.BookTitle.Title,
-                    AuthorId = AuthorID,
-                    PublisherId = PublisherID,
-                    CategoryId = CategoryID,
-                    Description = bookEdition.BookTitle.Description
+                    Description = bookEdition.BookTitle.Description,
+                    AuthorId = int.Parse(Request.Form["AuthorId"]),
+                    PublisherId = int.Parse(Request.Form["PublisherId"]),
+                    CategoryId = int.Parse(Request.Form["CategoryId"])
                 };
-                
+
                 db.BookTitles.Add(bookTitle);
-                db.SaveChanges();
-                
-                // Sau đó tạo BookEdition với BookTitleId vừa tạo
-                bookEdition.BookTitleId = bookTitle.BookTitleId;
-                bookEdition.BookTitle = null; // Prevent duplicate insert
-                
-                db.BookEditions.Add(bookEdition);
-                db.SaveChanges();
-                
+                db.SaveChanges(); // Lấy BookTitleId
+
+                // 2. Tạo BookEdition
+                var newBookEdition = new BookEdition
+                {
+                    BookTitleId = bookTitle.BookTitleId,
+                    Price = bookEdition.Price,
+                    Stock = bookEdition.Stock,
+                    ISBN = bookEdition.ISBN,
+                    PublishDate = bookEdition.PublishDate
+                };
+
+                db.BookEditions.Add(newBookEdition);
+                db.SaveChanges(); // Lấy BookEditionId
+
+                // 3. Lưu Image URL vào BookImages
+                if (!string.IsNullOrEmpty(ImageUrl))
+                {
+                    var bookImage = new BookImage
+                    {
+                        BookEditionId = newBookEdition.BookEditionId,
+                        ImageUrl = ImageUrl
+                    };
+
+                    db.BookImages.Add(bookImage);
+                    db.SaveChanges();
+                }
+
                 return RedirectToAction("Index");
             }
 
-            // Nếu validation fail, giữ lại ViewBag
-            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorID", "AuthorName", AuthorID);
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", CategoryID);
-            ViewBag.PublisherID = new SelectList(db.Publishers, "PublisherID", "PublisherName", PublisherID);
-            
+            // Nếu lỗi, load lại dropdown
+            ViewBag.AuthorID = new SelectList(db.Authors, "AuthorId", "AuthorName", bookEdition.BookTitle.AuthorId);
+            ViewBag.PublisherID = new SelectList(db.Publishers, "PublisherId", "PublisherName", bookEdition.BookTitle.PublisherId);
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryId", "CategoryName", bookEdition.BookTitle.CategoryId);
+
             return View(bookEdition);
         }
 

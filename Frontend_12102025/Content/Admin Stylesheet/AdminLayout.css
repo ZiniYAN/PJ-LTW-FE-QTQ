@@ -1,5 +1,8 @@
 ﻿/* Minimal admin layout styles (copy to Content/Admin.css if preferred) */
-html, body {
+main {
+    background: rgb(252,246,221);
+}
+html, body{
     height: 100%;
     margin: 0;
     font-family: Segoe UI, Roboto, Arial, sans-serif;
