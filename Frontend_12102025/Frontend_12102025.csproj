@@ -124,6 +124,10 @@
     <Content Include="Content\Admin Stylesheet\AdminLayout.css" />
     <Content Include="Content\Admin Stylesheet\Category.css" />
     <Content Include="Content\Admin Stylesheet\Customer.css" />
+    <Content Include="Content\Admin Stylesheet\CustomerDelete.css" />
+    <Content Include="Content\Admin Stylesheet\CustomerDetail.css" />
+    <Content Include="Content\Admin Stylesheet\CustomerEdit.css" />
+    <Content Include="Content\Admin Stylesheet\Dashboard.css" />
     <Content Include="Content\Admin Stylesheet\Inventory.css" />
     <Content Include="Content\Admin Stylesheet\Order.css" />
     <Content Include="Content\Admin Stylesheet\Product.css" />
@@ -132,6 +136,10 @@
     <Content Include="Content\Admin Stylesheet\ProductDetail.css" />
     <Content Include="Content\Admin Stylesheet\ProductEdit.css" />
     <Content Include="Content\Admin Stylesheet\User.css" />
+    <Content Include="Content\Admin Stylesheet\UserCreate.css" />
+    <Content Include="Content\Admin Stylesheet\UserDelete.css" />
+    <Content Include="Content\Admin Stylesheet\UserDetail.css" />
+    <Content Include="Content\Admin Stylesheet\UserEdit.css" />
     <Content Include="Content\contactus.css" />
     <Content Include="Content\Detail.css" />
     <Content Include="Content\OrderHistory.css" />

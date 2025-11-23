@@ -4,104 +4,109 @@
     ViewBag.Title = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/Admin Stylesheet/CustomerDetail.css" />
+</head>
+<div class="details-container">
+    <h2>Details</h2>
 
-<h2>Details</h2>
+    <div>
+        <h4>Customer</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DateOfBirth)
+            </dt>
 
-<div>
-    <h4>Customer</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DateOfBirth)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DateOfBirth)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.DateOfBirth)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Gender)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Gender)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CustomerType)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CustomerType)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CustomerType)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.CustomerType)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TotalOrders)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TotalOrders)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TotalOrders)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.TotalOrders)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TotalSpent)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TotalSpent)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TotalSpent)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.TotalSpent)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.LastOrderDate)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastOrderDate)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.LastOrderDate)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastOrderDate)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CustomerStatus)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CustomerStatus)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CustomerStatus)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.CustomerStatus)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Notes)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Notes)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Notes)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Notes)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CreatedAt)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.UpdatedAt)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UpdatedAt)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UpdatedAt)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.UpdatedAt)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.User.Username)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.User.Username)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.User.Username)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.User.Username)
-        </dd>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.CustomerId}, new {@class = "btn-edit"}) |
+        @Html.ActionLink("Back to List", "Index", null, new {@class = "btn-back"})
+    </p>
 
-    </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CustomerId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

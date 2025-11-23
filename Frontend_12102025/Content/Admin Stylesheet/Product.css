@@ -3,7 +3,8 @@
 .content-wrapper {
     max-width: 100%;
     padding: 1.5rem;
-    background: rgb(222, 195, 148, 0.20); /* Vàng kem */
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     min-height: 100vh;
 }
 

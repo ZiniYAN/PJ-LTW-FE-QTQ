@@ -1,74 +1,77 @@
 ﻿@model IEnumerable<Frontend_12102025.Models.User>
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
+
 <head>
-    <link rel="stylesheet" type="text/css" href="~/Content/Admin Stylesheet/User.css"/>
+    <link rel="stylesheet" type="text/css" href="~/Content/Admin Stylesheet/User.css" />
 </head>
+
 <div class="content-wrapper">
-    <h2>Index</h2>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Username)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PasswordHash)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FullName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Phone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserRole)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th></th>
-        </tr>
+    <h2 class="page-title">User Management</h2>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Username)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PasswordHash)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FullName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Phone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserRole)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedAt)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.UserId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
-                </td>
-            </tr>
-        }
+    <div class="action-bar">
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn-create" })
+    </div>
 
-    </table>
+    <div class="table-container">
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th class="table-header header-username">
+                        @Html.DisplayNameFor(model => model.Username)
+                    </th>
+                    <th class="table-header header-fullname">
+                        @Html.DisplayNameFor(model => model.FullName)
+                    </th>
+                    <th class="table-header header-email">
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th class="table-header header-phone">
+                        @Html.DisplayNameFor(model => model.Phone)
+                    </th>
+                    <th class="table-header header-role">
+                        @Html.DisplayNameFor(model => model.UserRole)
+                    </th>
+                    <th class="table-header header-created">
+                        @Html.DisplayNameFor(model => model.CreatedAt)
+                    </th>
+                    <th class="table-header header-actions">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="table-cell cell-username">
+                            @Html.DisplayFor(modelItem => item.Username)
+                        </td>
+                        <td class="table-cell cell-fullname">
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+                        <td class="table-cell cell-email">
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td class="table-cell cell-phone">
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
+                        <td class="table-cell">
+                            <span class="cell-role @(item.UserRole == "Admin" ? "role-admin" : item.UserRole == "Customer" ? "role-customer" : "role-staff")">
+                                @Html.DisplayFor(modelItem => item.UserRole)
+                            </span>
+                        </td>
+                        <td class="table-cell cell-date">
+                            @(item.CreatedAt.HasValue ? item.CreatedAt.Value.ToString("dd/MM/yyyy") : "N/A")
+                        </td>
+                        <td class="table-cell cell-actions">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.UserId }, new { @class = "btn-action btn-edit" })
+                            @Html.ActionLink("Details", "Details", new { id = item.UserId }, new { @class = "btn-action btn-details" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.UserId }, new { @class = "btn-action btn-delete" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

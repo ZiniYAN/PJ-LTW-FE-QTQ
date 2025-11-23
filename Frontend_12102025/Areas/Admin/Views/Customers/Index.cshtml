@@ -1,94 +1,77 @@
 ﻿@model IEnumerable<Frontend_12102025.Models.Customer>
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Index</h2>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/Admin Stylesheet/Customer.css" />
+</head>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DateOfBirth)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gender)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TotalOrders)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TotalSpent)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastOrderDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerStatus)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Notes)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UpdatedAt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.Username)
-        </th>
-        <th></th>
-    </tr>
+<div class="content-wrapper">
+    <h2 class="page-title">Customer Management</h2>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateOfBirth)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CustomerType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TotalOrders)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TotalSpent)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastOrderDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CustomerStatus)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Notes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreatedAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdatedAt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.Username)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CustomerId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CustomerId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CustomerId })
-        </td>
-    </tr>
-}
-
-</table>
+    <div class="table-container">
+        <table class="customer-table">
+            <thead>
+                <tr>
+                    <th class="table-header">@Html.DisplayNameFor(model => model.User.Username)</th>
+                    <th class="table-header">@Html.DisplayNameFor(model => model.DateOfBirth)</th>
+                    <th class="table-header">@Html.DisplayNameFor(model => model.Gender)</th>
+                    <th class="table-header">@Html.DisplayNameFor(model => model.CustomerType)</th>
+                    <th class="table-header">@Html.DisplayNameFor(model => model.TotalOrders)</th>
+                    <th class="table-header">@Html.DisplayNameFor(model => model.TotalSpent)</th>
+                    <th class="table-header">@Html.DisplayNameFor(model => model.LastOrderDate)</th>
+                    <th class="table-header">@Html.DisplayNameFor(model => model.CustomerStatus)</th>
+                    <th class="table-header">@Html.DisplayNameFor(model => model.CreatedAt)</th>
+                    <th class="table-header">@Html.DisplayNameFor(model => model.UpdatedAt)</th>
+                    <th class="table-header">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="table-cell cell-username">
+                            @Html.DisplayFor(modelItem => item.User.Username)
+                        </td>
+                        <td class="table-cell cell-date">
+                            @Html.DisplayFor(modelItem => item.DateOfBirth)
+                        </td>
+                        <td class="table-cell cell-gender">
+                            @Html.DisplayFor(modelItem => item.Gender)
+                        </td>
+                        <td class="table-cell">
+                            <span class="cell-type">@Html.DisplayFor(modelItem => item.CustomerType)</span>
+                        </td>
+                        <td class="table-cell cell-orders">
+                            @Html.DisplayFor(modelItem => item.TotalOrders)
+                        </td>
+                        <td class="table-cell cell-spent">
+                            @(item.TotalSpent.HasValue ? item.TotalSpent.Value.ToString("N0") + "đ" : "0đ")
+                        </td>
+                        <td class="table-cell cell-date">
+                            @(item.LastOrderDate.HasValue ? item.LastOrderDate.Value.ToString("dd/MM/yyyy") : "N/A")
+                        </td>
+                        <td class="table-cell">
+                            <span class="cell-status @(item.CustomerStatus == "Active" ? "status-active" : "status-inactive")">
+                                @Html.DisplayFor(modelItem => item.CustomerStatus)
+                            </span>
+                        </td>
+                        <td class="table-cell cell-date">
+                            @(item.CreatedAt.HasValue ? item.CreatedAt.Value.ToString("dd/MM/yyyy") : "N/A")
+                        </td>
+                        <td class="table-cell cell-date">
+                            @(item.UpdatedAt.HasValue ? item.UpdatedAt.Value.ToString("dd/MM/yyyy") : "N/A")
+                        </td>
+                        <td class="table-cell cell-actions">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.CustomerId }, new { @class = "btn-action btn-edit" })
+                            @Html.ActionLink("Details", "Details", new { id = item.CustomerId }, new { @class = "btn-action btn-details" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.CustomerId }, new { @class = "btn-action btn-delete" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

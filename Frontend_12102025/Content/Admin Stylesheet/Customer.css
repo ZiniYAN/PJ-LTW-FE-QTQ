@@ -1,2 +1,280 @@
-﻿body {
+﻿/* Page Container */
+.content-wrapper {
+    max-width: 100%;
+    padding: 1.5rem;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+/* Page Header */
+.page-title {
+    color: #5D4E37;
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #C4A661;
+}
+
+/* Table Container */
+.table-container {
+    background: white;
+    border-radius: 8px;
+    overflow-x: auto;
+    overflow-y: scroll;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-height: 600px; 
+}
+
+/* Table Styles */
+.customer-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin: 0;
+    background: white;
+    table-layout: fixed;
+}
+
+    /* Table Header */
+    .customer-table thead {
+        background: black;
+        color: white;
+    }
+
+.table-header {
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    padding: 0.75rem 0.5rem;
+    border: none;
+    text-align: center;
+    color: white;
+    word-wrap: break-word;
+}
+
+/* Column Widths */
+.header-dob {
+    width: 8%;
+}
+
+.header-gender {
+    width: 6%;
+}
+
+.header-type {
+    width: 8%;
+}
+
+.header-orders {
+    width: 7%;
+}
+
+.header-spent {
+    width: 9%;
+}
+
+.header-last-order {
+    width: 8%;
+}
+
+.header-status {
+    width: 8%;
+}
+
+.header-notes {
+    width: 12%;
+}
+
+.header-created {
+    width: 8%;
+}
+
+.header-updated {
+    width: 8%;
+}
+
+.header-username {
+    width: 9%;
+}
+
+.header-actions {
+    width: 9%;
+}
+
+/* Table Body */
+.customer-table tbody tr {
+    transition: all 0.2s ease;
+    border-bottom: 1px solid #F5F5F5;
+}
+
+    .customer-table tbody tr:hover {
+        background: #F8F9FA;
+    }
+
+.table-cell {
+    padding: 0.75rem 0.5rem;
+    vertical-align: middle;
+    color: #495057;
+    border: none;
+    text-align: center;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+
+/* Specific Column Styles */
+.cell-date {
+    font-size: 0.85rem;
+    color: #6c757d;
+    white-space: normal;
+}
+
+.cell-gender {
+    font-weight: 600;
+}
+
+.cell-type {
+    background: #E3F2FD;
+    padding: 0.4rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #1976D2;
+    display: inline-block;
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+.cell-orders {
+    font-weight: 700;
+    color: #7986CB;
+}
+
+.cell-spent {
+    font-weight: 700;
+    color: #81C784;
+    font-size: 0.95rem;
+}
+
+.cell-status {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+.status-active {
+    background: #C8E6C9;
+    color: #2E7D32;
+}
+
+.status-inactive {
+    background: #FFCDD2;
+    color: #C62828;
+}
+
+.cell-notes {
+    font-style: italic;
+    color: #6c757d;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.cell-username {
+    font-weight: 600;
+    color: #2c3e50;
+    word-wrap: break-word;
+}
+
+/* Action Buttons - Vertical Layout */
+.cell-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    align-items: center;
+}
+
+.btn-action {
+    display: block;
+    width: 90%;
+    padding: 0.4rem 0.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    color: white;
+    text-align: center;
+}
+
+.btn-edit {
+    background: #7986CB;
+}
+
+    .btn-edit:hover {
+        background: #5C6BC0;
+        color: white;
+        box-shadow: 0 4px 8px rgba(121, 134, 203, 0.3);
+    }
+
+.btn-details {
+    background: #4DB6AC;
+}
+
+    .btn-details:hover {
+        background: #26A69A;
+        color: white;
+        box-shadow: 0 4px 8px rgba(77, 182, 172, 0.3);
+    }
+
+.btn-delete {
+    background: #E57373;
+}
+
+    .btn-delete:hover {
+        background: #E53935;
+        color: white;
+        box-shadow: 0 4px 8px rgba(229, 115, 115, 0.3);
+    }
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .customer-table {
+        font-size: 0.8rem;
+    }
+
+    .btn-action {
+        font-size: 0.7rem;
+        padding: 0.35rem 0.4rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .content-wrapper {
+        padding: 1rem;
+    }
+
+    .page-title {
+        font-size: 1.5rem;
+    }
+
+    .customer-table {
+        font-size: 0.75rem;
+    }
+
+    .table-header,
+    .table-cell {
+        padding: 0.5rem 0.3rem;
+    }
+
+    .btn-action {
+        padding: 0.3rem 0.4rem;
+        font-size: 0.65rem;
+        width: 95%;
+    }
 }

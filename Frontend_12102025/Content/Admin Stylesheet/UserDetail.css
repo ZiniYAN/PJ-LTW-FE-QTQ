@@ -1,0 +1,115 @@
+﻿/* Page Container */
+.content-wrapper {
+    max-width: 100%;
+    padding: 1.5rem;
+    background: white;
+}
+
+/* Details Container */
+.details-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Page Title */
+.content-wrapper h2 {
+    color: #5D4E37;
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.content-wrapper hr {
+    border: none;
+    border-top: 2px solid #C4A661;
+    margin-bottom: 1.5rem;
+}
+
+/* Details List */
+.dl-horizontal {
+    margin: 0;
+    padding: 0;
+}
+
+    .dl-horizontal dt {
+        font-weight: 600;
+        color: #333;
+        margin-top: 15px;
+        margin-bottom: 5px;
+        font-size: 0.95rem;
+    }
+
+    .dl-horizontal dd {
+        margin: 0 0 15px 0;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+        color: #666;
+        font-size: 1rem;
+    }
+
+        .dl-horizontal dd:last-of-type {
+            border-bottom: none;
+        }
+
+/* Action Links */
+.content-wrapper > p {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+}
+
+    .content-wrapper > p a {
+        display: inline-block;
+        padding: 0.75rem 2rem;
+        margin-right: 0.5rem;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+    }
+
+.btn-edit {
+    background: #7986CB;
+    color: white;
+}
+
+    .btn-edit:hover {
+        background: #5C6BC0;
+        box-shadow: 0 4px 8px rgba(121, 134, 203, 0.3);
+    }
+
+.btn-back {
+    background: #e5e5e5;
+    color: #333;
+}
+
+    .btn-back:hover {
+        background: #d5d5d5;
+    }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .content-wrapper {
+        padding: 1rem;
+    }
+
+    .details-container {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    .content-wrapper h2 {
+        font-size: 1.5rem;
+    }
+
+    .content-wrapper > p a {
+        display: block;
+        width: 100%;
+        margin-bottom: 0.5rem;
+        text-align: center;
+    }
+}

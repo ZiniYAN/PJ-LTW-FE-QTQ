@@ -1,13 +1,12 @@
-﻿/* USER MANAGEMENT - SIMPLE */
-
+﻿/* Page Container */
 .content-wrapper {
     max-width: 100%;
     padding: 1.5rem;
-    background: #FCF6DD;
-    min-height: 100vh;
+    background: white;
 }
 
-h2 {
+/* Page Header */
+.page-title {
     color: #5D4E37;
     font-size: 1.75rem;
     font-weight: 600;
@@ -16,329 +15,287 @@ h2 {
     border-bottom: 2px solid #C4A661;
 }
 
-p {
+/* Action Bar */
+.action-bar {
     margin-bottom: 1.5rem;
 }
 
-    p a {
-        display: inline-block;
-        padding: 0.75rem 1.5rem;
-        background: #7986CB;
-        color: white;
-        text-decoration: none;
-        border-radius: 8px;
-        font-weight: 600;
-    }
+.btn-create {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: #7986CB;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(121, 134, 203, 0.2);
+}
 
-        p a:hover {
-            background: #5C6BC0;
-            color: white;
-        }
+    .btn-create:hover {
+        background: #5C6BC0;
+        box-shadow: 0 4px 8px rgba(121, 134, 203, 0.3);
+        transform: translateY(-1px);
+        color: white;
+    }
 
 /* Table Container */
 .table-container {
     background: white;
     border-radius: 8px;
-    padding: 1.5rem;
     overflow-x: auto;
     overflow-y: auto;
     max-height: 600px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
-    /* Scrollbar */
+    /* Custom Scrollbar */
     .table-container::-webkit-scrollbar {
         width: 8px;
         height: 8px;
     }
 
     .table-container::-webkit-scrollbar-track {
-        background: #F5F5F5;
+        background: #f1f1f1;
+        border-radius: 4px;
     }
 
     .table-container::-webkit-scrollbar-thumb {
         background: #C4A661;
+        border-radius: 4px;
     }
 
-/* Table */
-.table {
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: #5D4E37;
+        }
+
+/* Table Styles */
+.user-table {
     width: 100%;
     border-collapse: collapse;
     font-size: 0.85rem;
     margin: 0;
+    background: white;
+    table-layout: fixed;
+    min-width: 1000px;
 }
 
-    .table tr:first-child {
-        background: #5D4E37;
+    /* Table Header */
+    .user-table thead {
+        background: black;
         color: white;
+        position: sticky;
+        top: 0;
+        z-index: 10;
     }
 
-        .table tr:first-child th {
-            padding: 0.75rem 0.5rem;
-            font-weight: 600;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            background: #5D4E37;
-        }
+.table-header {
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    padding: 0.75rem 0.5rem;
+    border: none;
+    text-align: center;
+    color: white;
+    background: black;
+    word-wrap: break-word;
+}
 
-    .table tr:not(:first-child) {
-        border-bottom: 1px solid #F5F5F5;
+/* Column Widths */
+.header-username {
+    width: 12%;
+}
+
+.header-fullname {
+    width: 15%;
+}
+
+.header-email {
+    width: 18%;
+}
+
+.header-phone {
+    width: 12%;
+}
+
+.header-role {
+    width: 10%;
+}
+
+.header-created {
+    width: 12%;
+}
+
+.header-actions {
+    width: 12%;
+}
+
+/* Table Body */
+.user-table tbody tr {
+    transition: all 0.2s ease;
+    border-bottom: 1px solid #F5F5F5;
+}
+
+    .user-table tbody tr:hover {
+        background: #F8F9FA;
     }
 
-        .table tr:not(:first-child):hover {
-            background: #FFFBF0;
-        }
+.table-cell {
+    padding: 0.75rem 0.5rem;
+    vertical-align: middle;
+    color: #495057;
+    border: none;
+    text-align: center;
+    word-wrap: break-word;
+    overflow: hidden;
+}
 
-    .table td {
-        padding: 0.75rem 0.5rem;
-        vertical-align: middle;
+/* Specific Column Styles */
+.cell-username {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.cell-fullname {
+    color: #333;
+}
+
+.cell-email {
+    font-size: 0.85rem;
+    color: #6c757d;
+    word-break: break-word;
+}
+
+.cell-phone {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+.cell-role {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.role-admin {
+    background: #FFCDD2;
+    color: #C62828;
+}
+
+.role-customer {
+    background: #C8E6C9;
+    color: #2E7D32;
+}
+
+.role-staff {
+    background: #E3F2FD;
+    color: #1976D2;
+}
+
+.cell-date {
+    font-size: 0.85rem;
+    color: #6c757d;
+    white-space: nowrap;
+}
+
+/* Action Buttons */
+.cell-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    align-items: center;
+}
+
+.btn-action {
+    display: block;
+    width: 90%;
+    padding: 0.4rem 0.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    color: white;
+    text-align: center;
+}
+
+.btn-edit {
+    background: #7986CB;
+}
+
+    .btn-edit:hover {
+        background: #5C6BC0;
+        color: white;
+        box-shadow: 0 4px 8px rgba(121, 134, 203, 0.3);
     }
 
-        /* Username */
-        .table td:nth-child(1) {
-            font-weight: 600;
-            color: #5D4E37;
-        }
+.btn-details {
+    background: #4DB6AC;
+}
 
-        /* Password - Hidden */
-        .table td:nth-child(2) {
-            font-family: monospace;
-            color: #9E9E9E;
-            font-size: 0.75rem;
-            max-width: 100px;
-            overflow: hidden;
-        }
+    .btn-details:hover {
+        background: #26A69A;
+        color: white;
+        box-shadow: 0 4px 8px rgba(77, 182, 172, 0.3);
+    }
 
-        /* FullName */
-        .table td:nth-child(3) {
-            font-weight: 500;
-        }
+.btn-delete {
+    background: #E57373;
+}
 
-        /* Email */
-        .table td:nth-child(4) {
-            color: #4DB6AC;
-        }
-
-        /* Phone */
-        .table td:nth-child(5) {
-            font-family: monospace;
-        }
-
-        /* Role */
-        .table td:nth-child(6) {
-            font-weight: 600;
-            text-align: center;
-        }
-
-        /* Date */
-        .table td:nth-child(7) {
-            font-size: 0.8rem;
-            color: #9E9E9E;
-        }
-
-        /* Action Buttons */
-        .table td:last-child {
-            white-space: nowrap;
-            text-align: center;
-        }
-
-            .table td:last-child a {
-                display: inline-block;
-                padding: 0.4rem 0.75rem;
-                margin: 0 0.15rem;
-                border-radius: 5px;
-                text-decoration: none;
-                font-size: 0.8rem;
-                font-weight: 600;
-                color: white;
-            }
-
-                .table td:last-child a:nth-child(1) {
-                    background: #7986CB;
-                }
-
-                    .table td:last-child a:nth-child(1):hover {
-                        background: #5C6BC0;
-                    }
-
-                .table td:last-child a:nth-child(2) {
-                    background: #4DB6AC;
-                }
-
-                    .table td:last-child a:nth-child(2):hover {
-                        background: #26A69A;
-                    }
-
-                .table td:last-child a:last-child {
-                    background: #E57373;
-                }
-
-                    .table td:last-child a:last-child:hover {
-                        background: #E53935;
-                    }
+    .btn-delete:hover {
+        background: #E53935;
+        color: white;
+        box-shadow: 0 4px 8px rgba(229, 115, 115, 0.3);
+    }
 
 /* Responsive */
 @media (max-width: 1200px) {
-    .content-wrapper {
-        padding: 1rem;
+    .user-table {
+        font-size: 0.8rem;
     }
 
-    h2 {
-        font-size: 1.5rem;
-    }
-
-    .table {
-        font-size: 0.75rem;
+    .btn-action {
+        font-size: 0.7rem;
+        padding: 0.35rem 0.4rem;
     }
 
     .table-container {
-        max-height: 450px;
-    }
-
-    /* Ẩn Password */
-    .table tr:first-child th:nth-child(2),
-    .table td:nth-child(2) {
-        display: none;
-    }
-}
-
-@media (max-width: 992px) {
-    .table-container {
-        padding: 1rem;
-        max-height: 400px;
-    }
-
-    /* Ẩn Phone */
-    .table tr:first-child th:nth-child(5),
-    .table td:nth-child(5) {
-        display: none;
+        max-height: 500px;
     }
 }
 
 @media (max-width: 768px) {
-    h2 {
-        font-size: 1.25rem;
-    }
-
-    p a {
-        width: 100%;
-        text-align: center;
-    }
-
-    .table {
-        font-size: 0.7rem;
-    }
-
-        .table tr:first-child th {
-            padding: 0.5rem 0.3rem;
-        }
-
-        .table td {
-            padding: 0.5rem 0.3rem;
-        }
-
-            .table td:last-child a {
-                padding: 0.3rem 0.5rem;
-                font-size: 0.7rem;
-            }
-
-    .table-container {
-        max-height: 350px;
-    }
-
-    /* Ẩn Date */
-    .table tr:first-child th:nth-child(7),
-    .table td:nth-child(7) {
-        display: none;
-    }
-}
-
-@media (max-width: 576px) {
     .content-wrapper {
-        padding: 0.75rem;
-    }
-
-    .table-container {
-        padding: 0.5rem;
-    }
-
-    /* Stack table */
-    .table tr:first-child {
-        display: none;
-    }
-
-    .table tr:not(:first-child) {
-        display: block;
-        margin-bottom: 1rem;
-        border: 1px solid #E8DCC0;
-        border-radius: 8px;
         padding: 1rem;
     }
 
-    .table td {
-        display: block;
-        text-align: left;
-        padding: 0.5rem 0;
-        border: none;
+    .page-title {
+        font-size: 1.5rem;
     }
 
-        .table td::before {
-            content: attr(data-label) ": ";
-            font-weight: 600;
-            color: #5D4E37;
-        }
-
-        .table td:last-child {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #E8DCC0;
-        }
-
-            .table td:last-child::before {
-                display: none;
-            }
-
-            .table td:last-child a {
-                width: 100%;
-                text-align: center;
-                margin: 0;
-            }
-
-        /* Hiện lại tất cả cột */
-        .table td:nth-child(2),
-        .table td:nth-child(5),
-        .table td:nth-child(7) {
-            display: block;
-        }
-}
-
-/* Print */
-@media print {
-    .content-wrapper {
-        background: white;
-        padding: 0;
+    .user-table {
+        font-size: 0.75rem;
     }
 
-    p {
-        display: none;
+    .table-header,
+    .table-cell {
+        padding: 0.5rem 0.3rem;
+    }
+
+    .btn-action {
+        padding: 0.3rem 0.4rem;
+        font-size: 0.65rem;
+        width: 95%;
     }
 
     .table-container {
-        padding: 0;
-        max-height: none;
-    }
-
-    /* Ẩn Password và Actions */
-    .table td:nth-child(2),
-    .table td:last-child {
-        display: none;
-    }
-
-    .table tr:first-child th:nth-child(2),
-    .table tr:first-child th:last-child {
-        display: none;
+        max-height: 400px;
     }
 }
