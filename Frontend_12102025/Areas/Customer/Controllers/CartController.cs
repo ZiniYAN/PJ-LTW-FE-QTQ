@@ -12,7 +12,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
     {
         // GET: Customer/Cart
         private dbprojectltwEntities db = new dbprojectltwEntities();
-        private CartService cartService;
+        //private CartService cartService;
 
         // Hiển thị giỏ hàng
         public ActionResult Index()

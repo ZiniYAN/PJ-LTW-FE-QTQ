@@ -21,7 +21,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
 
             // Feature Products
             model.FeatureProducts = db.BookEditions
-                .Where(b => b.Stock > 0)
+                .Where(b => b.Stock >= 0)
                 .OrderByDescending(b => b.OrderDetails.Count)
                 .Take(10)
                 .ToList();
@@ -31,7 +31,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
             int pageNumber = (page ?? 1);
 
             var newProductsQuery = db.BookEditions
-                .Where(b => b.Stock > 0)
+                .Where(b => b.Stock >= 0)
                 .OrderByDescending(b => b.PublishDate);
 
             if (!string.IsNullOrEmpty(SearchTerm))
@@ -47,31 +47,31 @@ namespace Frontend_12102025.Areas.Customer.Controllers
 
             // Sản phẩm theo từng category
             ViewBag.KhoaHocProducts = db.BookEditions
-                .Where(b => b.BookTitle.Category.CategoryName == "Khoa học" && b.Stock > 0)
+                .Where(b => b.BookTitle.Category.CategoryName == "Khoa học" && b.Stock >= 0)
                 .OrderByDescending(b => b.PublishDate)
                 .Take(10)
                 .ToList();
 
             ViewBag.TamLyHocProducts = db.BookEditions
-                .Where(b => b.BookTitle.Category.CategoryName == "Tâm lý học" && b.Stock > 0)
+                .Where(b => b.BookTitle.Category.CategoryName == "Tâm lý học" && b.Stock >= 0)
                 .OrderByDescending(b => b.PublishDate)
                 .Take(10)
                 .ToList();
 
             ViewBag.VanHocProducts = db.BookEditions
-                .Where(b => b.BookTitle.Category.CategoryName == "Văn học" && b.Stock > 0)
+                .Where(b => b.BookTitle.Category.CategoryName == "Văn học" && b.Stock >= 0)
                 .OrderByDescending(b => b.PublishDate)
                 .Take(10)
                 .ToList();
 
             ViewBag.KinhTeProducts = db.BookEditions
-                .Where(b => b.BookTitle.Category.CategoryName == "Kinh tế" && b.Stock > 0)
+                .Where(b => b.BookTitle.Category.CategoryName == "Kinh tế" && b.Stock >= 0)
                 .OrderByDescending(b => b.PublishDate)
                 .Take(10)
                 .ToList();
 
             ViewBag.SelfHelpProducts = db.BookEditions
-                .Where(b => b.BookTitle.Category.CategoryName == "Self-Help" && b.Stock > 0)
+                .Where(b => b.BookTitle.Category.CategoryName == "Self-Help" && b.Stock >= 0)
                 .OrderByDescending(b => b.PublishDate)
                 .Take(10)
                 .ToList();

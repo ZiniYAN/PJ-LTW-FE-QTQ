@@ -170,7 +170,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                             // Redirect dựa trên role
                             if (user.UserRole == "A") // Admin
                             {
-                                return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
+                                return RedirectToAction("Index", "Home", new { area = "Admin" });
                             }
                             else // Customer
                             {

@@ -44,7 +44,7 @@
 
                     <div class="row">
                         <div class="col-12">
-                            <h6 class="fw-bold"><i class="fa-solid fa-location-dot me-2"></i>Giao tới:</h6>
+                            <h6 class="fw-bold"><i class="fa-solid me-2"></i>Giao tới:</h6>
                             @if (Model.ShippingAddress != null)
                             {
                                 <p class="mb-1">@Model.ShippingAddress.AddressLine</p>
@@ -64,10 +64,10 @@
             <!-- Các nút điều hướng -->
             <div class="d-flex justify-content-center gap-3">
                 <a href="@Url.Action("Index", "Home")" class="btn btn-outline-secondary">
-                    <i class="fa-solid fa-house me-2"></i>Về trang chủ
+                    <i class="fa-solid  me-2"></i>Về trang chủ
                 </a>
                 <a href="@Url.Action("OrderDetail", "Order", new { id = Model.OrderId })" class="btn btn-primary">
-                    <i class="fa-solid fa-file-invoice me-2"></i>Xem chi tiết đơn hàng
+                    <i class="fa-solid me-2"></i>Xem chi tiết đơn hàng
                 </a>
             </div>
 
