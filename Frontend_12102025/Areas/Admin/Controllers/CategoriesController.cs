@@ -48,6 +48,17 @@ namespace Frontend_12102025.Areas.Admin
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CategoryID,CategoryName,Description")] Category category)
         {
+            // Validate CategoryName
+            if (string.IsNullOrWhiteSpace(category.CategoryName))
+            {
+                ModelState.AddModelError("CategoryName", "Category name is required!");
+            }
+            bool nameExists = db.Categories
+                .Any(c => c.CategoryName.ToLower() == category.CategoryName.Trim().ToLower());
+            if (nameExists)
+            {
+                ModelState.AddModelError("CategoryName", "Category name already exists!");
+            }
             if (ModelState.IsValid)
             {
                 db.Categories.Add(category);
@@ -80,6 +91,18 @@ namespace Frontend_12102025.Areas.Admin
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CategoryID,CategoryName,Description")] Category category)
         {
+            // Validate CategoryName voi chinh no
+            if (string.IsNullOrWhiteSpace(category.CategoryName))
+            {
+                ModelState.AddModelError("CategoryName", "Category name is required!");
+            }
+            bool nameExists = db.Categories
+                .Any(c => c.CategoryName.ToLower() == category.CategoryName.Trim().ToLower()
+                          && c.CategoryId != category.CategoryId);
+            if (nameExists)
+            {
+                ModelState.AddModelError("CategoryName", "Category name already exists!");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(category).State = EntityState.Modified;
@@ -109,10 +132,27 @@ namespace Frontend_12102025.Areas.Admin
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                Category category = db.Categories.Find(id);
+                if(category == null)
+                {
+                    return HttpNotFound();
+                }
+                bool hasBook = db.BookTitles.Any(b => b.CategoryId == category.CategoryId);
+                if (hasBook)
+                {
+                    TempData["ErrorMessage"] = "Khong the xoa category vi co sach trong danh muc";
+                }
+                db.Categories.Remove(category);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Error: " + ex.Message;
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)

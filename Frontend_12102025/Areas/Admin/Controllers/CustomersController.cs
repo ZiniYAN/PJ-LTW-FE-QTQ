@@ -51,8 +51,29 @@ namespace Frontend_12102025.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "CustomerId,UserId,DateOfBirth,Gender,CustomerType,TotalOrders,TotalSpent,LastOrderDate,CustomerStatus,Notes,CreatedAt,UpdatedAt")] Frontend_12102025.Models.Customer customer)
         {
+            // Validate User
+            var userExist = await db.Users.AnyAsync(u => u.UserId == customer.UserId);
+            if (!userExist)
+            {
+                ModelState.AddModelError("UserId", "User khong ton tai");
+            }
+            // Validate age
+            if (customer.DateOfBirth.HasValue)
+            {
+                if (customer.DateOfBirth > DateTime.Now)
+                {
+                    ModelState.AddModelError("DateOfBirth", "Date of birth cannot be in the future!");
+                }
+                if (customer.DateOfBirth < DateTime.Now.AddYears(-120))
+                {
+                    ModelState.AddModelError("DateOfBirth", "Invalid date of birth!");
+                }
+            }
+
             if (ModelState.IsValid)
             {
+                customer.CreatedAt = DateTime.Now;
+                customer.UpdatedAt = DateTime.Now;
                 db.Customers.Add(customer);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -85,8 +106,18 @@ namespace Frontend_12102025.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "CustomerId,UserId,DateOfBirth,Gender,CustomerType,TotalOrders,TotalSpent,LastOrderDate,CustomerStatus,Notes,CreatedAt,UpdatedAt")] Frontend_12102025.Models.Customer customer)
         {
+            var userExist = await db.Customers.AnyAsync(u => u.UserId == customer.UserId && u.CustomerId != customer.CustomerId);
+            if (userExist)
+            {
+                ModelState.AddModelError("", "User da ton tai");
+            }
+            if(customer.DateOfBirth.HasValue || customer.DateOfBirth > DateTime.Now)
+            {
+                ModelState.AddModelError("DateOfBirth", "Ngay thang nam sinh khong hop le");
+            }
             if (ModelState.IsValid)
             {
+                customer.UpdatedAt = DateTime.Now;
                 db.Entry(customer).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -115,10 +146,30 @@ namespace Frontend_12102025.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Frontend_12102025.Models.Customer customer = await db.Customers.FindAsync(id);
-            db.Customers.Remove(customer);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            try
+            {
+                Frontend_12102025.Models.Customer customer = await db.Customers.FindAsync(id);
+                if (customer == null)
+                {
+                    return HttpNotFound();
+                }
+
+                bool hasOrders = await db.OrderDetails.AnyAsync(o => o.OrderId == id);
+                if (hasOrders)
+                {
+                    TempData["ErrorMessage"] = "Cannot delete this customer because they have orders!";
+                    return RedirectToAction("Index");
+                }
+
+                db.Customers.Remove(customer);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Error: " + ex.Message;
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)

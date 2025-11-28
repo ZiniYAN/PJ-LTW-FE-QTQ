@@ -22,5 +22,13 @@ namespace Frontend_12102025.Areas.Admin.Controllers
             };
             return View(inventory);
         }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Frontend_12102025.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Security.Policy;
 using System.Web;
 using System.Web.Mvc;
-using Frontend_12102025.Models;
 
 namespace Frontend_12102025.Areas.Admin
 {
@@ -58,6 +59,57 @@ namespace Frontend_12102025.Areas.Admin
         [ValidateAntiForgeryToken]
         public ActionResult Create(BookEdition bookEdition, string ImageUrl)
         {
+            // Validate null
+            if (bookEdition.BookTitle?.Author?.AuthorName == null)
+            {
+                ModelState.AddModelError("", "Author name is required!");
+            }
+
+            if (bookEdition.BookTitle?.Publisher?.PublisherName == null)
+            {
+                ModelState.AddModelError("", "Publisher name is required!");
+            }
+
+            // Validate ISBN 
+            if (!string.IsNullOrEmpty(bookEdition.ISBN))
+            {
+                bool isbnExists = db.BookEditions.Any(e => e.ISBN == bookEdition.ISBN);
+                if (isbnExists)
+                {
+                    ModelState.AddModelError("ISBN", "ISBN already exists!");
+                }
+            }
+
+            // Validate Price va Stock
+            if (bookEdition.Price < 0)
+            {
+                ModelState.AddModelError("Price", "Price must be greater than or equal to 0!");
+            }
+
+            if (bookEdition.Stock < 0)
+            {
+                ModelState.AddModelError("Stock", "Stock must be greater than or equal to 0!");
+            }
+
+            // Validate CategoryId
+            int categoryId;
+            if (!int.TryParse(Request.Form["CategoryId"], out categoryId) ||
+                !db.Categories.Any(c => c.CategoryId == categoryId))
+            {
+                ModelState.AddModelError("", "Invalid category!");
+            }
+
+            // Validate Title 
+            if (string.IsNullOrWhiteSpace(bookEdition.BookTitle?.Title))
+            {
+                ModelState.AddModelError("", "Book title is required!");
+            }
+            bool titleExist = db.BookEditions.Any(b => b.BookTitle.Title.ToLower() == bookEdition.BookTitle.Title.Trim().ToLower());
+            bool authorNameExist = db.BookEditions.Any(b => b.BookTitle.Author.AuthorName.ToLower() == bookEdition.BookTitle.Author.AuthorName.Trim().ToLower());
+            if(titleExist && authorNameExist)
+            {
+                ModelState.AddModelError("", "Book is exist");
+            }
             var authorName = bookEdition.BookTitle.Author.AuthorName.Trim();
             var author = db.Authors.FirstOrDefault(a => a.AuthorName.ToLower() == authorName.ToLower());
             if (author == null)
@@ -71,13 +123,12 @@ namespace Frontend_12102025.Areas.Admin
 
             if (publisher == null)
             {
-                // Tạo Publisher mới
-                publisher = new Publisher
+                publisher = new Frontend_12102025.Models.Publisher
                 {
                     PublisherName = publisherName
                 };
                 db.Publishers.Add(publisher);
-                db.SaveChanges(); // Lưu để lấy PublisherId
+                db.SaveChanges();
             }
             if (ModelState.IsValid)
             {
@@ -146,6 +197,38 @@ namespace Frontend_12102025.Areas.Admin
         [ValidateAntiForgeryToken]
         public ActionResult Edit(BookEdition bookEdition, int AuthorID, int PublisherID, int CategoryID)
         {
+            // Validate IBSN
+            if (!string.IsNullOrEmpty(bookEdition.ISBN))
+            {
+                bool ISBNIsExist = db.BookEditions.Any(e => e.ISBN == bookEdition.ISBN && e.BookEditionId != bookEdition.BookEditionId);
+                if (ISBNIsExist)
+                {
+                    ModelState.AddModelError("IBSN", "IBSN đã tồn tại");
+                }
+            }
+            // Validate FK
+            if (!db.Authors.Any(a => a.AuthorId == AuthorID))
+            {
+                ModelState.AddModelError("", "Author không hợp lệ ( chưa được lưu vào database)");
+            }
+            if (!db.Publishers.Any(p => p.PublisherId == PublisherID))
+            {
+                ModelState.AddModelError("", "Publisher không hợp lệ ( chưa được lưu vào database)");
+            }
+
+            if (!db.Categories.Any(c => c.CategoryId == CategoryID))
+            {
+                ModelState.AddModelError("", "Category không hợp lệ ( chưa được lưu vào database)");
+            }
+            // Validate Price va Stock
+            if (bookEdition.Price < 0)
+            {
+                ModelState.AddModelError("", "Giá phải lớn hơn không");
+            }
+            if (bookEdition.Stock < 0)
+            {
+                ModelState.AddModelError("", "Số hàng tồn phải lớn hơn không");
+            }
             if (ModelState.IsValid)
             {
                 // Update BookTitle

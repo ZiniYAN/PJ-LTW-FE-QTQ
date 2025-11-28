@@ -53,6 +53,24 @@ namespace Frontend_12102025.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "OrderId,UserId,OrderDate,TotalAmount,PaymentMethod,PaymentStatus,ShippingAddressId,CouponId,OrderStatus")] Order order)
         {
+            // Validate user
+            var userExists = await db.Users.AnyAsync(u => u.UserId == order.UserId);
+            if (!userExists)
+            {
+                ModelState.AddModelError("UserId", "User does not exist!");
+            }
+            // Validate payment va order status
+            var validOrderStatuses = new[] { "Pending", "Processing", "Shipped", "Delivered", "Cancelled" };
+            if (!string.IsNullOrEmpty(order.OrderStatus) && !validOrderStatuses.Contains(order.OrderStatus))
+            {
+                ModelState.AddModelError("OrderStatus", "Invalid order status!");
+            }
+
+            var validPaymentStatuses = new[] { "Pending", "Paid", "Failed", "Refunded" };
+            if (!string.IsNullOrEmpty(order.PaymentStatus) && !validPaymentStatuses.Contains(order.PaymentStatus))
+            {
+                ModelState.AddModelError("PaymentStatus", "Invalid payment status!");
+            }
             if (ModelState.IsValid)
             {
                 db.Orders.Add(order);
@@ -87,10 +105,75 @@ namespace Frontend_12102025.Areas.Admin.Controllers
         // POST: Admin/Orders/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+    //    private bool IsValidStatusTransition(string currentStatus, string newStatus)
+    //    {
+    //        // Định nghĩa các chuyển trạng thái hợp lệ
+    //        var validTransitions = new Dictionary<string, string[]>
+    //{
+    //    { "Pending", new[] { "Processing", "Cancelled" } },
+    //    { "Processing", new[] { "Shipped", "Cancelled" } },
+    //    { "Shipped", new[] { "Delivered" } },
+    //    { "Delivered", new string[] { } },  // Không thể đổi
+    //    { "Cancelled", new string[] { } }   // Không thể đổi
+    //};
+
+    //        if (currentStatus == newStatus) return true;
+
+    //        if (validTransitions.ContainsKey(currentStatus))
+    //        {
+    //            return validTransitions[currentStatus].Contains(newStatus);
+    //        }
+
+    //        return false;
+    //    }
+
+        // Helper method: Hoàn lại stock khi hủy đơn
+        //private async Task RestoreStockAsync(int orderId)
+        //{
+        //    var orderDetails = await db.OrderDetails
+        //        .Where(od => od.OrderId == orderId)
+        //        .ToListAsync();
+
+        //    foreach (var detail in orderDetails)
+        //    {
+        //        var bookEdition = await db.BookEditions.FindAsync(detail.BookEditionId);
+        //        if (bookEdition != null)
+        //        {
+        //            bookEdition.Stock += detail.Quantity;
+        //        }
+        //    }
+        //}
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "OrderId,UserId,OrderDate,TotalAmount,PaymentMethod,PaymentStatus,ShippingAddressId,CouponId,OrderStatus")] Order order)
         {
+            var orderExist = await db.Orders.FirstOrDefaultAsync(o => o.OrderId == order.OrderId);
+            if (orderExist == null)
+            {
+                return HttpNotFound();
+            }
+            // Khong edit don hang cancelled
+            if(orderExist.OrderStatus.ToLower() == "cancelled")
+            {
+                TempData["ErrorMessage"] = "Khong the edit don hang da huy";
+                return RedirectToAction("Index");
+            }
+
+            // Khong edit don da giao hang roi
+            if (orderExist.OrderStatus.ToLower() == "delivered")
+            {
+                TempData["ErrorMessage"] = "Khong the edit don hang da giao";
+                return RedirectToAction("Index");
+            }
+            //if (!IsValidStatusTransition(existingOrder.OrderStatus, order.OrderStatus))
+            //{
+            //    ModelState.AddModelError("OrderStatus",
+            //        $"Cannot change status from '{existingOrder.OrderStatus}' to '{order.OrderStatus}'!");
+            //}
+            //if (order.OrderStatus == "Cancelled" && orderExist.OrderStatus != "Cancelled")
+            //{
+            //    await RestoreStockAsync(order.OrderId);
+            //}
             if (ModelState.IsValid)
             {
                 db.Entry(order).State = EntityState.Modified;
@@ -123,10 +206,60 @@ namespace Frontend_12102025.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Order order = await db.Orders.FindAsync(id);
-            db.Orders.Remove(order);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            try
+            {
+                Order order = await db.Orders.FindAsync(id);
+                if (order == null)
+                {
+                    return HttpNotFound();
+                }
+
+                if (order.PaymentStatus == "Paid")
+                {
+                    TempData["ErrorMessage"] = "Khong the xoa don hang da thanh toan";
+                    return RedirectToAction("Index");
+                }
+
+                if (order.OrderStatus == "Delivered")
+                {
+                    TempData["ErrorMessage"] = "Khong the xoa don hang da thanh giao";
+                    return RedirectToAction("Index");
+                }
+
+                if (order.OrderStatus == "Shipped")
+                {
+                    TempData["ErrorMessage"] = "Khong the xoa don hang dang giao";
+                    return RedirectToAction("Index");
+                }
+
+                // Xóa OrderDetails trước (do FK constraint)
+                var orderDetails = db.OrderDetails.Where(od => od.OrderId == id);
+                db.OrderDetails.RemoveRange(orderDetails);
+
+                // Hoàn lại stock nếu đơn chưa bị hủy
+                if (order.OrderStatus != "Cancelled")
+                {
+                    foreach (var detail in orderDetails.ToList())
+                    {
+                        var bookEdition = await db.BookEditions.FindAsync(detail.BookEditionId);
+                        if (bookEdition != null)
+                        {
+                            bookEdition.Stock += detail.Quantity;
+                        }
+                    }
+                }
+
+                db.Orders.Remove(order);
+                await db.SaveChangesAsync();
+
+                TempData["SuccessMessage"] = "Order deleted successfully!";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Error: " + ex.Message;
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)
