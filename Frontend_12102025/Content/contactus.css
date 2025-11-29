@@ -1,8 +1,9 @@
 ﻿/* ---- Phần nội dung ---- */
 .contact-section {
-    padding: 60px 20px;
+    padding: 10px 20px;
     display: flex;
     justify-content: center;
+    background-color: rgb(252,252,234);
 }
 
 .contact-container {

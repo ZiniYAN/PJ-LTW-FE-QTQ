@@ -39,11 +39,11 @@
                 <thead class="table-light text-center">
                     <tr>
                         <th>Mã đơn</th>
-                        <th>Ngày đặt</th>
                         <th>Tổng tiền</th>
                         <th>Trạng thái</th>
                         <th>Địa chỉ giao</th>
-                        <th>Thao tác</th>
+                        <th>Chi tiết</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -51,7 +51,7 @@
                     {
                         <tr>
                             <td class="text-center fw-bold">#@item.OrderId</td>
-                            <td class="text-center">@item.OrderDate.Value.ToString("dd/MM/yyyy HH:mm")</td>
+                            @*<td class="text-center">@item.OrderDate.Value.ToString("dd/MM/yyyy HH:mm")</td>*@
                             <td class="text-end text-danger fw-bold">
                                 @((item.TotalAmount ?? 0).ToString("N0")) đ
                             </td>

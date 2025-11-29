@@ -42,7 +42,7 @@ namespace Frontend_12102025.Models.ViewModel
         [Phone(ErrorMessage = "Số điện thoại không hợp lệ")]
         [RegularExpression(@"^(0|\+84)[0-9]{9,10}$",
             ErrorMessage = "Số điện thoại phải bắt đầu bằng 0 hoặc +84 và có 10-11 số")]
-        [StringLength(20)]
+        [StringLength(11)]
         [Display(Name = "Số điện thoại")]
         public string Phone { get; set; }
 

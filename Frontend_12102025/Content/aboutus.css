@@ -3,15 +3,16 @@ body {
     font-family: 'Segoe UI', sans-serif;
     margin: 0;
     color: #222;
-    background-color: #fff;
+    
 }
 
 /* Phần giới thiệu (About Us) */
 .about-container {
     width: 75%;
-    max-width:1440px;
+    max-width: 1440px;
     margin: 50px auto;
     text-align: center;
+    background-color: rgb(252,252,234);
 }
 
     /* Tiêu đề chính */

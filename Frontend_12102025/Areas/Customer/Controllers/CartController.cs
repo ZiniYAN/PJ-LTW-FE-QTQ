@@ -62,22 +62,11 @@ namespace Frontend_12102025.Areas.Customer.Controllers
 
         //Mua ngay -> Checkout
         [HttpPost]
+        [Authorize]
         public ActionResult BuyNow(int id, int quantity = 1)
         {
             var cartService = new CartService(this.Session);
             var book = db.BookEditions.FirstOrDefault(b => b.BookEditionId == id);
-
-            if (book == null)
-            {
-                TempData["ErrorMessage"] = "Không tìm thấy sách này.";
-                return RedirectToAction("Index", "Home");
-            }
-
-            if (book.Stock < quantity)
-            {
-                TempData["ErrorMessage"] = "Số lượng sách trong kho không đủ.";
-                return RedirectToAction("ProductDetail", "Home", new { id = id });
-            }
 
             var cart = cartService.GetCart();
 

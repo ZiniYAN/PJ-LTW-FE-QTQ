@@ -50,7 +50,7 @@ namespace Frontend_12102025.Models.ViewModel
         public DateTime OrderDate { get; set; }
 
         [Display(Name = "Ghi chú")]
-        [StringLength(500, ErrorMessage = "Ghi chú không được quá 500 ký tự")]
+        [StringLength(100, ErrorMessage = "Ghi chú không được quá 100 ký tự")]
         public string OrderNotes { get; set; }
     }
 }

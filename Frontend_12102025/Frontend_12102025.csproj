@@ -357,10 +357,8 @@
     <Content Include="Areas\Customer\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Customer\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Customer\Views\Home\_PVFeatureProduct.cshtml" />
-    <Content Include="Areas\Customer\Views\Home\_PVNewProduct.cshtml" />
     <Content Include="Areas\Customer\Views\Home\ProductDetail.cshtml" />
     <Content Include="Areas\Customer\Views\Home\_PVRelatedProduct.cshtml" />
-    <Content Include="Areas\Customer\Views\Home\_PVTopProduct.cshtml" />
     <Content Include="Areas\Customer\Views\Cart\Index.cshtml" />
     <Content Include="Areas\Customer\Views\Order\Checkout.cshtml" />
     <Content Include="Areas\Customer\Views\Order\OrderSuccess.cshtml" />
@@ -374,6 +372,11 @@
     <Content Include="Areas\Customer\Views\Home\_PVButtons.cshtml" />
     <Content Include="Areas\Customer\Views\Home\_PVCategoryProducts.cshtml" />
     <Content Include="Areas\Customer\Views\Account\Index.cshtml" />
+    <Content Include="Areas\Customer\Views\Home\Shipping.cshtml" />
+    <Content Include="Areas\Customer\Views\Home\ReturnPolicy.cshtml" />
+    <Content Include="Areas\Customer\Views\Home\PrivacyPolicy.cshtml" />
+    <Content Include="Areas\Customer\Views\Home\ContactUs.cshtml" />
+    <Content Include="Areas\Customer\Views\Home\AboutUs.cshtml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
