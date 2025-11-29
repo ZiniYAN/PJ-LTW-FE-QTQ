@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     color: #222;
-    background-color: #fff;
+    
 }
 
 .return-section {
@@ -11,6 +11,7 @@
     max-width: 900px;
     margin: 50px auto;
     line-height: 1.7;
+    background-color: rgb(252,252,234);
 }
 
     .return-section h1 {

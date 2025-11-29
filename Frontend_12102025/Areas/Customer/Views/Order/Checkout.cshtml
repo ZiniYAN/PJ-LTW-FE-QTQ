@@ -187,22 +187,6 @@
                                 <strong>Thanh toán khi nhận hàng (COD)</strong>
                             </label>
                         </div>
-                        @*<div class="form-check mb-2">
-                                @Html.RadioButtonFor(m => m.PaymentMethod, "Banking",
-                                    new { @class = "form-check-input", id = "paymentBanking" })
-                                <label class="form-check-label" for="paymentBanking">
-                                    <i class="fas fa-university text-primary"></i>
-                                    <strong>Chuyển khoản ngân hàng</strong>
-                                </label>
-                            </div>
-                            <div class="form-check mb-2">
-                                @Html.RadioButtonFor(m => m.PaymentMethod, "Momo",
-                                    new { @class = "form-check-input", id = "paymentMomo" })
-                                <label class="form-check-label" for="paymentMomo">
-                                    <i class="fas fa-mobile-alt text-danger"></i>
-                                    <strong>Ví điện tử Momo</strong>
-                                </label>
-                            </div>*@
                         @Html.ValidationMessageFor(m => m.PaymentMethod, "", new { @class = "text-danger small d-block mt-2" })
                     </div>
                 </div>
@@ -213,7 +197,7 @@
                         <h5 class="mb-0"> Ghi chú đơn hàng</h5>
                     </div>
                     <div class="card-body">
-                        @Html.TextAreaFor(m => m.OrderNotes, 3, 50,
+                        @Html.TextAreaFor(m => m.OrderNotes, 3, 5,
                             new { @class = "form-control", placeholder = "Ghi chú thêm thêm đơn hàng" })
                         @Html.ValidationMessageFor(m => m.OrderNotes, "", new { @class = "text-danger small" })
                     </div>

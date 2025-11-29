@@ -12,7 +12,7 @@ using System.Web.UI.WebControls;
 namespace Frontend_12102025.Areas.Customer.Controllers
 {
     //Su dung Install-Package BCrypt.Net-Next de co the hash mat khau
-
+    [RouteArea("Customer")]
     public class AccountController : Controller
     {
         private dbprojectltwEntities db = new dbprojectltwEntities();
@@ -238,38 +238,6 @@ namespace Frontend_12102025.Areas.Customer.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-        // GET: Account/ForgotPassword
-        [AllowAnonymous]
-        public ActionResult ForgotPassword()
-        {
-            return View();
-        }
-
-        // POST: Account/ForgotPassword
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult ForgotPassword(string email)
-        {
-            if (string.IsNullOrEmpty(email))
-            {
-                ModelState.AddModelError("", "Vui lòng nhập email");
-                return View();
-            }
-
-            var user = db.Users.FirstOrDefault(u => u.Email == email);
-            if (user == null)
-            {
-                ModelState.AddModelError("", "Email không tồn tại trong hệ thống");
-                return View();
-            }
-
-            // TODO: Gửi email reset password
-            // Implement email service here
-
-            TempData["SuccessMessage"] = "Link đặt lại mật khẩu đã được gửi đến email của bạn";
-            return RedirectToAction("Login");
-        }
 
         // GET: Account/Index (Trang Edit Profile)
         [Authorize]
@@ -324,12 +292,14 @@ namespace Frontend_12102025.Areas.Customer.Controllers
 
                 // 3. Update Địa chỉ (ShippingAddresses) - Lấy từ form field tên "AddressLine"
                 string newAddress = Request.Form["AddressLine"];
-                if (newAddress != null) // Chỉ update nếu form có gửi trường này
+                string recipientPhone = Request.Form["RecipientPhone"] ?? customerInDb.User.Phone;
+                if (!string.IsNullOrWhiteSpace(newAddress)) // Chỉ update nếu form có gửi trường này
                 {
                     var address = customerInDb.User.ShippingAddresses.FirstOrDefault();
                     if (address != null)
                     {
                         address.AddressLine = newAddress;
+                        address.Phone = recipientPhone;
                     }
                     else
                     {
@@ -338,6 +308,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                         {
                             UserId = customerInDb.UserId,
                             AddressLine = newAddress,
+                            Phone = recipientPhone,
                             IsDefault = true
                         });
                     }
@@ -431,7 +402,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                 return Json(new { available = false, message = "Vui lòng nhập email" }, JsonRequestBehavior.AllowGet);
             }
 
-            // ✅ Dùng using để tự động dispose
+            // Dùng using để tự động dispose
             using (var db = new dbprojectltwEntities())
             {
                 bool exists = db.Users.Any(u => u.Email == email);

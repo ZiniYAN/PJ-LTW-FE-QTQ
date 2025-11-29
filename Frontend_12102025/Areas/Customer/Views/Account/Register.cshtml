@@ -248,7 +248,12 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="custom-label" for="DateOfBirth">Date of Birth</label>
-                        @Html.TextBoxFor(m => m.DateOfBirth, "{0:dd/MM/yyyy}", new { @class = "form-control", type = "text", placeholder = "dd/mm/yyyy (VD: 04/04/2006)" })
+                        @Html.TextBoxFor(m => m.DateOfBirth, new { 
+                            @class = "form-control", 
+                            type = "date", 
+                            min = "1924-01-01",
+                            max = DateTime.Now.ToString("yyyy-MM-dd"),
+                            placeholder = "dd/mm/yyyy (VD: 04/04/2006)" })
                         @Html.ValidationMessageFor(m => m.DateOfBirth, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -297,7 +302,8 @@
 
 @section scripts {
     @Scripts.Render("~/bundles/jqueryval")
-
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script>
         $(document).ready(function() {
             // Toggle password visibility

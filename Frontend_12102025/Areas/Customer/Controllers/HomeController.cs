@@ -147,5 +147,26 @@ namespace Frontend_12102025.Areas.Customer.Controllers
             return View(model);
         }
 
+        public ActionResult ContactUs()
+        {
+            return View();
+        }
+        public ActionResult AboutUs()
+        {
+            return View();
+        }
+        public ActionResult PrivacyPolicy()
+        {
+            return View();
+        }
+        public ActionResult ReturnPolicy()
+        {
+            return View();
+        }
+        public ActionResult Shipping()
+        {
+            return View();
+        }
+
     }
 }

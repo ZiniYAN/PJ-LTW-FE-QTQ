@@ -37,7 +37,15 @@
                     <strong>Ngày sinh</strong>
                 </div>
                 <div class="col-md-9">
-                    @Html.DisplayFor(model => model.DateOfBirth)
+                    @* Hien thi ngay thang nam *@
+                    @if (Model.DateOfBirth.HasValue)
+                    {
+                        @Model.DateOfBirth.Value.ToString("dd/MM/yyyy")
+                    }
+                    else
+                    {
+                        <span class="text-muted font-italic">Chưa cập nhật</span>
+                    }
                 </div>
             </div>
             <div class="row mb-3">

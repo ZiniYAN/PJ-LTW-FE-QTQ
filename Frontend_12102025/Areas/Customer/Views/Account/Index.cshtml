@@ -57,7 +57,10 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-bold">Ngày sinh</label>
-                                @Html.TextBoxFor(m => m.DateOfBirth, "{0:dd/MM/yyyy}", new { @class = "form-control", type = "text", placeholder = "dd/mm/yyyy (VD: 04/04/2006)" })
+                                @Html.TextBoxFor(m => m.DateOfBirth, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date",
+                               min = "1924-01-01",
+                               max = DateTime.Now.ToString("yyyy-MM-dd"),
+                               placeholder = "dd/mm/yyyy (VD: 04/04/2006)" })
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-bold">Giới tính</label>
@@ -72,7 +75,7 @@
                         @*Phần địa chỉ (Bảng ShippingAddresses)*@
                         <div class="mb-4">
                             <label class="form-label fw-bold">Địa chỉ giao hàng</label>
-                            @* Name="AddressLine" để khớp với Controller *@
+                            @* Name="AddressLine"  *@
                             <textarea name="AddressLine" class="form-control" rows="3">@currentAddress</textarea>
                         </div>
 
