@@ -1,15 +1,19 @@
-﻿using System;
+﻿using Frontend_12102025.Models;
+using Frontend_12102025.Models.ViewModels;
+using Frontend_12102025.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Frontend_12102025.Models;
 
-namespace Frontend_12102025.Areas.Admin
+namespace Frontend_12102025.Areas.Admin.Controllers
 {
     public class UsersController : Controller
     {
@@ -47,8 +51,18 @@ namespace Frontend_12102025.Areas.Admin
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "UserId,Username,PasswordHash,FullName,Email,Phone,UserRole,CreatedAt")] User user)
+        public async Task<ActionResult> Create(UserVM user)
         {
+            // Pass
+            if (string.IsNullOrWhiteSpace(user.Password))
+            {
+                ModelState.AddModelError("Password", "Password khong the trong");
+            }
+            if(!string.IsNullOrWhiteSpace(user.Password) && string.IsNullOrWhiteSpace(user.ConfirmPassword))
+            {
+                ModelState.AddModelError("ConfirmPasswod", "Mat khau khong trung khop");
+            }
+            // Username
             if (string.IsNullOrWhiteSpace(user.Username))
             {
                 ModelState.AddModelError("Username", "Username khong the trong");
@@ -62,46 +76,41 @@ namespace Frontend_12102025.Areas.Admin
                     ModelState.AddModelError("Username", "Username da ton tai");
                 }
             }
-            if (string.IsNullOrWhiteSpace(user.Email))
+            // Email
+            if (!string.IsNullOrWhiteSpace(user.Email))
             {
-                ModelState.AddModelError("Email", "Email is required!");
-            }
-            else
-            {
-                var emailRegex = new System.Text.RegularExpressions.Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
-                if (!emailRegex.IsMatch(user.Email))
-                {
-                    ModelState.AddModelError("Email", "Invalid email format!");
-                }
-
                 var emailExists = await db.Users
                     .AnyAsync(u => u.Email.ToLower() == user.Email.Trim().ToLower());
                 if (emailExists)
                 {
-                    ModelState.AddModelError("Email", "Email already exists!");
+                    ModelState.AddModelError("Email", "Email đã tồn tại");
                 }
             }
-
+            // Sdt
             if (!string.IsNullOrWhiteSpace(user.Phone))
             {
-                var phoneRegex = new System.Text.RegularExpressions.Regex(@"^[0-9]{10,11}$");
-                if (!phoneRegex.IsMatch(user.Phone))
-                {
-                    ModelState.AddModelError("Phone", "Phone must be 10-11 digits!");
-                }
-
                 var phoneExists = await db.Users
                     .AnyAsync(u => u.Phone == user.Phone.Trim());
                 if (phoneExists)
                 {
-                    ModelState.AddModelError("Phone", "Phone number already exists!");
+                    ModelState.AddModelError("Phone", "Số điện thoại đã tồn tại");
                 }
             }
             // Validate passwod
             if (ModelState.IsValid)
             {
+                var newUser = new User
+                {
+                    Username = user.Username.Trim(),
+                    FullName = user.FullName.Trim(),
+                    Email = user.Email.Trim(),
+                    Phone = user.Phone?.Trim(),
+                    UserRole = user.UserRole,
+                    PasswordHash = HashPassword(user.Password),
+                    CreatedAt = DateTime.Now
+                };
                 user.CreatedAt = DateTime.Now;
-                db.Users.Add(user);
+                db.Users.Add(newUser);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -121,7 +130,18 @@ namespace Frontend_12102025.Areas.Admin
             {
                 return HttpNotFound();
             }
-            return View(user);
+            var model = new UserVM
+            {
+                UserId = user.UserId,
+                Username = user.Username,
+                FullName = user.FullName,
+                Email = user.Email,
+                Phone = user.Phone,
+                UserRole = user.UserRole,
+                CreatedAt = user.CreatedAt
+                // Password và ConfirmPassword để null (không load từ DB)
+            };
+            return View(model);
         }
 
         // POST: Admin/Users/Edit/5
@@ -129,7 +149,7 @@ namespace Frontend_12102025.Areas.Admin
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "UserId,Username,PasswordHash,FullName,Email,Phone,UserRole,CreatedAt")] User user)
+        public async Task<ActionResult> Edit(UserVM user)
         {
             var existingUser = await db.Users.FirstOrDefaultAsync(u => u.UserId == user.UserId);
 
@@ -137,42 +157,29 @@ namespace Frontend_12102025.Areas.Admin
             {
                 return HttpNotFound();
             }
-            if (string.IsNullOrWhiteSpace(user.Username))
+            if (!string.IsNullOrWhiteSpace(user.Username))
             {
-                ModelState.AddModelError("Username", "Username is required!");
-            }
-            else
-            {
-                var usernameExists = await db.Users
-                    .AnyAsync(u => u.Username.ToLower() == user.Username.Trim().ToLower()
-                                  && u.UserId != user.UserId);
+                var usernameExists = await db.Users.AnyAsync(u => u.Username.ToLower() == user.Username.Trim().ToLower() && u.UserId != user.UserId);
                 if (usernameExists)
                 {
-                    ModelState.AddModelError("Username", "Username already exists!");
+                    ModelState.AddModelError("Username", "Username đã tồn tại");
                 }
             }
-            if (string.IsNullOrWhiteSpace(user.Email))
+            if (!string.IsNullOrWhiteSpace(user.Email))
             {
-                ModelState.AddModelError("Email", "Email is required!");
-            }
-            else
-            {
-                var emailRegex = new System.Text.RegularExpressions.Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
-                if (!emailRegex.IsMatch(user.Email))
-                {
-                    ModelState.AddModelError("Email", "Invalid email format!");
-                }
-
-                var emailExists = await db.Users
-                    .AnyAsync(u => u.Email.ToLower() == user.Email.Trim().ToLower()
-                                  && u.UserId != user.UserId);
+                var emailExists = await db.Users.AnyAsync(u => u.Email.ToLower() == user.Email.Trim().ToLower() && u.UserId != user.UserId);
                 if (emailExists)
                 {
-                    ModelState.AddModelError("Email", "Email already exists!");
+                    ModelState.AddModelError("Email", "Email đã tồn tại");
                 }
             }
             if (!string.IsNullOrWhiteSpace(user.Phone))
             {
+                existingUser.Username = user.Username.Trim();
+                existingUser.FullName = user.FullName.Trim();
+                existingUser.Email = user.Email.Trim();
+                existingUser.Phone = user.Phone?.Trim();
+                existingUser.UserRole = user.UserRole;
                 var phoneExists = await db.Users
                     .AnyAsync(u => u.Phone == user.Phone.Trim() && u.UserId != user.UserId);
                 if (phoneExists)
@@ -182,7 +189,7 @@ namespace Frontend_12102025.Areas.Admin
             }
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
+                db.Entry(existingUser).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -217,31 +224,26 @@ namespace Frontend_12102025.Areas.Admin
                     return HttpNotFound();
                 }
 
-                // Không cho xóa chính mình
-                // var currentUserId = GetCurrentUserId();
-                // if (user.UserId == currentUserId)
-                // {
-                //     TempData["ErrorMessage"] = "Cannot delete your own account!";
-                //     return RedirectToAction("Index");
-                // }
-
+                // Khong the xoa admin cuoi
                 if (user.UserRole == "Admin")
                 {
                     var adminCount = await db.Users.CountAsync(u => u.UserRole == "Admin");
                     if (adminCount <= 1)
                     {
-                        TempData["ErrorMessage"] = "Cannot delete the last admin account!";
+                        TempData["ErrorMessage"] = "Không thể xóa tài khoản admin cuối cùng!";
                         return RedirectToAction("Index");
                     }
                 }
 
+                // Validate khong cho xoa user neu dang co order
                 var hasOrders = await db.Orders.AnyAsync(o => o.UserId == id);
                 if (hasOrders)
                 {
-                    TempData["ErrorMessage"] = "Cannot delete user with orders! Consider deactivating instead.";
+                    TempData["ErrorMessage"] = "Không thể xóa người dùng có đơn hàng!";
                     return RedirectToAction("Index");
                 }
 
+                // Xoa cac phan lien quan neu la customer
                 var customer = await db.Customers.FirstOrDefaultAsync(c => c.UserId == id);
                 if (customer != null)
                 {
@@ -251,14 +253,16 @@ namespace Frontend_12102025.Areas.Admin
                 var addresses = db.ShippingAddresses.Where(a => a.UserId == id);
                 db.ShippingAddresses.RemoveRange(addresses);
 
+                // Xoa user
                 db.Users.Remove(user);
                 await db.SaveChangesAsync();
 
+                TempData["SuccessMessage"] = "Xóa người dùng thành công!";
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                TempData["ErrorMessage"] = "Error: " + ex.Message;
+                TempData["ErrorMessage"] = "Lỗi: " + ex.Message;
                 return RedirectToAction("Index");
             }
         }
@@ -270,6 +274,19 @@ namespace Frontend_12102025.Areas.Admin
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
         }
     }
 }

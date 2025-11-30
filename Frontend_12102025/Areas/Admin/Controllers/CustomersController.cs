@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Frontend_12102025.Models;
+using Frontend_12102025.ViewModels;
 
 namespace Frontend_12102025.Areas.Admin.Controllers
 {
@@ -95,8 +96,17 @@ namespace Frontend_12102025.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            var editedUser = new CustomerVM
+            {
+                CustomerId = customer.CustomerId,           
+                UserId = customer.UserId,
+                DateOfBirth = customer.DateOfBirth,
+                Gender = customer.Gender,
+                Notes = customer.Notes,
+
+            };
             ViewBag.UserId = new SelectList(db.Users, "UserId", "Username", customer.UserId);
-            return View(customer);
+            return View(editedUser);
         }
 
         // POST: Admin/Customers/Edit/5
@@ -104,21 +114,47 @@ namespace Frontend_12102025.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "CustomerId,UserId,DateOfBirth,Gender,CustomerType,TotalOrders,TotalSpent,LastOrderDate,CustomerStatus,Notes,CreatedAt,UpdatedAt")] Frontend_12102025.Models.Customer customer)
+        public async Task<ActionResult> Edit(CustomerVM customer)
         {
+            var existingCustomer = await db.Customers.FindAsync(customer.CustomerId);
+            if (existingCustomer == null)
+            {
+                return HttpNotFound();
+            }
             var userExist = await db.Customers.AnyAsync(u => u.UserId == customer.UserId && u.CustomerId != customer.CustomerId);
             if (userExist)
             {
-                ModelState.AddModelError("", "User da ton tai");
+                ModelState.AddModelError("Username", "Người dùng đã tồn tại");
             }
-            if(customer.DateOfBirth.HasValue || customer.DateOfBirth > DateTime.Now)
+            if (customer.DateOfBirth.HasValue)
             {
-                ModelState.AddModelError("DateOfBirth", "Ngay thang nam sinh khong hop le");
+                // Không được là ngày tương lai
+                if (customer.DateOfBirth.Value > DateTime.Now)
+                {
+                    ModelState.AddModelError("DateOfBirth", "Ngày sinh không hợp lệ");
+                }
+                else
+                {
+                    // Validate tuổi (10-120)
+                    var dob = customer.DateOfBirth.Value;
+                    int age = DateTime.Today.Year - dob.Year;
+                    if (dob > DateTime.Today.AddYears(-age))
+                        age--;
+
+                    if (age < 10 || age > 120)
+                    {
+                        ModelState.AddModelError("DateOfBirth", "Tuổi phải lớn hơn 10 và nhỏ hơn 120");
+                    }
+                }
             }
             if (ModelState.IsValid)
             {
-                customer.UpdatedAt = DateTime.Now;
-                db.Entry(customer).State = EntityState.Modified;
+                existingCustomer.UserId = customer.UserId;
+                existingCustomer.DateOfBirth = customer.DateOfBirth;
+                existingCustomer.Gender = customer.Gender;
+                existingCustomer.Notes = customer.Notes?.Trim();
+                existingCustomer.UpdatedAt = DateTime.Now; 
+                db.Entry(existingCustomer).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -148,26 +184,28 @@ namespace Frontend_12102025.Areas.Admin.Controllers
         {
             try
             {
-                Frontend_12102025.Models.Customer customer = await db.Customers.FindAsync(id);
+                var customer = await db.Customers.FindAsync(id);
                 if (customer == null)
                 {
                     return HttpNotFound();
                 }
 
-                bool hasOrders = await db.OrderDetails.AnyAsync(o => o.OrderId == id);
+                var hasOrders = await db.Orders.AnyAsync(o => o.UserId == id);
+
                 if (hasOrders)
                 {
-                    TempData["ErrorMessage"] = "Cannot delete this customer because they have orders!";
+                    TempData["ErrorMessage"] = "Không thể xóa khách hàng đang có đơn hàng!";
                     return RedirectToAction("Index");
                 }
 
                 db.Customers.Remove(customer);
                 await db.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Xóa thông tin khách hàng thành công!";
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                TempData["ErrorMessage"] = "Error: " + ex.Message;
+                TempData["ErrorMessage"] = "Lỗi: " + ex.Message;
                 return RedirectToAction("Index");
             }
         }

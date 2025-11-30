@@ -16,7 +16,8 @@ namespace Frontend_12102025
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                namespaces: new[] { "Frontend_12102025.Controllers" }
             );
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");

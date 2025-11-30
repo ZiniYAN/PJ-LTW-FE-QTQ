@@ -50,6 +50,7 @@
                 <th>Khách hàng</th>
                 <th>Tổng tiền</th>
                 <th>Ngày tạo</th>
+                <th style="text-align: center">Xem chi tiết</th>
             </tr>
         </thead>
         <tbody>
@@ -60,6 +61,9 @@
                     <td class="name">@o.User.FullName</td>
                     <td class="total">@o.TotalAmount đ</td>
                     <td class="order-date">@o.OrderDate.Value.ToString()</td>
+                    <td class="btn-container">
+                        @Html.ActionLink("Chi tiết", "Details", "Orders", new { id = o.OrderId}, new {@class = "order-detail-btn"})
+                    </td>
                 </tr>
             }
         </tbody>

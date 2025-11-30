@@ -84,11 +84,30 @@
             <dd>
                 @Html.DisplayFor(model => model.ShippingAddress.AddressLine)
             </dd>
+            <dd>
+                <table class="product-list">
+                    <tr>
+                        <th>Tiêu đề sách</th>
+                        <th>Đơn giá</th>
+                        <th>Số lượng</th>
+                        <th>Tổng tiền</th>
+                    </tr>
+                    @foreach (var item in Model.OrderDetails)
+                    {
+                        <tr class="product-item">
+                            <td>@item.BookEdition.BookTitle.Title</td>
+                            <td>@item.UnitPrice</td>
+                            <td>@item.Quantity</td>
+                            <td>@(item.UnitPrice * item.Quantity)</td>
+                        </tr>
+                    }
+                </table>
+            </dd>
         </dl>
     </div>
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.OrderId }, new {@class = "btn-edit"}) |
-        @Html.ActionLink("Back to List", "Index", null, new {@class = "btn-back"})
+        @Html.ActionLink("Back to List", "Index", null, new {@class = "btn-back"}) |
     </p>
 
 </div>

@@ -16,3 +16,18 @@
     border-collapse: collapse;
     border: 1px solid black;
 }
+.btn-container{
+    text-align: center;
+}
+.order-detail-btn{
+    background: green;
+    color: white;
+    border:none;
+    border-radius: 10px;
+    text-decoration: none;
+    padding: 5px;
+}
+    .order-detail-btn:hover{
+        background: #319a31;
+        color: white;
+    }

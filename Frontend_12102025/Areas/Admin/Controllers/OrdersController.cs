@@ -25,15 +25,17 @@ namespace Frontend_12102025.Areas.Admin.Controllers
         // GET: Admin/Orders/Details/5
         public async Task<ActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Order order = await db.Orders.FindAsync(id);
+            var order = await db.Orders
+                    .Include(o => o.OrderDetails)
+                    .Include(o => o.OrderDetails.Select(oi => oi.BookEdition))
+                    .Include(o => o.User)
+                    .Include(o => o.ShippingAddress)
+                    .Include(o => o.Coupon)
+                    .FirstOrDefaultAsync(o => o.OrderId == id);
+
             if (order == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(order);
         }
 

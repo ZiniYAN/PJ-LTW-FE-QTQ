@@ -57,7 +57,7 @@
                 <dd>@Html.DisplayFor(model => model.BookTitle.Publisher.PublisherName)</dd>
             </dl>
 
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("Delete", "Books", new { id = Model.BookEditionId }, FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
                 <div class="form-actions">

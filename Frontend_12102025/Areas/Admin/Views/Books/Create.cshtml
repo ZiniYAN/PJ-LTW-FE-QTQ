@@ -1,4 +1,4 @@
-﻿@model Frontend_12102025.Models.BookEdition
+﻿@model Frontend_12102025.Models.ViewModels.BookEditionVM
 
 @{
     ViewBag.Title = "Create";
@@ -10,7 +10,7 @@
 </head>
 
 <div class="form-container">
-    <h2>Create New Book</h2>
+    <h2>Thêm Sách Mới</h2>
     <hr />
 
     @using (Html.BeginForm("Create", "Books", FormMethod.Post))
@@ -21,36 +21,36 @@
         <!-- Dòng 1: Title -->
         <div class="form-row full-width">
             <div class="form-group">
-                @Html.LabelFor(model => model.BookTitle.Title, "Book Title")
-                @Html.EditorFor(model => model.BookTitle.Title, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter book title" } })
-                @Html.ValidationMessageFor(model => model.BookTitle.Title, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.Title, "Tên sách")
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập tên sách" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <!-- Dòng 2: Author | Publisher -->
         <div class="form-row">
             <div class="form-group">
-                @Html.LabelFor(model => model.BookTitle.Author.AuthorName, "Author")
-                @Html.TextBoxFor(model => model.BookTitle.Author.AuthorName, new { @class = "form-control", placeholder = "Enter author name" })
-                @Html.ValidationMessageFor(model => model.BookTitle.Author.AuthorName, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.AuthorName, "Tác giả")
+                @Html.EditorFor(model => model.AuthorName, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập tên tác giả" } })
+                @Html.ValidationMessageFor(model => model.AuthorName, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.BookTitle.Publisher.PublisherName, "Publisher")
-                @Html.EditorFor(model => model.BookTitle.Publisher.PublisherName, new { @class = "form-control", placeholder = "Enter book title" })
-                @Html.ValidationMessageFor(model => model.BookTitle.Publisher.PublisherName, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.PublisherName, "Nhà xuất bản")
+                @Html.EditorFor(model => model.PublisherName, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập nhà xuất bản" } })
+                @Html.ValidationMessageFor(model => model.PublisherName, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <!-- Dòng 3: Category | Price -->
         <div class="form-row">
             <div class="form-group">
-                @Html.LabelFor(model => model.BookTitle.CategoryId, "Category")
-                @Html.DropDownList("CategoryID", null, "-- Select Category --", htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.BookTitle.CategoryId, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.CategoryId, "Danh mục")
+                @Html.DropDownListFor(model => model.CategoryId, Model.CategoryList, "-- Chọn danh mục --", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.Price, "Price (VND)")
-                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", placeholder = "0", type = "number", step = "1000" } })
+                @Html.LabelFor(model => model.Price, "Giá (VND)")
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", placeholder = "0", type = "number"} })
                 @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -58,13 +58,13 @@
         <!-- Dòng 4: Stock | ISBN -->
         <div class="form-row">
             <div class="form-group">
-                @Html.LabelFor(model => model.Stock, "Stock Quantity")
+                @Html.LabelFor(model => model.Stock, "Số lượng tồn kho")
                 @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control", placeholder = "0", type = "number" } })
                 @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.ISBN, "ISBN")
-                @Html.EditorFor(model => model.ISBN, new { htmlAttributes = new { @class = "form-control", placeholder = "978-xxx-xxx-xxx" } })
+                @Html.EditorFor(model => model.ISBN, new { htmlAttributes = new { @class = "form-control", placeholder = "9781234567890", maxlength = "13" } })
                 @Html.ValidationMessageFor(model => model.ISBN, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -72,15 +72,15 @@
         <!-- Dòng 5: Image URL | Publish Date -->
         <div class="form-row">
             <div class="form-group">
-                <label for="ImageUrl">Image URL</label>
-                <input type="url" id="ImageUrl" name="ImageUrl" class="form-control" placeholder="https://example.com/image.jpg" />
-                <span class="text-danger" id="imageUrlError"></span>
+                @Html.LabelFor(model => model.CoverImage, "URL Ảnh bìa")
+                @Html.EditorFor(model => model.CoverImage, new { htmlAttributes = new { @class = "form-control", placeholder = "https://example.com/image.jpg", id = "ImageUrl" } })
+                @Html.ValidationMessageFor(model => model.CoverImage, "", new { @class = "text-danger" })
                 <div class="image-preview-container">
                     <img id="imagePreview" class="image-preview" alt="Preview" />
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.PublishDate, "Publish Date")
+                @Html.LabelFor(model => model.PublishDate, "Ngày xuất bản")
                 @Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
                 @Html.ValidationMessageFor(model => model.PublishDate, "", new { @class = "text-danger" })
             </div>
@@ -89,15 +89,15 @@
         <!-- Dòng 6: Description -->
         <div class="form-row full-width">
             <div class="form-group">
-                @Html.LabelFor(model => model.BookTitle.Description, "Description")
-                @Html.TextAreaFor(model => model.BookTitle.Description, new { @class = "form-control", placeholder = "Enter book description...", rows = 5 })
-                @Html.ValidationMessageFor(model => model.BookTitle.Description, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.Description, "Mô tả")
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = "Nhập mô tả sách...", rows = 5 })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div>
-            <input type="submit" value="Create Book" class="btn-submit" />
-            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn-back" })
+            <input type="submit" value="Thêm Sách" class="btn-submit" />
+            @Html.ActionLink("Quay lại", "Index", null, new { @class = "btn-back" })
         </div>
     }
 </div>
@@ -106,27 +106,22 @@
     @Scripts.Render("~/bundles/jqueryval")
 
     <script>
-        // Preview image when URL is entered
         document.getElementById('ImageUrl').addEventListener('input', function () {
             var url = this.value.trim();
             var preview = document.getElementById('imagePreview');
 
             if (url) {
-                // Test if image loads
                 var img = new Image();
                 img.onload = function () {
                     preview.src = url;
                     preview.classList.add('show');
-                    document.getElementById('imageUrlError').textContent = '';
                 };
                 img.onerror = function () {
                     preview.classList.remove('show');
-                    document.getElementById('imageUrlError').textContent = 'Invalid image URL';
                 };
                 img.src = url;
             } else {
                 preview.classList.remove('show');
-                document.getElementById('imageUrlError').textContent = '';
             }
         });
     </script>

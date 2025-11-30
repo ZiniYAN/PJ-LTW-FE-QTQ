@@ -8,37 +8,74 @@
     <link rel="stylesheet" type="text/css" href="~/Content/Admin Stylesheet/Category.css" />
 </head>
 <div class="content-wrapper">
-    <h2>Delete</h2>
+    <h2>Xóa danh mục</h2>
 
-    <div class="delete-container">
-        <dl class="dl-horizontal">
-            <dt class="label">
-                @Html.DisplayNameFor(model => model.CategoryName)
-            </dt>
 
-            <dd class="content">
-                @Html.DisplayFor(model => model.CategoryName)
-            </dd>
 
-            <dt class="label">
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
+    @if (Model.BookTitles != null && Model.BookTitles.Any())
+    {
+        <div class="alert alert-danger">
+            <h4>KHÔNG THỂ XÓA DANH MỤC NÀY!</h4>
+            <p>Danh mục đang có <strong>@Model.BookTitles.Count() sách</strong>. Vui lòng xóa hoặc chuyển sách sang danh mục khác trước.</p>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            <h4>Bạn có chắc chắn muốn xóa danh mục này?</h4>
+            <p>Hành động này không thể hoàn tác!</p>
+        </div>
+    }
 
-            <dd class="content">
-                @Html.DisplayFor(model => model.Description)
-            </dd>
 
-        </dl>
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            <h4>Thông tin danh mục</h4>
+        </div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>ID:</dt>
+                <dd>@Model.CategoryId</dd>
 
-        @using (Html.BeginForm())
+                <dt>Tên danh mục:</dt>
+                <dd><strong>@Model.CategoryName</strong></dd>
+
+                <dt>Mô tả:</dt>
+                <dd>@(string.IsNullOrEmpty(Model.Description) ? "Không có mô tả" : Model.Description)</dd>
+
+                <dt>Số lượng sách:</dt>
+                <dd>
+                    @if (Model.BookTitles != null && Model.BookTitles.Any())
+                    {
+                        <span class="badge badge-danger">@Model.BookTitles.Count() sách</span>
+                    }
+                    else
+                    {
+                        <span class="text-success">0 sách (có thể xóa)</span>
+                    }
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    @if (Model.BookTitles == null || !Model.BookTitles.Any())
+    {
+        using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
 
-            <div class="btn-container">
-                <input type="submit" value="Delete" class="btn-delete" /> |
-                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn-back" })
+            <div class="form-actions">
+                <button type="submit" class="btn btn-danger btn-lg">
+                    <i class="glyphicon glyphicon-trash"></i> Xác nhận xóa
+                </button>
+                @Html.ActionLink("Hủy bỏ", "Index", null, new { @class = "btn btn-default btn-lg" })
             </div>
         }
-    </div>
+    }
+    else
+    {
+        <div class="form-actions">
+            @Html.ActionLink("Quay lại danh sách", "Index", null, new { @class = "btn btn-back" })
+        </div>
+    }
 </div>
-

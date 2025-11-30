@@ -108,3 +108,19 @@
             text-align: center;
         }
 }
+/*danh sach san pham*/
+dd table.product-list{
+    width: 80%;
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+    dd table.product-list th {
+        color: black;
+        border: 1px solid;
+    }
+    dd table.product-list td {
+        padding: 10px;
+        color: black;
+        margin: 10px;
+        border: 1px solid;
+    }
