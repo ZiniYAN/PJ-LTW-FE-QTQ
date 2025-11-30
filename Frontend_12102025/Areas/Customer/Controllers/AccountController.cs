@@ -330,46 +330,6 @@ namespace Frontend_12102025.Areas.Customer.Controllers
             return View("Index", customerInDb);
         }
 
-        // GET: Account/ChangePassword
-        [Authorize]
-        public ActionResult ChangePassword()
-        {
-            return View();
-        }
-
-        // POST: Account/ChangePassword
-        [HttpPost]
-        [Authorize]
-        [ValidateAntiForgeryToken]
-        public ActionResult ChangePassword(ChangePasswordVM model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var user = db.Users.FirstOrDefault(u => u.Username == User.Identity.Name);
-            if (user == null)
-            {
-                return RedirectToAction("Login");
-            }
-
-            // Verify old password
-            bool isOldPasswordValid = BCrypt.Net.BCrypt.EnhancedVerify(model.OldPassword, user.PasswordHash);
-            if (!isOldPasswordValid)
-            {
-                ModelState.AddModelError("OldPassword", "Mật khẩu cũ không đúng");
-                return View(model);
-            }
-
-            // Update password
-            user.PasswordHash = BCrypt.Net.BCrypt.EnhancedHashPassword(model.NewPassword, 13);
-            db.Entry(user).State = EntityState.Modified;
-            db.SaveChanges();
-
-            TempData["SuccessMessage"] = "Đổi mật khẩu thành công!";
-            return RedirectToAction("Index", "Home");
-        }
 
         // AJAX: Check username availability
         [AllowAnonymous]

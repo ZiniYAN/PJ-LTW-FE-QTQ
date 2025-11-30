@@ -268,7 +268,6 @@
     <Compile Include="Models\ViewModel\Cart.cs" />
     <Compile Include="Models\ViewModel\CartItem.cs" />
     <Compile Include="Models\ViewModel\CartService.cs" />
-    <Compile Include="Models\ViewModel\ChangePasswordVM.cs" />
     <Compile Include="Models\ViewModel\CheckoutVM.cs" />
     <Compile Include="Models\ViewModel\HomeProductVM.cs" />
     <Compile Include="Models\ViewModel\LoginVM.cs" />
@@ -364,7 +363,6 @@
     <Content Include="Areas\Customer\Views\Order\OrderSuccess.cshtml" />
     <Content Include="Areas\Customer\Views\Order\MyOrder.cshtml" />
     <Content Include="Areas\Customer\Views\Order\OrderDetail.cshtml" />
-    <Content Include="Areas\Customer\Views\Order\_PVOrderCard.cshtml" />
     <Content Include="Areas\Customer\Views\Account\Register.cshtml" />
     <Content Include="Areas\Customer\Views\Account\Login.cshtml" />
     <Content Include="Areas\Customer\Views\Account\ProfileInfo.cshtml" />
