@@ -377,6 +377,7 @@
     <Content Include="Areas\Customer\Views\Home\PrivacyPolicy.cshtml" />
     <Content Include="Areas\Customer\Views\Home\ContactUs.cshtml" />
     <Content Include="Areas\Customer\Views\Home\AboutUs.cshtml" />
+    <Content Include="Areas\Customer\Views\Home\_PVSearch.cshtml" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
