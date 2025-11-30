@@ -21,9 +21,9 @@ namespace Frontend_12102025.Areas.Customer.Controllers
             model.SearchTerm = SearchTerm;
             // Feature Products
             model.FeatureProducts = db.BookEditions
-                .Where(b => b.Stock >= 0)
-                .OrderByDescending(b => b.OrderDetails.Count)
-                .Take(10)
+                .Where(b => b.Stock >= 0) // Loc san pham 
+                .OrderByDescending(b => b.OrderDetails.Count) //Sap xep giam dan theo sl da ban
+                .Take(10) //Lay 10 sp dau -> list
                 .ToList();
 
             // New Products với phân trang
