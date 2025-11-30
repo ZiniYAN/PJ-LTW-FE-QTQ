@@ -4,11 +4,14 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Frontend_12102025.Models;
+using Frontend_12102025.Models.ViewModels;
+using Frontend_12102025.ViewModels;
 
-namespace Frontend_12102025.Areas.Admin
+namespace Frontend_12102025.Areas.Admin.Controllers
 {
     public class CategoriesController : Controller
     {
@@ -46,11 +49,32 @@ namespace Frontend_12102025.Areas.Admin
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CategoryID,CategoryName,Description")] Category category)
+        public async Task<ActionResult> Create(CategoriesVM category)
         {
+            if (!string.IsNullOrWhiteSpace(category.CategoryName))
+            {
+                var categoryNameExist = await db.Categories.AnyAsync(c => c.CategoryName.ToLower() == category.CategoryName.Trim().ToLower());
+
+                if (categoryNameExist)
+                {
+                    ModelState.AddModelError("CategoryName", "Tên danh mục đã tồn tại");
+                }
+            }
+            if (!string.IsNullOrWhiteSpace(category.CategoryName))
+            {
+                var invalidChars = new[] { '<', '>', '&', '"', '\'' };
+                if (category.CategoryName.Any(c => invalidChars.Contains(c)))
+                {
+                    ModelState.AddModelError("CategoryName", "Tên danh mục không được chứa ký tự đặc biệt: < > & \" '");
+                }
+            }
             if (ModelState.IsValid)
             {
-                db.Categories.Add(category);
+                var newCategory = new Category { 
+                    CategoryName = category.CategoryName.Trim(),
+                    Description = category.Description,
+                };
+                db.Categories.Add(newCategory);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -70,7 +94,13 @@ namespace Frontend_12102025.Areas.Admin
             {
                 return HttpNotFound();
             }
-            return View(category);
+            var editedCategory = new CategoriesVM
+            {
+                CategoryId = category.CategoryId,
+                CategoryName = category.CategoryName,
+                Description = category.Description
+            };
+            return View(editedCategory);
         }
 
         // POST: Admin/Categories/Edit/5
@@ -78,11 +108,32 @@ namespace Frontend_12102025.Areas.Admin
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CategoryID,CategoryName,Description")] Category category)
+        public async Task<ActionResult> Edit(CategoriesVM category)
         {
+            if (!string.IsNullOrWhiteSpace(category.CategoryName))
+            {
+                var categoryNameExists = await db.Categories.AnyAsync(c => c.CategoryName.ToLower() == category.CategoryName.Trim().ToLower() && c.CategoryId != category.CategoryId);
+                if (categoryNameExists)
+                {
+                    ModelState.AddModelError("CategoryName", "Tên danh mục đã tồn tại");
+                }
+            }
+            if (!string.IsNullOrWhiteSpace(category.CategoryName))
+            {
+                var invalidChars = new[] { '<', '>', '&', '"', '\'' };
+                if (category.CategoryName.Any(c => invalidChars.Contains(c)))
+                {
+                    ModelState.AddModelError("CategoryName", "Tên danh mục không được chứa ký tự đặc biệt: < > & \" '");
+                }
+            }
             if (ModelState.IsValid)
             {
-                db.Entry(category).State = EntityState.Modified;
+                var editedCategory = await db.Categories.FindAsync(category.CategoryId);
+                if (category == null)
+                {
+                    return HttpNotFound();
+                }
+                db.Entry(editedCategory).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -109,10 +160,34 @@ namespace Frontend_12102025.Areas.Admin
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                var category = db.Categories.Find(id);
+                if (category == null)
+                {
+                    return HttpNotFound();
+                }
+
+                // ✅ KIỂM TRA CÓ SÁCH - DÙNG Any() KHÔNG ASYNC
+                var hasBooks = db.BookTitles.Any(b => b.CategoryId == id);
+
+                if (hasBooks)
+                {
+                    TempData["ErrorMessage"] = "Không thể xóa danh mục đang có sách! Vui lòng xóa hoặc chuyển sách sang danh mục khác trước.";
+                    return RedirectToAction("Index");
+                }
+
+                db.Categories.Remove(category);
+                db.SaveChanges();
+
+                TempData["SuccessMessage"] = "Xóa danh mục thành công!";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Lỗi: " + ex.Message;
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)

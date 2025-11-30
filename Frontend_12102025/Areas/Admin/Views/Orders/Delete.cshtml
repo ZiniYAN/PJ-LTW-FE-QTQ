@@ -12,82 +12,98 @@
     <h2>Delete</h2>
 
     <h3>Are you sure you want to delete this?</h3>
-    <div>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.User.Username)
-            </dt>
+    @if (Model.OrderStatus.ToLower() != "failed")
+    {
+        <div class="alert alert-danger">
+            <h4>KHÔNG THỂ XÓA ĐƠN HÀNG</h4>
+        </div>
+    }
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Username)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.User.Username)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.OrderDate)
-            </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Username)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.OrderDate)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.TotalAmount)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalAmount)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.TotalAmount)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.TotalAmount)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.PaymentMethod)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentMethod)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.PaymentMethod)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.PaymentMethod)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.PaymentStatus)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentStatus)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.PaymentStatus)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.PaymentStatus)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.OrderStatus)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderStatus)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.OrderStatus)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.OrderStatus)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Coupon.Code)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Coupon.Code)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Coupon.Code)
-            </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Coupon.Code)
+        </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.ShippingAddress.RecipientName)
-            </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.ShippingAddress.RecipientName)
+        </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.ShippingAddress.RecipientName)
-            </dd>
-        </dl>
+        <dd>
+            @Html.DisplayFor(model => model.ShippingAddress.RecipientName)
+        </dd>
+    </dl>
 
-        @using (Html.BeginForm())
+
+    @if (Model.OrderStatus.ToLower() == "failed")
+    {
+        using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
 
             <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default" /> 
+                <input type="submit" value="Delete" class="btn btn-default" />
                 @Html.ActionLink("Back to List", "Index")
             </div>
         }
-    </div>
+    }
+    else
+    {
+        <div class="form-actions no-color">
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
 </div>
 

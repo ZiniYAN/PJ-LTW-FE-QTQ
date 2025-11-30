@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Frontend_12102025.Models;
+using Frontend_12102025.ViewModels;
 
 namespace Frontend_12102025.Areas.Admin.Controllers
 {
@@ -51,8 +52,29 @@ namespace Frontend_12102025.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "CustomerId,UserId,DateOfBirth,Gender,CustomerType,TotalOrders,TotalSpent,LastOrderDate,CustomerStatus,Notes,CreatedAt,UpdatedAt")] Frontend_12102025.Models.Customer customer)
         {
+            // Validate User
+            var userExist = await db.Users.AnyAsync(u => u.UserId == customer.UserId);
+            if (!userExist)
+            {
+                ModelState.AddModelError("UserId", "User khong ton tai");
+            }
+            // Validate age
+            if (customer.DateOfBirth.HasValue)
+            {
+                if (customer.DateOfBirth > DateTime.Now)
+                {
+                    ModelState.AddModelError("DateOfBirth", "Date of birth cannot be in the future!");
+                }
+                if (customer.DateOfBirth < DateTime.Now.AddYears(-120))
+                {
+                    ModelState.AddModelError("DateOfBirth", "Invalid date of birth!");
+                }
+            }
+
             if (ModelState.IsValid)
             {
+                customer.CreatedAt = DateTime.Now;
+                customer.UpdatedAt = DateTime.Now;
                 db.Customers.Add(customer);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -74,8 +96,17 @@ namespace Frontend_12102025.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            var editedUser = new CustomerVM
+            {
+                CustomerId = customer.CustomerId,           
+                UserId = customer.UserId,
+                DateOfBirth = customer.DateOfBirth,
+                Gender = customer.Gender,
+                Notes = customer.Notes,
+
+            };
             ViewBag.UserId = new SelectList(db.Users, "UserId", "Username", customer.UserId);
-            return View(customer);
+            return View(editedUser);
         }
 
         // POST: Admin/Customers/Edit/5
@@ -83,11 +114,47 @@ namespace Frontend_12102025.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "CustomerId,UserId,DateOfBirth,Gender,CustomerType,TotalOrders,TotalSpent,LastOrderDate,CustomerStatus,Notes,CreatedAt,UpdatedAt")] Frontend_12102025.Models.Customer customer)
+        public async Task<ActionResult> Edit(CustomerVM customer)
         {
+            var existingCustomer = await db.Customers.FindAsync(customer.CustomerId);
+            if (existingCustomer == null)
+            {
+                return HttpNotFound();
+            }
+            var userExist = await db.Customers.AnyAsync(u => u.UserId == customer.UserId && u.CustomerId != customer.CustomerId);
+            if (userExist)
+            {
+                ModelState.AddModelError("Username", "Người dùng đã tồn tại");
+            }
+            if (customer.DateOfBirth.HasValue)
+            {
+                // Không được là ngày tương lai
+                if (customer.DateOfBirth.Value > DateTime.Now)
+                {
+                    ModelState.AddModelError("DateOfBirth", "Ngày sinh không hợp lệ");
+                }
+                else
+                {
+                    // Validate tuổi (10-120)
+                    var dob = customer.DateOfBirth.Value;
+                    int age = DateTime.Today.Year - dob.Year;
+                    if (dob > DateTime.Today.AddYears(-age))
+                        age--;
+
+                    if (age < 10 || age > 120)
+                    {
+                        ModelState.AddModelError("DateOfBirth", "Tuổi phải lớn hơn 10 và nhỏ hơn 120");
+                    }
+                }
+            }
             if (ModelState.IsValid)
             {
-                db.Entry(customer).State = EntityState.Modified;
+                existingCustomer.UserId = customer.UserId;
+                existingCustomer.DateOfBirth = customer.DateOfBirth;
+                existingCustomer.Gender = customer.Gender;
+                existingCustomer.Notes = customer.Notes?.Trim();
+                existingCustomer.UpdatedAt = DateTime.Now; 
+                db.Entry(existingCustomer).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -115,10 +182,32 @@ namespace Frontend_12102025.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Frontend_12102025.Models.Customer customer = await db.Customers.FindAsync(id);
-            db.Customers.Remove(customer);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            try
+            {
+                var customer = await db.Customers.FindAsync(id);
+                if (customer == null)
+                {
+                    return HttpNotFound();
+                }
+
+                var hasOrders = await db.Orders.AnyAsync(o => o.UserId == id);
+
+                if (hasOrders)
+                {
+                    TempData["ErrorMessage"] = "Không thể xóa khách hàng đang có đơn hàng!";
+                    return RedirectToAction("Index");
+                }
+
+                db.Customers.Remove(customer);
+                await db.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Xóa thông tin khách hàng thành công!";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Lỗi: " + ex.Message;
+                return RedirectToAction("Index");
+            }
         }
 
         protected override void Dispose(bool disposing)

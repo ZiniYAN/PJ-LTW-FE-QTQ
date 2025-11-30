@@ -25,5 +25,14 @@ namespace Frontend_12102025.Areas.Admin.Controllers
             dashboard.LastOrders = db.Orders.OrderByDescending(o => o.OrderDate).Take(5).ToList();
             return View(dashboard);
         }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
+
 }

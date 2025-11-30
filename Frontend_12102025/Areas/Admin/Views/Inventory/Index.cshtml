@@ -81,7 +81,7 @@
                                             <span class="badge bg-danger">Hết Hàng</span>
                                         </td>
                                         <td>
-                                            <a href="@Url.Action("Edit", "BookEditions", new { id = book.BookEditionId })"
+                                            <a href="@Url.Action("Edit", "Books", new { id = book.BookTitleId })"
                                                class="btn btn-sm btn-primary">
                                                 <i class="bi bi-box-seam"></i> Nhập Hàng
                                             </a>
@@ -152,7 +152,7 @@
                                             <span class="badge @badgeClass">@statusText</span>
                                         </td>
                                         <td>
-                                            <a href="@Url.Action("Details", "BookEditions", new { id = book.BookEditionId })"
+                                            <a href="@Url.Action("Details", "Books", new { id = book.BookTitleId })"
                                                class="btn btn-sm btn-info">
                                                 <i class="bi bi-eye"></i> Chi Tiết
                                             </a>

@@ -57,9 +57,9 @@
                 <dt>@Html.DisplayNameFor(model => model.BookTitle.Publisher.PublisherName)</dt>
                 <dd>@Html.DisplayFor(model => model.BookTitle.Publisher.PublisherName)</dd>
             </dl>
-
+            
             <div class="actions">
-                @Html.ActionLink("Edit", "Edit", new { id = Model.BookEditionId }, new { @class = "btn btn-edit" })
+                @Html.ActionLink("Edit", "Edit", new { id = Model.BookTitleId }, new { @class = "btn btn-edit" })
                 @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-back" })
             </div>
         </div>
