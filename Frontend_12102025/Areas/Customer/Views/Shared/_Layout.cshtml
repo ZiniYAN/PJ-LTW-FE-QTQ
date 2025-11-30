@@ -35,24 +35,26 @@
             </a>
 
             <!-- Search -->
-            @*Loi search*@ 
+            @*Loi search*@
             <section class="searchProd">
                 <div class="container-fluid">
-                    <form action="@Url.Action("Index", "Home")" method="get" class="search-form">
+                    @using (Html.BeginForm("Index", "Home", new { area = "Customer" }, FormMethod.Get, new { @class = "search-form" }))
+                    {
                         <div class="search-wrapper">
-                            <input type="text"
-                                   name="SearchTerm"
-                                   class="search-input"
-                                   placeholder="Tìm kiếm sách, tác giả..."
-                                   value="@Request.QueryString["SearchTerm"]"
-                                   autocomplete="off" />
+                            @Html.TextBox("SearchTerm", Request.QueryString["SearchTerm"], new
+                            {
+                                @class = "search-input",
+                                placeholder = "Tìm kiếm sách, tác giả...",
+                                autocomplete = "off"
+                            })
                             <button type="submit" class="search-btn">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </button>
                         </div>
-                    </form>
+                    }
                 </div>
             </section>
+
 
 
             <!-- Login/Logout & Cart -->
@@ -110,7 +112,7 @@
             <nav class="nav-bar-header">
                 <ul class="nav-bar">
                     <li>
-                        <a href="@Url.Action("Index", "Home")">
+                        <a href="@Url.Action("Index", "Home", new { area = "Customer" })">
                             <i class="fa-solid fa-house" style="color: black;"></i>
                         </a>
                     </li>

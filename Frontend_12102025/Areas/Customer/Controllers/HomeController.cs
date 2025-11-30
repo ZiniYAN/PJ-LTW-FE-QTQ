@@ -18,12 +18,12 @@ namespace Frontend_12102025.Areas.Customer.Controllers
         public ActionResult Index(string SearchTerm, int? page)
         {
             var model = new HomeProductVM();
-
+            model.SearchTerm = SearchTerm;
             // Feature Products
             model.FeatureProducts = db.BookEditions
-                .Where(b => b.Stock >= 0)
-                .OrderByDescending(b => b.OrderDetails.Count)
-                .Take(10)
+                .Where(b => b.Stock >= 0) // Loc san pham 
+                .OrderByDescending(b => b.OrderDetails.Count) //Sap xep giam dan theo sl da ban
+                .Take(10) //Lay 10 sp dau -> list
                 .ToList();
 
             // New Products với phân trang
@@ -31,19 +31,24 @@ namespace Frontend_12102025.Areas.Customer.Controllers
             int pageNumber = (page ?? 1);
 
             var newProductsQuery = db.BookEditions
-                .Where(b => b.Stock >= 0)
-                .OrderByDescending(b => b.PublishDate);
+                .Include(b => b.BookTitle)
+                .Include(b => b.BookTitle.Category)
+                .Include(b => b.BookTitle.Author)
+                .Where(b => b.Stock >= 0);
 
             if (!string.IsNullOrEmpty(SearchTerm))
             {
-                newProductsQuery = (IOrderedQueryable<BookEdition>)newProductsQuery
+                newProductsQuery = newProductsQuery
                     .Where(b => b.BookTitle.Title.Contains(SearchTerm) ||
                                b.BookTitle.Description.Contains(SearchTerm) ||
-                               b.BookTitle.Category.CategoryName.Contains(SearchTerm));
+                               b.BookTitle.Category.CategoryName.Contains(SearchTerm) ||
+                               b.BookTitle.Author.AuthorName.Contains(SearchTerm));
             }
 
-            model.NewProducts = newProductsQuery.ToPagedList(pageNumber, pageSize);
-            model.SearchTerm = SearchTerm;
+            model.NewProducts = newProductsQuery
+                .OrderByDescending(b => b.PublishDate)
+                .ToPagedList(pageNumber, pageSize);
+
 
             // Sản phẩm theo từng category
             ViewBag.KhoaHocProducts = db.BookEditions

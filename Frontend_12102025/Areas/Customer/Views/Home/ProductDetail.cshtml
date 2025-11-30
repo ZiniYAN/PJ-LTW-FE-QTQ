@@ -7,10 +7,10 @@
 <link rel="stylesheet" type="text/css" href="~/Content/Customer Stylesheet/ProductDetail.css" />
 
 <div class="container product-details-wrapper">
-    <!-- Sử dụng Grid Bootstrap thay cho Grid CSS cứng -->
+    <!-- Sử dụng Grid Bootstrap  -->
     <div class="row">
 
-        <!-- Cột 1: Hình ảnh (Chiếm 4/12 trên PC, 5/12 trên Tablet) -->
+        <!-- Cột 1: Hình ảnh-->
         <div class="col-lg-4 col-md-5 mb-4">
             <div class="product-details__image">
                 <img src="@Model.product.CoverImage" alt="@Model.product.BookTitle.Title" class="img-fluid rounded" />
@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <!-- Cột 2: Thông tin chi tiết (Chiếm 5/12 trên PC, 7/12 trên Tablet) -->
+        <!-- Cột 2: Thông tin chi tiết -->
         <div class="col-lg-5 col-md-7 mb-4">
             <div class="product-details__info">
                 <h1 class="product-details__title">@Model.product.BookTitle.Title</h1>
@@ -85,14 +85,13 @@
             </div>
         </div>
 
-        <!-- Cột 3: Đặt hàng (Chiếm 3/12 trên PC, Full trên Tablet/Mobile) -->
-        <!-- Cột 3: Đặt hàng (Chiếm 3/12 trên PC, Full trên Tablet/Mobile) -->
+        <!-- Cột 3: Đặt hàng  -->
         <div class="col-lg-3 col-md-12">
             <div class="card border-0 shadow-sm bg-light">
                 <div class="card-body p-3">
                     <div class="product-details__order">
 
-                        <!-- Phần chọn số lượng (Giữ nguyên vì logic này riêng của trang chi tiết) -->
+                        <!-- Phần chọn số lượng  -->
                         @using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post, new { id = "addToCartForm" }))
                         {
                             <div class="product-details__quantity-group mb-3 justify-content-between">
@@ -112,8 +111,6 @@
                             </div>
                         }
 
-                        <!-- GỌI PARTIAL VIEW ĐỂ HIỂN THỊ NÚT BẤM -->
-                        <!-- Thiết lập ViewBag để điều khiển logic hiển thị của Partial -->
                         @{
                             ViewBag.Quantity = 1; // Mặc định là 1, JS sẽ cập nhật lại hidden field sau
                             ViewBag.ShowBuyNow = true;

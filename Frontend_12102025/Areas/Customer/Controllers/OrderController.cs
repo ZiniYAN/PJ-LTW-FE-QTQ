@@ -79,6 +79,31 @@ namespace Frontend_12102025.Areas.Customer.Controllers
         [Authorize]
         public ActionResult Checkout(CheckoutVM model)
         {
+            // Lấy cart từ session
+            var cartService = GetCartService(); 
+            var cart = cartService.GetCart();
+
+            if (cart == null || !cart.Items.Any())
+            {
+                TempData["Message"] = "Giỏ hàng trống";
+                return RedirectToAction("Index", "Cart");
+            }
+            // Gắn vô model
+            model.CartItems = cart.Items.ToList();
+
+            // Lấy saved address 
+            model.SavedAddresses = db.ShippingAddresses
+                .Where(a => a.UserId == model.UserId)
+                .Select(a => new ShippingAddressVM
+                    {
+                        AddressId = a.AddressId,
+                        RecipientName = a.RecipientName,
+                        AddressLine = a.AddressLine,
+                        Phone = a.Phone,
+                        IsDefault = a.IsDefault ?? false
+                    })
+                .OrderByDescending(a => a.IsDefault)
+                .ToList();
             // Nếu dùng địa chỉ cũ -> Bỏ qua lỗi validate của form nhập mới
             if (!model.UseNewAddress)
             {
@@ -104,27 +129,18 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                 }
             }
 
-            // --- BƯỚC 2: KIỂM TRA MODEL STATE ---
+            // Ktra Model state ---
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            // --- BƯỚC 3: XỬ LÝ GIAO DỊCH ---
+            // Xử lý giao dịch ( transaction) ---
             using (var transaction = db.Database.BeginTransaction())
             {
                 try
                 {
-                    var cartService = GetCartService();
-                    var cart = cartService.GetCart();
-
-                    if (cart == null || !cart.Items.Any())
-                    {
-                        TempData["Message"] = "Giỏ hàng trống";
-                        return RedirectToAction("Index", "Cart");
-                    }
-
-                    // 3.1. Xử lý địa chỉ giao hàng
+                    // Xử lý địa chỉ giao hàng
                     int shippingAddressId;
 
                     if (model.UseNewAddress)
@@ -154,7 +170,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                         shippingAddressId = model.SelectedAddressId.Value;
                     }
 
-                    // 3.2. Xử lý Coupon (Check lại lần cuối cho chắc)
+                    // 3.2. Xử lý Coupon 
                     int? couponId = null;
                     decimal discountValue = 0;
 
@@ -164,16 +180,16 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                         if (coupon != null)
                         {
                             couponId = coupon.CouponId;
-                            discountValue = coupon.DiscountValue; // Hoặc logic tính %
+                            discountValue = coupon.DiscountValue; 
                         }
                     }
 
-                    // 3.3. Tính toán tiền
+                    // Tính tiền
                     decimal subTotal = cart.TotalValue();
                     decimal shippingFee = CalculateShippingFee(subTotal);
                     decimal totalAmount = subTotal + shippingFee - discountValue;
 
-                    // 3.4. Tạo Order
+                    // Tạo Order
                     var order = new Order
                     {
                         UserId = model.UserId,
@@ -189,7 +205,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                     db.Orders.Add(order);
                     db.SaveChanges();
 
-                    // 3.5. Tạo OrderDetail & Trừ Stock
+                    // Đưa vào Order Details rồi - stock 
                     foreach (var item in cart.Items)
                     {
                         var bookEdition = db.BookEditions.Find(item.BookEditionId);
@@ -209,35 +225,19 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                         db.Entry(bookEdition).State = EntityState.Modified;
                     }
 
-                    // 3.6. Update Customer Stats
-                    var customer = db.Customers.FirstOrDefault(c => c.UserId == model.UserId);
-                    if (customer != null)
-                    {
-                        customer.TotalOrders = (customer.TotalOrders ?? 0) + 1;
-                        customer.TotalSpent = (customer.TotalSpent ?? 0) + totalAmount;
-                        customer.LastOrderDate = DateTime.Now;
-
-                        // Update Rank logic
-                        if (customer.TotalSpent >= 10000000) customer.CustomerType = "VIP";
-                        else if (customer.TotalSpent >= 5000000) customer.CustomerType = "Regular";
-
-                        db.Entry(customer).State = EntityState.Modified;
-                    }
-
                     db.SaveChanges();
                     transaction.Commit();
-
-                    // 3.7. Clear giỏ hàng & Redirect
+                    // Clear giỏ hàng rồi chueyenr trang 
                     cartService.ClearCart();
                     TempData["SuccessMessage"] = "Đặt hàng thành công!";
-                    return RedirectToAction("OrderSuccess", new { id = order.OrderId });
+                    return RedirectToAction("OrderSuccess", "Order", new { area = "Customer", id = order.OrderId });
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
                     ModelState.AddModelError("", "Lỗi xử lý đơn hàng: " + ex.Message);
 
-                    // RELOAD DATA NẾU CÓ LỖI EXCEPTION
+                    // Reload nếu có lỗi Exception
                     return View(model);
                 }
             }  
