@@ -201,7 +201,6 @@ namespace Frontend_12102025.Areas.Customer.Controllers
 
             if (user == null)
             {
-                // Trường hợp User đã đăng nhập nhưng không tìm thấy trong DB (bị xóa tay)
                 FormsAuthentication.SignOut();
                 return RedirectToAction("Login");
             }
@@ -211,7 +210,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
 
             if (customer == null)
             {
-                // Tạo tạm model customer để view không bị lỗi null
+                // Tạo model customer để view không bị lỗi null
                 customer = new Frontend_12102025.Models.Customer
                 {
                     User = user,

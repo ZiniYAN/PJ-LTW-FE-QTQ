@@ -17,10 +17,10 @@ namespace Frontend_12102025.Areas.Customer.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            // Dictionary mapping URL slug → Tên tiếng Việt trong DB
+            // Dictionary voi key la URL va value va ten trong db
             var categoryMapping = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
-                // URL slug → Database name 
+                // URL slug |  Database name 
                 { "Khoa-hoc", "Khoa học" },
                 { "Tam-ly-hoc", "Tâm lý học" },
                 { "Van-hoc", "Văn học" },
@@ -30,14 +30,14 @@ namespace Frontend_12102025.Areas.Customer.Controllers
 
             string searchName;
 
-            // Lấy tên tiếng Việt từ mapping
+            // Lay key tu mapping ra 
             if (!categoryMapping.TryGetValue(categoryName, out searchName))
             {
-                // Fallback: thay thế dấu gạch ngang
+                // Thay - bang khoang trong
                 searchName = categoryName.Replace("-", " ");
             }
 
-            // Tìm category - so sánh case-insensitive
+            // Tim trong db
             var category = db.Categories
                 .AsEnumerable()
                 .FirstOrDefault(c => string.Equals(c.CategoryName, searchName,
@@ -49,7 +49,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            // Lấy sách theo category
+            // Tim ra roi thi lay sach theo category
             var books = db.BookEditions
                 .Where(b => b.BookTitle.CategoryId == category.CategoryId)
                 .OrderByDescending(b => b.PublishDate)
