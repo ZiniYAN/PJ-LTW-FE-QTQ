@@ -17,10 +17,11 @@ namespace Frontend_12102025.Areas.Customer.Controllers
     {
         private dbprojectltwEntities db = new dbprojectltwEntities();
         // GET: Account/Register
+        //Chua dang nhap van vao duoc
         [AllowAnonymous]
         public ActionResult Register()
         {
-            // Nếu đã đăng nhập, redirect về trang chủ
+            // Neu da dang nhap, redirect ve trang chu
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
@@ -31,40 +32,44 @@ namespace Frontend_12102025.Areas.Customer.Controllers
         // POST: Account/Register
         [HttpPost]
         [AllowAnonymous]
+        //Form phai co @Html.AntiForgeryToken() moi duoc xu ly. Vi bao mat thoi
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterVM model)
+        public ActionResult Register(RegisterVM model) //Model binding
         {
+            //Neu moi validate duoc up len
             if (ModelState.IsValid)
             {
-                // Kiểm tra username đã tồn tại
+                // Ktra username ton tai chua
+                //u=> u.Username == model.Username den tu LinQ
                 if (db.Users.Any(u => u.Username == model.Username))
                 {
                     ModelState.AddModelError("Username", "Tên đăng nhập đã tồn tại");
                     return View(model);
                 }
 
-                // Kiểm tra email đã tồn tại
+                // Ktra email ton tai chua tuong tu username
                 if (db.Users.Any(u => u.Email == model.Email))
                 {
                     ModelState.AddModelError("Email", "Email đã được sử dụng");
                     return View(model);
                 }
 
-                // Kiểm tra số điện thoại đã tồn tại
+                // Kiem tra sdt da ton tai chua
+                // Ktra neu phone khong null
                 if (!string.IsNullOrEmpty(model.Phone) && db.Users.Any(u => u.Phone == model.Phone))
                 {
                     ModelState.AddModelError("Phone", "Số điện thoại đã được sử dụng");
                     return View(model);
                 }
-
+                //Tao transaction: Neu 1 buoc that bai thi lam lai het
                 using (var transaction = db.Database.BeginTransaction())
                 {
                     try
                     {
-                        // Hash mật khẩu bằng BCrypt
+                        // Hash mk bang BCrypt
                         string passwordHash = BCrypt.Net.BCrypt.EnhancedHashPassword(model.Password, 13);
 
-                        // Tạo User mới
+                        // Tao user moi
                         var user = new User
                         {
                             Username = model.Username,
@@ -75,14 +80,15 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                             UserRole = "C", // C = Customer, A = Admin
                             CreatedAt = DateTime.Now
                         };
-
+                        //Them user vao DbSet 
                         db.Users.Add(user);
+                        //Luu de insert vao db
                         db.SaveChanges();
 
-                        // Tạo Customer record
+                        // Tao Customer lien ket voi User vua tao
                         var customer = new Frontend_12102025.Models.Customer
                         {
-                            UserId = user.UserId,
+                            UserId = user.UserId, //Khoa ngoai lien ket voi user
                             DateOfBirth = model.DateOfBirth,
                             Gender = model.Gender,
                             CustomerType = "New",
@@ -95,12 +101,13 @@ namespace Frontend_12102025.Areas.Customer.Controllers
 
                         db.Customers.Add(customer);
                         db.SaveChanges();
-
+                        //Xac nhan transaction -> Luu vao db
                         transaction.Commit();
 
                         TempData["SuccessMessage"] = "Đăng ký thành công! Vui lòng đăng nhập.";
                         return RedirectToAction("Login");
                     }
+                    //Bat loi
                     catch (Exception ex)
                     {
                         transaction.Rollback();
@@ -114,6 +121,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
         }
         // GET: Account/Login
         [AllowAnonymous]
+        //Truyen vao returnUrl de redirect ve trang truoc do neu co
         public ActionResult Login(string returnUrl)
         {
             // Nếu đã đăng nhập, redirect về trang chủ
@@ -138,23 +146,17 @@ namespace Frontend_12102025.Areas.Customer.Controllers
 
                 if (user != null)
                 {
-                    // Verify password bằng BCrypt
+                    // Verify password BCrypt                      usernhap co giong voi db khong
                     bool isPasswordValid = BCrypt.Net.BCrypt.EnhancedVerify(model.Password, user.PasswordHash);
 
                     if (isPasswordValid)
                     {
-                        // Kiểm tra user có bị block không
-                        var customer = db.Customers.FirstOrDefault(c => c.UserId == user.UserId);
-                        if (customer != null && customer.CustomerStatus == "Blocked")
-                        {
-                            ModelState.AddModelError("", "Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị viên.");
-                            return View(model);
-                        }
 
-                        // Tạo authentication cookie
+                        // Dung co che cua ASPNET
+                        // Tao cookie chua ttin ( luu phia client)
                         FormsAuthentication.SetAuthCookie(user.Username, model.RememberMe);
 
-                        // Lưu thông tin vào Session (optional)
+                        // Luu ttin vao Session
                         Session["UserId"] = user.UserId;
                         Session["Username"] = user.Username;
                         Session["FullName"] = user.FullName;
@@ -179,10 +181,9 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                         }
                     }
                 }
-
+                //Dung "" de hien thi loi chung chung
                 ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng");
             }
-
             return View(model);
         }
 
@@ -195,12 +196,12 @@ namespace Frontend_12102025.Areas.Customer.Controllers
             var username = User.Identity.Name;
 
             // Tìm User trong database
-            // Include("Customers") để lấy luôn thông tin Customer đi kèm (nếu có relation)
+            // Include("Customers") để lấy  thông tin Customer đi kèm 
             var user = db.Users.Include("Customers").FirstOrDefault(u => u.Username == username);
 
             if (user == null)
             {
-                // Trường hợp hiếm: User đã đăng nhập nhưng không tìm thấy trong DB (vd: bị xóa tay)
+                // Trường hợp User đã đăng nhập nhưng không tìm thấy trong DB (bị xóa tay)
                 FormsAuthentication.SignOut();
                 return RedirectToAction("Login");
             }
@@ -208,14 +209,12 @@ namespace Frontend_12102025.Areas.Customer.Controllers
             // Tìm Customer tương ứng với User này
             var customer = db.Customers.FirstOrDefault(c => c.UserId == user.UserId);
 
-            // Nếu chưa có record Customer (vd: Admin đăng nhập), có thể tạo dummy hoặc handle riêng
             if (customer == null)
             {
                 // Tạo tạm model customer để view không bị lỗi null
                 customer = new Frontend_12102025.Models.Customer
                 {
                     User = user,
-                    // Các field khác để default
                 };
             }
             else
@@ -231,7 +230,9 @@ namespace Frontend_12102025.Areas.Customer.Controllers
         [Authorize]
         public ActionResult Logout()
         {
+            //Xoa cookie
             FormsAuthentication.SignOut();
+            //Xoa Session
             Session.Clear();
             Session.Abandon();
 

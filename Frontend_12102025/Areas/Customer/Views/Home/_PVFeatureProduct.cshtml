@@ -18,7 +18,8 @@
                         <div>
                             <p class="prodName">@product.BookTitle.Title</p>
                             <p class="prodCate">@product.BookTitle.Category.CategoryName</p>
-                            <p class="prodPrice">@String.Format("{0:N0}", product.Price) đ</p>
+                            <!--Format so: {150000 -> 150,000}-->
+                            <p class="prodPrice">@String.Format("{0:N0}", product.Price) đ</p> 
                             @{
                                 ViewBag.Quantity = 1;
                                 ViewBag.ShowBuyNow = true;

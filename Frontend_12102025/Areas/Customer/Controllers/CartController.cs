@@ -54,7 +54,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                 quantity,
                 bookEdition.Stock
             );
-
+            //Luu vao session
             cartService.SaveCart(cart);
             TempData["SuccessMessage"] = "Đã thêm sách vào giỏ hàng.";
             return RedirectToAction("Index");
@@ -62,6 +62,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
 
         //Mua ngay -> Checkout
         [HttpPost]
+        ///Check dang nhap
         [Authorize]
         public ActionResult BuyNow(int id, int quantity = 1)
         {
@@ -124,6 +125,8 @@ namespace Frontend_12102025.Areas.Customer.Controllers
 
         // API lấy số lượng sách trong giỏ (dùng cho hiển thị badge)
         [HttpGet]
+        //Tra ve JSON thay vi HTML view
+        //Vi chi can JSON so luog thoi, hien thi tren icon gio hang sau khi ket hop js
         public JsonResult GetCartCount()
         {
             var cartService = new CartService(this.Session);

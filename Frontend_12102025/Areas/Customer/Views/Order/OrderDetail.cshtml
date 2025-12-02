@@ -3,33 +3,6 @@
 @{
     ViewBag.Title = "Chi tiết đơn hàng #" + Model.OrderId;
     Layout = "~/Areas/Customer/Views/Shared/_Layout.cshtml";
-
-    // Helper để xác định màu badge trạng thái
-    string GetStatusBadgeClass(string status)
-    {
-        switch (status)
-        {
-            case "Pending": return "bg-warning text-dark";
-            case "Processing": return "bg-info text-dark";
-            case "Shipping": return "bg-primary";
-            case "Delivered": return "bg-success";
-            case "Cancelled": return "bg-danger";
-            default: return "bg-secondary";
-        }
-    }
-
-    string GetStatusText(string status)
-    {
-        switch (status)
-        {
-            case "Pending": return "Chờ thanh toán";
-            case "Processing": return "Đang xử lý";
-            case "Shipping": return "Đang vận chuyển";
-            case "Delivered": return "Đã giao hàng";
-            case "Cancelled": return "Đã hủy";
-            default: return status;
-        }
-    }
 }
 
 <div class="container py-5">
@@ -67,9 +40,25 @@
                     <div class="mb-3">
                         <label class="text-muted small">Trạng thái đơn hàng</label>
                         <div>
-                            <span class="badge @GetStatusBadgeClass(Model.OrderStatus) fs-6">
-                                @GetStatusText(Model.OrderStatus)
-                            </span>
+                            <div>
+                                @if (Model.OrderStatus == "Pending")
+                                {
+                                    <span class="badge bg-warning text-dark fs-6">Chờ thanh toán</span>
+                                }
+                                else if (Model.OrderStatus == "Completed")
+                                {
+                                    <span class="badge bg-success fs-6">Đã giao hàng</span>
+                                }
+                                else if (Model.OrderStatus == "Cancelled")
+                                {
+                                    <span class="badge bg-danger fs-6">Đã hủy</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary fs-6">@Model.OrderStatus</span>
+                                }
+                            </div>
+
                         </div>
                     </div>
                     <div class="mb-3">
