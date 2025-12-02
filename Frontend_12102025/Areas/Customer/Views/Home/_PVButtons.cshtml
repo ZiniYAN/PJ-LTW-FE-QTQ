@@ -17,7 +17,7 @@
             <i class="fa-solid"></i> Xem chi tiết
         </a>
     }
-    @*Neu khong con hang thi khong hien thi*@ 
+    @*Neu khong con hang thi khong hien thi*@
     @if (Model.Stock > 0)
     {
         if (addToCart)
@@ -35,12 +35,24 @@
 
         if (showBuyNow)
         {
-            using (Html.BeginForm("BuyNow", "Cart", FormMethod.Post, new { @class = "inline-form" }))
+            if (Request.IsAuthenticated)
             {
-                @Html.Hidden("id", Model.BookEditionId)
-                @Html.Hidden("quantity", defaultQuantity)
+                // Đã login - submit form bình thường
+                using (Html.BeginForm("BuyNow", "Cart", FormMethod.Post, new { @class = "inline-form" }))
+                {
+                    @Html.Hidden("id", Model.BookEditionId)
+                    @Html.Hidden("quantity", defaultQuantity)
 
-                <button type="submit" class="btn btn-buy-now">
+                    <button type="submit" class="btn btn-buy-now">
+                        <i class="fa-solid"></i> Mua ngay
+                    </button>
+                }
+            }
+            else
+            {
+                // redirect bằng js
+                <button type="button" class="btn btn-buy-now"
+                        onclick="window.location.href='@Url.Action("Login", "Account", new { area = "Customer", ReturnUrl = Url.Action("BuyNow", "Cart", new { id = Model.BookEditionId, quantity = defaultQuantity }) })'">
                     <i class="fa-solid"></i> Mua ngay
                 </button>
             }
