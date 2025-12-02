@@ -7,7 +7,9 @@ namespace Frontend_12102025.Models.ViewModel
 {
     public class CartService
     {
+        //Refer den Session object
         private readonly HttpSessionStateBase session;
+        //Ten key la Cart, lay tu session
         private const string CartSessionKey = "Cart";
 
         public CartService(HttpSessionStateBase session)

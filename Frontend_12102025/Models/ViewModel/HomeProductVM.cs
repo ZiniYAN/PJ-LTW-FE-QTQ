@@ -11,6 +11,7 @@ namespace Frontend_12102025.Models.ViewModel
         public int PageNumber { get; set; }
         public int PageSize { get; set; } = 10;
         public List<BookEdition> FeatureProducts { get; set; }
+        //List san pham co phan trang
         public PagedList.IPagedList<BookEdition> NewProducts { get; set; }
     }
 }

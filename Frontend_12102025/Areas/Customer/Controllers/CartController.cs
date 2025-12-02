@@ -54,23 +54,40 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                 quantity,
                 bookEdition.Stock
             );
-
+            //Luu vao session
             cartService.SaveCart(cart);
             TempData["SuccessMessage"] = "Đã thêm sách vào giỏ hàng.";
             return RedirectToAction("Index");
         }
 
         //Mua ngay -> Checkout
-        [HttpPost]
         [Authorize]
         public ActionResult BuyNow(int id, int quantity = 1)
         {
-            var cartService = new CartService(this.Session);
-            var book = db.BookEditions.FirstOrDefault(b => b.BookEditionId == id);
+            if (id <= 0)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
+            var book = db.BookEditions
+                .Include("BookTitle")
+                .Include("BookTitle.Author")
+                .FirstOrDefault(b => b.BookEditionId == id);
+
+            if (book == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (book.Stock < quantity)
+            {
+                TempData["ErrorMessage"] = "Số lượng sách trong kho không đủ.";
+                return RedirectToAction("ProductDetail", "Home", new { id = id });
+            }
+
+            var cartService = new CartService(this.Session);
             var cart = cartService.GetCart();
 
-            // Thêm sách vào giỏ
             cart.AddItem(
                 book.BookEditionId,
                 book.CoverImage,
@@ -84,7 +101,6 @@ namespace Frontend_12102025.Areas.Customer.Controllers
 
             cartService.SaveCart(cart);
 
-            // Redirect đến trang thanh toán
             return RedirectToAction("Checkout", "Order");
         }
         // Cập nhật số lượng
@@ -124,6 +140,8 @@ namespace Frontend_12102025.Areas.Customer.Controllers
 
         // API lấy số lượng sách trong giỏ (dùng cho hiển thị badge)
         [HttpGet]
+        //Tra ve JSON thay vi HTML view
+        //Vi chi can JSON so luog thoi, hien thi tren icon gio hang sau khi ket hop js
         public JsonResult GetCartCount()
         {
             var cartService = new CartService(this.Session);

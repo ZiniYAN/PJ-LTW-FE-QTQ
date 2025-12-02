@@ -5,17 +5,17 @@ using System.Web;
 
 namespace Frontend_12102025.Models.ViewModel
 {
+    //Cho phep object luu vao Session
+    //Luu duoi dang byte array
     [Serializable]
     public class Cart
     {
         private List<CartItem> items = new List<CartItem>();
-
+        //IEnumerable de chi doc
         public IEnumerable<CartItem> Items => items;
 
-        // Thêm sách vào giỏ
-        public void AddItem(int bookEditionId, string coverImage, string title,
-                            string authorName, string isbn, decimal unitPrice,
-                            int quantity, int stock)
+        // Them san pham vao gio
+        public void AddItem(int bookEditionId, string coverImage, string title,string authorName, string isbn, decimal unitPrice,int quantity, int stock)
         {
             var existingItem = items.FirstOrDefault(i => i.BookEditionId == bookEditionId);
             if (existingItem == null)
@@ -34,7 +34,7 @@ namespace Frontend_12102025.Models.ViewModel
             }
             else
             {
-                // Kiểm tra không vượt quá tồn kho
+                // Khong duoc qua stock
                 if (existingItem.Quantity + quantity <= stock)
                 {
                     existingItem.Quantity += quantity;
@@ -46,37 +46,37 @@ namespace Frontend_12102025.Models.ViewModel
             }
         }
 
-        // Xóa sách khỏi giỏ
+        // Xoa san pham khoi gio
         public void RemoveItem(int bookEditionId)
         {
             items.RemoveAll(i => i.BookEditionId == bookEditionId);
         }
 
-        // Tính tổng giá trị giỏ hàng
+        // Tong tien
         public decimal TotalValue()
         {
             return items.Sum(i => i.TotalPrice);
         }
 
-        // Tính tổng số lượng sách trong giỏ
+        // Tong luong san pham
         public int TotalQuantity()
         {
             return items.Sum(i => i.Quantity);
         }
 
-        // Làm trống giỏ hàng
+        // Clear Cart
         public void Clear()
         {
             items.Clear();
         }
 
-        // Cập nhật số lượng của sách đã chọn
+        // Update sl san pham
         public void UpdateQuantity(int bookEditionId, int quantity)
         {
             var item = items.FirstOrDefault(i => i.BookEditionId == bookEditionId);
             if (item != null)
             {
-                // Kiểm tra không vượt quá tồn kho
+                // K qua stock
                 if (quantity <= item.Stock && quantity > 0)
                 {
                     item.Quantity = quantity;
@@ -88,13 +88,13 @@ namespace Frontend_12102025.Models.ViewModel
             }
         }
 
-        // Kiểm tra giỏ hàng có sách này chưa
+        // Ktra coi co san pham chua
         public bool HasItem(int bookEditionId)
         {
             return items.Any(i => i.BookEditionId == bookEditionId);
         }
 
-        // Lấy số lượng của một sách trong giỏ
+        // Lay so luong san pham trong gio
         public int GetQuantity(int bookEditionId)
         {
             var item = items.FirstOrDefault(i => i.BookEditionId == bookEditionId);

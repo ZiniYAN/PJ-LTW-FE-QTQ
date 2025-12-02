@@ -15,6 +15,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
     {
         // GET: Customer/Home
         private dbprojectltwEntities db = new dbprojectltwEntities();
+        //Query san pham tu string theo URL
         public ActionResult Index(string SearchTerm, int? page)
         {
             var model = new HomeProductVM();
@@ -24,12 +25,13 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                 .Where(b => b.Stock >= 0) // Loc san pham 
                 .OrderByDescending(b => b.OrderDetails.Count) //Sap xep giam dan theo sl da ban
                 .Take(10) //Lay 10 sp dau -> list
-                .ToList();
+                .ToList(); //Tra ve List<BookEdition>
 
             // New Products với phân trang
             int pageSize = 12;
             int pageNumber = (page ?? 1);
-
+            
+            //Dung Include() : Eager Loading. Load cac vat the co Include trong 1 query
             var newProductsQuery = db.BookEditions
                 .Include(b => b.BookTitle)
                 .Include(b => b.BookTitle.Category)
@@ -41,16 +43,17 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                 newProductsQuery = newProductsQuery
                     .Where(b => b.BookTitle.Title.Contains(SearchTerm) ||
                                b.BookTitle.Description.Contains(SearchTerm) ||
-                               b.BookTitle.Category.CategoryName.Contains(SearchTerm) ||
+                               //b.BookTitle.Category.CategoryName.Contains(SearchTerm) ||
                                b.BookTitle.Author.AuthorName.Contains(SearchTerm));
             }
 
+            //Dung lib PagedList phan trang
             model.NewProducts = newProductsQuery
                 .OrderByDescending(b => b.PublishDate)
                 .ToPagedList(pageNumber, pageSize);
 
 
-            // Sản phẩm theo từng category
+            // San pham theo Category. Goi trong controller de truyen data vao hien thi trong View
             ViewBag.KhoaHocProducts = db.BookEditions
                 .Where(b => b.BookTitle.Category.CategoryName == "Khoa học" && b.Stock >= 0)
                 .OrderByDescending(b => b.PublishDate)
@@ -93,7 +96,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            // Eager loading: Load BookEdition cùng với các navigation properties cần thiết
+            // Eager loading: Load BookEdition voi dieu kien FirstOrDefault Id = id
             BookEdition pro = db.BookEditions
                 .Include(b => b.BookTitle)
                 .Include(b => b.BookTitle.Category)
@@ -107,11 +110,13 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                 return HttpNotFound();
             }
 
-            // Query sản phẩm liên quan với eager loading
+            // Lay san pham lien quan ( lay theo category )
+            
             var products = db.BookEditions
                 .Include(b => b.BookTitle)
                 .Include(b => b.BookTitle.Category)
                 .Include(b => b.OrderDetails)
+                //Loai tru trung lap
                 .Where(p => p.BookTitle.CategoryId == pro.BookTitle.CategoryId && p.BookEditionId != pro.BookEditionId)
                 .AsQueryable();
 
@@ -121,10 +126,10 @@ namespace Frontend_12102025.Areas.Customer.Controllers
             int pageNumber = page ?? 1;
             int pageSize = model.PageSize;
 
-            // Set quantity với giá trị mặc định là 1
+            // Set quantity 1
             int productQuantity = quantity ?? 1;
 
-            // Đảm bảo quantity luôn >= 1 và <= Stock
+            // Validate quantity
             if (productQuantity < 1)
             {
                 productQuantity = 1;
@@ -143,7 +148,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                 .OrderBy(p => p.BookEditionId)
                 .Take(8)
                 .ToList();
-
+            //Da loai bo
             // TopProducts: Lấy top sản phẩm bán chạy, CÓ phân trang
             model.TopProducts = products
                 .OrderByDescending(p => p.OrderDetails.Count)

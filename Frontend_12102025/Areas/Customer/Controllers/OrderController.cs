@@ -104,7 +104,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                     })
                 .OrderByDescending(a => a.IsDefault)
                 .ToList();
-            // Nếu dùng địa chỉ cũ -> Bỏ qua lỗi validate của form nhập mới
+            // Nếu dùng địa chỉ cũ -> Bỏ qua validate của form nhập mới
             if (!model.UseNewAddress)
             {
                 ModelState.Remove("NewAddress.RecipientName");
@@ -116,7 +116,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                     ModelState.AddModelError("", "Vui lòng chọn địa chỉ giao hàng");
                 }
             }
-            // Nếu dùng địa chỉ mới -> Bỏ qua lỗi validate của form chọn cũ
+            // Nếu dùng địa chỉ mới -> Bỏ qua validate của form chọn cũ
             else
             {
                 ModelState.Remove("SelectedAddressId");
@@ -129,13 +129,13 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                 }
             }
 
-            // Ktra Model state ---
+            // Ktra Model state 
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            // Xử lý giao dịch ( transaction) ---
+            // Xử lý giao dịch ( transaction) 
             using (var transaction = db.Database.BeginTransaction())
             {
                 try
@@ -170,7 +170,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                         shippingAddressId = model.SelectedAddressId.Value;
                     }
 
-                    // 3.2. Xử lý Coupon 
+                    //  Xử lý Coupon 
                     int? couponId = null;
                     decimal discountValue = 0;
 
