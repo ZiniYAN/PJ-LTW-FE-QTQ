@@ -56,16 +56,16 @@ namespace Frontend_12102025.Areas.Admin.Controllers
             // Pass
             if (string.IsNullOrWhiteSpace(user.Password))
             {
-                ModelState.AddModelError("Password", "Password khong the trong");
+                ModelState.AddModelError("Password", "Vui lòng nhập mật khẩu");
             }
             if(!string.IsNullOrWhiteSpace(user.Password) && string.IsNullOrWhiteSpace(user.ConfirmPassword))
             {
-                ModelState.AddModelError("ConfirmPasswod", "Mat khau khong trung khop");
+                ModelState.AddModelError("ConfirmPasswod", "Mật khẩu không trùng khớp");
             }
             // Username
             if (string.IsNullOrWhiteSpace(user.Username))
             {
-                ModelState.AddModelError("Username", "Username khong the trong");
+                ModelState.AddModelError("Username", "Vui lòng nhập username");
             }
             else
             {
@@ -73,7 +73,7 @@ namespace Frontend_12102025.Areas.Admin.Controllers
                     .AnyAsync(u => u.Username.ToLower() == user.Username.Trim().ToLower());
                 if (usernameExists)
                 {
-                    ModelState.AddModelError("Username", "Username da ton tai");
+                    ModelState.AddModelError("Username", "Username đã tồn tại");
                 }
             }
             // Email
@@ -139,7 +139,6 @@ namespace Frontend_12102025.Areas.Admin.Controllers
                 Phone = user.Phone,
                 UserRole = user.UserRole,
                 CreatedAt = user.CreatedAt
-                // Password và ConfirmPassword để null (không load từ DB)
             };
             return View(model);
         }
@@ -184,7 +183,7 @@ namespace Frontend_12102025.Areas.Admin.Controllers
                     .AnyAsync(u => u.Phone == user.Phone.Trim() && u.UserId != user.UserId);
                 if (phoneExists)
                 {
-                    ModelState.AddModelError("Phone", "Phone number already exists!");
+                    ModelState.AddModelError("Phone", "Sdt đã tồn tại");
                 }
             }
             if (ModelState.IsValid)
@@ -256,8 +255,6 @@ namespace Frontend_12102025.Areas.Admin.Controllers
                 // Xoa user
                 db.Users.Remove(user);
                 await db.SaveChangesAsync();
-
-                TempData["SuccessMessage"] = "Xóa người dùng thành công!";
                 return RedirectToAction("Index");
             }
             catch (Exception ex)

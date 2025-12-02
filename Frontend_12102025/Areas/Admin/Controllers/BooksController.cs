@@ -147,8 +147,6 @@ namespace Frontend_12102025.Areas.Admin.Controllers
                 };
                 db.BookEditions.Add(book);
                 db.SaveChanges();
-
-                TempData["SuccessMessage"] = "Thêm sách thành công!";
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -301,8 +299,6 @@ namespace Frontend_12102025.Areas.Admin.Controllers
                 book.CoverImage = bookEdition.CoverImage.Trim();
 
                 db.SaveChanges();
-
-                TempData["SuccessMessage"] = "Cập nhật sách thành công!";
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
