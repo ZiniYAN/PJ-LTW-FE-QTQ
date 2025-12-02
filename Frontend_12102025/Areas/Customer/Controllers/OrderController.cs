@@ -295,7 +295,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
             }
 
             var order = db.Orders
-                .Include(o => o.OrderDetails.Select(od => od.BookEdition.BookTitle))
+                .Include(o => o.OrderDetails.Select(od => od.BookEdition.BookTitle)) 
                 .Include(o => o.OrderDetails.Select(od => od.BookEdition.BookTitle.Author))
                 .Include(o => o.ShippingAddress)
                 .Include(o => o.User)
@@ -399,6 +399,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                 var bookEdition = item.BookEdition;
                 if (bookEdition != null && bookEdition.Stock > 0)
                 {
+                    //Lo stock con it hon da mua thi them theo cai nho nhat
                     int quantityToAdd = Math.Min(item.Quantity, bookEdition.Stock);
 
                     cart.AddItem(
@@ -422,9 +423,9 @@ namespace Frontend_12102025.Areas.Customer.Controllers
         // Helper: Calculate Shipping Fee
         private decimal CalculateShippingFee(decimal subTotal)
         {
-            if (subTotal >= 500000) return 0; // Miễn phí ship từ 500k
-            if (subTotal >= 300000) return 20000; // 20k cho đơn 300k-500k
-            return 30000; // 30k cho đơn dưới 300k
+            if (subTotal >= 500000) return 0; // >500 freeship
+            if (subTotal >= 300000) return 20000; // 300->500 giam 20 
+            return 30000; // con lai 30
         }
 
         protected override void Dispose(bool disposing)
