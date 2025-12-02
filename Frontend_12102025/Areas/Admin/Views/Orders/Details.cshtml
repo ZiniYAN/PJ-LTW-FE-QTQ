@@ -55,14 +55,6 @@
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.Coupon.Code)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Coupon.Code)
-            </dd>
-
-            <dt>
                 @Html.DisplayNameFor(model => model.ShippingAddress.RecipientName)
             </dt>
 
@@ -107,7 +99,7 @@
     </div>
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.OrderId }, new {@class = "btn-edit"}) |
-        @Html.ActionLink("Back to List", "Index", null, new {@class = "btn-back"}) |
+        @Html.ActionLink("Back to List", "Index", null, new {@class = "btn-back"})
     </p>
 
 </div>

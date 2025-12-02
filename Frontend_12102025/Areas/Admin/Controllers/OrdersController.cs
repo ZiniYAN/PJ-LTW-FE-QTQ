@@ -93,7 +93,11 @@ namespace Frontend_12102025.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = await db.Orders.FindAsync(id);
+            Order order = await db.Orders
+                                .Include(o => o.User)
+                                .Include(o => o.ShippingAddress)
+                                .Include(o => o.Coupon)
+                                .FirstOrDefaultAsync(o => o.OrderId == id);
             if (order == null)
             {
                 return HttpNotFound();
@@ -107,48 +111,11 @@ namespace Frontend_12102025.Areas.Admin.Controllers
         // POST: Admin/Orders/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-    //    private bool IsValidStatusTransition(string currentStatus, string newStatus)
-    //    {
-    //        // Định nghĩa các chuyển trạng thái hợp lệ
-    //        var validTransitions = new Dictionary<string, string[]>
-    //{
-    //    { "Pending", new[] { "Processing", "Cancelled" } },
-    //    { "Processing", new[] { "Shipped", "Cancelled" } },
-    //    { "Shipped", new[] { "Delivered" } },
-    //    { "Delivered", new string[] { } },  // Không thể đổi
-    //    { "Cancelled", new string[] { } }   // Không thể đổi
-    //};
-
-    //        if (currentStatus == newStatus) return true;
-
-    //        if (validTransitions.ContainsKey(currentStatus))
-    //        {
-    //            return validTransitions[currentStatus].Contains(newStatus);
-    //        }
-
-    //        return false;
-    //    }
-
-        // Helper method: Hoàn lại stock khi hủy đơn
-        //private async Task RestoreStockAsync(int orderId)
-        //{
-        //    var orderDetails = await db.OrderDetails
-        //        .Where(od => od.OrderId == orderId)
-        //        .ToListAsync();
-
-        //    foreach (var detail in orderDetails)
-        //    {
-        //        var bookEdition = await db.BookEditions.FindAsync(detail.BookEditionId);
-        //        if (bookEdition != null)
-        //        {
-        //            bookEdition.Stock += detail.Quantity;
-        //        }
-        //    }
-        //}
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "OrderId,UserId,OrderDate,TotalAmount,PaymentMethod,PaymentStatus,ShippingAddressId,CouponId,OrderStatus")] Order order)
         {
+            System.IO.File.AppendAllText(@"C:\temp\debug.txt", $"POST Edit called - OrderId: {order.OrderId}\n");
             var orderExist = await db.Orders.FirstOrDefaultAsync(o => o.OrderId == order.OrderId);
             if (orderExist == null)
             {
@@ -157,35 +124,33 @@ namespace Frontend_12102025.Areas.Admin.Controllers
             // Khong edit don hang cancelled
             if(orderExist.OrderStatus.ToLower() == "cancelled")
             {
-                TempData["ErrorMessage"] = "Khong the edit don hang da huy";
+                TempData["ErrorMessage"] = "Không thể edit đơn hàng đã hủy";
                 return RedirectToAction("Index");
             }
 
             // Khong edit don da giao hang roi
             if (orderExist.OrderStatus.ToLower() == "delivered")
             {
-                TempData["ErrorMessage"] = "Khong the edit don hang da giao";
+                TempData["ErrorMessage"] = "Không thể edit đơn hàng đã giao";
                 return RedirectToAction("Index");
             }
-            //if (!IsValidStatusTransition(existingOrder.OrderStatus, order.OrderStatus))
-            //{
-            //    ModelState.AddModelError("OrderStatus",
-            //        $"Cannot change status from '{existingOrder.OrderStatus}' to '{order.OrderStatus}'!");
-            //}
-            //if (order.OrderStatus == "Cancelled" && orderExist.OrderStatus != "Cancelled")
-            //{
-            //    await RestoreStockAsync(order.OrderId);
-            //}
-            if (ModelState.IsValid)
-            {
-                db.Entry(order).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+
+            if(!ModelState.IsValid)
+            { 
+
+                ViewBag.CouponId = new SelectList(db.Coupons, "CouponId", "Code", order.CouponId);
+                ViewBag.ShippingAddressId = new SelectList(db.ShippingAddresses, "AddressId", "RecipientName", order.ShippingAddressId);
+                ViewBag.UserId = new SelectList(db.Users, "UserId", "Username", order.UserId);
+                return View(order);
             }
-            ViewBag.CouponId = new SelectList(db.Coupons, "CouponId", "Code", order.CouponId);
-            ViewBag.ShippingAddressId = new SelectList(db.ShippingAddresses, "AddressId", "RecipientName", order.ShippingAddressId);
-            ViewBag.UserId = new SelectList(db.Users, "UserId", "Username", order.UserId);
-            return View(order);
+            orderExist.PaymentMethod = order.PaymentMethod;
+            orderExist.PaymentStatus = order.PaymentStatus;
+            orderExist.OrderStatus = order.OrderStatus;
+            orderExist.CouponId = order.CouponId;
+
+            
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/Orders/Delete/5
@@ -218,19 +183,19 @@ namespace Frontend_12102025.Areas.Admin.Controllers
 
                 if (order.PaymentStatus == "Paid")
                 {
-                    TempData["ErrorMessage"] = "Khong the xoa don hang da thanh toan";
+                    TempData["ErrorMessage"] = "Không thể xóa đơn hàng đã thanh toán";
                     return RedirectToAction("Index");
                 }
 
                 if (order.OrderStatus == "Delivered")
                 {
-                    TempData["ErrorMessage"] = "Khong the xoa don hang da thanh giao";
+                    TempData["ErrorMessage"] = "Không thể xóa đơn hàng đã giao";
                     return RedirectToAction("Index");
                 }
 
                 if (order.OrderStatus == "Shipped")
                 {
-                    TempData["ErrorMessage"] = "Khong the xoa don hang dang giao";
+                    TempData["ErrorMessage"] = "Không thể xóa đơn hàng đang được giao";
                     return RedirectToAction("Index");
                 }
 

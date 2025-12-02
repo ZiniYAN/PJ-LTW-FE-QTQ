@@ -58,6 +58,7 @@ namespace Frontend_12102025.Models.ViewModels
 
         [Required(ErrorMessage = "Vui lòng chọn ngày xuất bản")]
         [Display(Name = "Ngày xuất bản")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public DateTime PublishDate { get; set; }
 
