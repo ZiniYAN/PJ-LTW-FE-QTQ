@@ -106,7 +106,8 @@
     @Scripts.Render("~/bundles/jqueryval")
 
     <script>
-        document.getElementById('ImageUrl').addEventListener('input', function () {
+        const url = document.getElementById('ImageUrl');
+        url.addEventListener('input', function () {
             var url = this.value.trim();
             var preview = document.getElementById('imagePreview');
 

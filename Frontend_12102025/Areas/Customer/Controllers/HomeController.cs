@@ -43,7 +43,7 @@ namespace Frontend_12102025.Areas.Customer.Controllers
                 newProductsQuery = newProductsQuery
                     .Where(b => b.BookTitle.Title.Contains(SearchTerm) ||
                                b.BookTitle.Description.Contains(SearchTerm) ||
-                               //b.BookTitle.Category.CategoryName.Contains(SearchTerm) ||
+                               b.BookTitle.Category.CategoryName.Contains(SearchTerm) ||
                                b.BookTitle.Author.AuthorName.Contains(SearchTerm));
             }
 
