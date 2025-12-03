@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Frontend_12102025.Models.Order>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Inxdex";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 <head>
@@ -9,7 +9,7 @@
 </head>
 
 <div class="content-wrapper">
-    <h2>Index</h2>
+    <h2>Order management</h2>
     <div class="table-container">
         <table class="table">
             <tr>
@@ -27,9 +27,6 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.OrderStatus)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Coupon.Code)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.ShippingAddress.RecipientName)
@@ -54,9 +51,6 @@
                     </td>
                     <td class="order-status">
                         @Html.DisplayFor(modelItem => item.OrderStatus)
-                    </td>
-                    <td class="coupon">
-                        @Html.DisplayFor(modelItem => item.Coupon.Code)
                     </td>
                     <td class="recipient-name">
                         @Html.DisplayFor(modelItem => item.ShippingAddress.RecipientName)

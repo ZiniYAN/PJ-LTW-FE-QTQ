@@ -1,8 +1,9 @@
 ﻿html, body{
-    height: 100%;
-    margin: 0;
+    height: auto;
+    margin: 0 auto;
     font-family: Segoe UI, Roboto, Arial, sans-serif;
     background: #f4f6f8;
+    max-width: 1920px;
 }
 
 .admin-wrapper {

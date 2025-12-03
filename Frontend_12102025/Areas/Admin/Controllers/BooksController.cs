@@ -62,8 +62,6 @@ namespace Frontend_12102025.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(BookEditionVM bookEdition)
         {
-            // 1. Business Validation (những gì Data Annotations không check được)
-
             // Check ISBN duplicate
             if (!string.IsNullOrWhiteSpace(bookEdition.ISBN))
             {
@@ -93,17 +91,15 @@ namespace Frontend_12102025.Areas.Admin.Controllers
                 }
             }
 
-            // 2. Return nếu validation fail
+            // 2. Return if validation fail
             if (!ModelState.IsValid)
             {
                 bookEdition.CategoryList = new SelectList(db.Categories, "CategoryId", "CategoryName", bookEdition.CategoryId);
                 return View(bookEdition);
             }
 
-            // 3. Tạo entities (chỉ chạy khi validation pass)
             try
             {
-                // Tìm hoặc tạo Author
                 var authorName = bookEdition.AuthorName.Trim();
                 var author = db.Authors.FirstOrDefault(a => a.AuthorName.ToLower() == authorName.ToLower());
                 if (author == null)
@@ -113,7 +109,6 @@ namespace Frontend_12102025.Areas.Admin.Controllers
                     db.SaveChanges();
                 }
 
-                // Tìm hoặc tạo Publisher
                 var publisherName = bookEdition.PublisherName.Trim();
                 var publisher = db.Publishers.FirstOrDefault(p => p.PublisherName.ToLower() == publisherName.ToLower());
                 if (publisher == null)
@@ -123,7 +118,6 @@ namespace Frontend_12102025.Areas.Admin.Controllers
                     db.SaveChanges();
                 }
 
-                // Tạo BookTitle
                 var bookTitle = new BookTitle
                 {
                     Title = bookEdition.Title.Trim(),
@@ -135,7 +129,6 @@ namespace Frontend_12102025.Areas.Admin.Controllers
                 db.BookTitles.Add(bookTitle);
                 db.SaveChanges();
 
-                // Tạo Product
                 var book = new BookEdition
                 {
                     BookTitleId = bookTitle.BookTitleId,
@@ -147,8 +140,6 @@ namespace Frontend_12102025.Areas.Admin.Controllers
                 };
                 db.BookEditions.Add(book);
                 db.SaveChanges();
-
-                TempData["SuccessMessage"] = "Thêm sách thành công!";
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -301,8 +292,6 @@ namespace Frontend_12102025.Areas.Admin.Controllers
                 book.CoverImage = bookEdition.CoverImage.Trim();
 
                 db.SaveChanges();
-
-                TempData["SuccessMessage"] = "Cập nhật sách thành công!";
                 return RedirectToAction("Index");
             }
             catch (Exception ex)

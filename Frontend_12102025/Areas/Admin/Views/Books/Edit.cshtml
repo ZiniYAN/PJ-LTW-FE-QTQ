@@ -80,7 +80,7 @@
             @Html.LabelFor(model => model.PublishDate, "Publish Date")
         </td>
         <td class="input-cell">
-            @Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+            @Html.EditorFor(model => model.PublishDate, new { htmlAttributes = new { @class = "form-control"} })
             @Html.ValidationMessageFor(model => model.PublishDate, "", new { @class = "text-danger" })
         </td>
     </tr>

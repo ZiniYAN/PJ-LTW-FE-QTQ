@@ -65,7 +65,7 @@ namespace Frontend_12102025.Areas.Admin.Controllers
                 var invalidChars = new[] { '<', '>', '&', '"', '\'' };
                 if (category.CategoryName.Any(c => invalidChars.Contains(c)))
                 {
-                    ModelState.AddModelError("CategoryName", "Tên danh mục không được chứa ký tự đặc biệt: < > & \" '");
+                    ModelState.AddModelError("CategoryName", "Tên danh mục không được chứa ký tự đặc biệt");
                 }
             }
             if (ModelState.IsValid)
@@ -123,16 +123,18 @@ namespace Frontend_12102025.Areas.Admin.Controllers
                 var invalidChars = new[] { '<', '>', '&', '"', '\'' };
                 if (category.CategoryName.Any(c => invalidChars.Contains(c)))
                 {
-                    ModelState.AddModelError("CategoryName", "Tên danh mục không được chứa ký tự đặc biệt: < > & \" '");
+                    ModelState.AddModelError("CategoryName", "Tên danh mục không được chứa ký tự đặc biệt");
                 }
             }
             if (ModelState.IsValid)
             {
                 var editedCategory = await db.Categories.FindAsync(category.CategoryId);
-                if (category == null)
+                if (editedCategory == null)
                 {
                     return HttpNotFound();
                 }
+                editedCategory.CategoryName = category.CategoryName.Trim();
+                editedCategory.Description = category.Description;
                 db.Entry(editedCategory).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -168,7 +170,6 @@ namespace Frontend_12102025.Areas.Admin.Controllers
                     return HttpNotFound();
                 }
 
-                // ✅ KIỂM TRA CÓ SÁCH - DÙNG Any() KHÔNG ASYNC
                 var hasBooks = db.BookTitles.Any(b => b.CategoryId == id);
 
                 if (hasBooks)
